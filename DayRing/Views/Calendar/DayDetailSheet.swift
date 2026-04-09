@@ -183,7 +183,7 @@ struct DayDetailSheet: View {
             .tint(Color.iosGreen)
         }
         .padding(16)
-        .background(Color.bgSecondary, in: RoundedRectangle(cornerRadius: 16))
+        .glassEffect(.regular, in: .rect(cornerRadius: 16))
     }
 
     private func timeDisplay(for alarm: Alarm) -> some View {

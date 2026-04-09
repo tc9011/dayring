@@ -13,28 +13,30 @@ struct AlarmListView: View {
             VStack(spacing: 0) {
                 headerRow
                 ScrollView {
-                    VStack(spacing: 12) {
-                        if let bannerText = viewModel.nextAlarmText() {
-                            NextAlarmBanner(text: bannerText)
-                        }
+                    GlassEffectContainer(spacing: 12) {
+                        VStack(spacing: 12) {
+                            if let bannerText = viewModel.nextAlarmText() {
+                                NextAlarmBanner(text: bannerText)
+                            }
 
-                        ForEach(alarms) { alarm in
-                            let status = viewModel.statusInfo(for: alarm)
-                            AlarmCardView(
-                                alarm: alarm,
-                                statusText: status.text,
-                                statusColor: status.color,
-                                is24HourFormat: true,
-                                onSkipNext: { viewModel.skipNext(alarm) }
-                            )
-                            .onTapGesture {
-                                editingAlarm = alarm
-                                showingEditor = true
+                            ForEach(alarms) { alarm in
+                                let status = viewModel.statusInfo(for: alarm)
+                                AlarmCardView(
+                                    alarm: alarm,
+                                    statusText: status.text,
+                                    statusColor: status.color,
+                                    is24HourFormat: true,
+                                    onSkipNext: { viewModel.skipNext(alarm) }
+                                )
+                                .onTapGesture {
+                                    editingAlarm = alarm
+                                    showingEditor = true
+                                }
                             }
                         }
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 100)
                     }
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 100)
                 }
             }
 

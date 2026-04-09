@@ -41,6 +41,7 @@ targets:
           - GeistMono-Light.ttf
           - GeistMono-Regular.ttf
           - GeistMono-Medium.ttf
+        NSAlarmKitUsageDescription: "该起了需要设置闹钟来在您指定的时间提醒您。"
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.dayring.app

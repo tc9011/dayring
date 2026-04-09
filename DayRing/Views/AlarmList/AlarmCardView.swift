@@ -60,13 +60,13 @@ struct AlarmCardView: View {
                     .foregroundStyle(Color.fgSecondary)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 4)
-                    .background(Color.bgPrimary, in: Capsule())
+                    .glassEffect(.regular, in: Capsule())
                 }
             }
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 14)
-        .background(Color.bgSecondary, in: RoundedRectangle(cornerRadius: 16))
+        .glassEffect(.regular, in: .rect(cornerRadius: 16))
         .opacity(alarm.isEnabled ? 1.0 : 0.5)
     }
 }

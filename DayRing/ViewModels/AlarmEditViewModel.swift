@@ -48,7 +48,25 @@ final class AlarmEditViewModel {
         target.skipHolidays = skipHolidays
         target.ringOnMakeupDays = ringOnMakeupDays
         target.updatedAt = Date()
+
+        let alarmRef = target
+        nonisolated(unsafe) let unsafeAlarmRef = alarmRef
+        Task {
+            let provider = HolidayDataProvider()
+            let year = Calendar.current.component(.year, from: Date())
+            let holidays = provider.holidays(for: year)
+            let makeupDays = provider.makeupDays(for: year)
+            try? await AlarmScheduler.shared.scheduleAlarm(unsafeAlarmRef, holidays: holidays, makeupDays: makeupDays)
+        }
+
         return target
+    }
+
+    func deleteAlarm(_ alarm: Alarm) {
+        let alarmId = alarm.id
+        Task {
+            try? await AlarmScheduler.shared.cancelAlarm(alarmId)
+        }
     }
 
     var advanceMinutesText: String {

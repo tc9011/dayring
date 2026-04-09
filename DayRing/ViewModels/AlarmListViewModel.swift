@@ -56,6 +56,24 @@ final class AlarmListViewModel {
     func skipNext(_ alarm: Alarm) {
         alarm.skipNextDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())
         alarm.updatedAt = Date()
+        rescheduleAlarm(alarm)
+    }
+
+    func toggleAlarm(_ alarm: Alarm) {
+        alarm.isEnabled.toggle()
+        alarm.updatedAt = Date()
+        rescheduleAlarm(alarm)
+    }
+
+    private func rescheduleAlarm(_ alarm: Alarm) {
+        let year = Calendar.current.component(.year, from: Date())
+        let holidays = holidayProvider.holidays(for: year)
+        let makeupDays = holidayProvider.makeupDays(for: year)
+        // nonisolated(unsafe): @Model isn't Sendable but alarm is only read, not mutated
+        nonisolated(unsafe) let alarmRef = alarm
+        Task {
+            try? await AlarmScheduler.shared.scheduleAlarm(alarmRef, holidays: holidays, makeupDays: makeupDays)
+        }
     }
 
     enum StatusColor {

@@ -31,6 +31,8 @@
 		<key>UIApplicationSupportsMultipleScenes</key>
 		<false/>
 	</dict>
+	<key>NSAlarmKitUsageDescription</key>
+	<string>该起了需要设置闹钟来在您指定的时间提醒您。</string>
 	<key>UILaunchScreen</key>
 	<dict/>
 </dict>
