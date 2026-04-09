@@ -64,6 +64,9 @@ struct AlarmListView: View {
             .onChange(of: alarms) {
                 viewModel.alarms = alarms
             }
+            .sheet(isPresented: $showingEditor) {
+                AlarmEditSheet(alarm: editingAlarm)
+            }
         }
     }
 }
