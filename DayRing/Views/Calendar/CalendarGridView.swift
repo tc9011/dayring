@@ -3,6 +3,7 @@ import SwiftUI
 struct CalendarGridView: View {
     let viewModel: CalendarViewModel
     let alarms: [Alarm]
+    let is24HourFormat: Bool
     let onDateTapped: (Date) -> Void
 
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 3), count: 7)
@@ -66,7 +67,7 @@ struct CalendarGridView: View {
         let holidayDisplayText = viewModel.holidayProvider.holidayDisplayText(for: dateKey, year: year)
         let makeupDayDisplayText = viewModel.holidayProvider.makeupDayDisplayText(for: dateKey, year: year)
         let solarTerm = viewModel.chineseCalendar.solarTerm(for: date)
-        let times = viewModel.alarmTimes(for: date, alarms: alarms)
+        let times = viewModel.alarmTimes(for: date, alarms: alarms, is24HourFormat: is24HourFormat)
 
         return CalendarDayCellView(
             date: date,

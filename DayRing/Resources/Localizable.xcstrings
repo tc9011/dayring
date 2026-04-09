@@ -1,809 +1,2687 @@
 {
   "sourceLanguage" : "zh-Hans",
   "strings" : {
-    "闹钟" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "闹钟" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "鬧鐘" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Alarms" } }
-      }
-    },
-    "日历" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "日历" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "日曆" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Calendar" } }
-      }
-    },
-    "设置" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "设置" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "設定" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Settings" } }
-      }
-    },
-    "编辑" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "编辑" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "編輯" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit" } }
-      }
-    },
-    "今天" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "今天" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "今天" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Today" } }
-      }
-    },
-    "跳过下次" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "跳过下次" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "跳過下次" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Skip Next" } }
-      }
-    },
-    "取消" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "取消" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "取消" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cancel" } }
-      }
-    },
-    "保存" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "保存" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "儲存" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Save" } }
-      }
-    },
-    "完成" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "完成" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "完成" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Done" } }
-      }
-    },
-    "新建闹钟" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "新建闹钟" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "新增鬧鐘" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "New Alarm" } }
-      }
-    },
-    "编辑闹钟" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "编辑闹钟" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "編輯鬧鐘" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Edit Alarm" } }
-      }
-    },
-    "标签" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "标签" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "標籤" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Label" } }
-      }
-    },
-    "无" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "无" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "無" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "None" } }
-      }
-    },
-    "重复" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "重复" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "重複" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Repeat" } }
-      }
-    },
-    "铃声" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "铃声" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "鈴聲" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sound" } }
-      }
-    },
-    "稍后提醒" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "稍后提醒" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "稍後提醒" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Snooze" } }
-      }
-    },
-    "提前响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "提前响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "提前響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Early Ring" } }
-      }
-    },
-    "删除" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "刪除" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } }
-      }
-    },
-    "响铃后删除" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "响铃后删除" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "響鈴後刪除" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete After Ring" } }
-      }
-    },
-    "智能日历" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "智能日历" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "智慧日曆" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Smart Calendar" } }
-      }
-    },
-    "节假日跳过" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "节假日跳过" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "節假日跳過" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Skip Holidays" } }
-      }
-    },
-    "补班日响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "补班日响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "補班日響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ring on Makeup Days" } }
-      }
-    },
-    "查看日历覆盖" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "查看日历覆盖" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "查看日曆覆蓋" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "View Calendar Overrides" } }
-      }
-    },
-    "开启后，节假日自动跳过闹钟，补班日自动恢复响铃。也可以在日历中手动覆盖某天的响铃状态。" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "开启后，节假日自动跳过闹钟，补班日自动恢复响铃。也可以在日历中手动覆盖某天的响铃状态。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "開啟後，節假日自動跳過鬧鐘，補班日自動恢復響鈴。也可以在日曆中手動覆蓋某天的響鈴狀態。" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "When enabled, alarms are automatically skipped on holidays and restored on makeup workdays. You can also manually override the ring status for any day in the calendar." } }
-      }
-    },
-    "当天闹钟响铃状态" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "当天闹钟响铃状态" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "當天鬧鐘響鈴狀態" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Alarm Status for This Day" } }
-      }
-    },
-    "暂无闹钟" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "暂无闹钟" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "暫無鬧鐘" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "No Alarms" } }
-      }
-    },
-    "开启开关可手动覆盖该天的闹钟响铃状态，优先级高于自动规则。" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "开启开关可手动覆盖该天的闹钟响铃状态，优先级高于自动规则。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "開啟開關可手動覆蓋該天的鬧鐘響鈴狀態，優先級高於自動規則。" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Toggle to manually override the alarm status for this day. Manual overrides take priority over automatic rules." } }
-      }
-    },
-    "每天" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "每天" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "每天" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Daily" } }
-      }
-    },
-    "每周" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "每周" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "每週" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekly" } }
-      }
-    },
-    "大小周" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "大小周" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "大小週" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Biweekly" } }
-      }
-    },
-    "轮休" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "轮休" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "輪休" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rotating" } }
-      }
-    },
-    "自定义" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "自定义" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "自訂" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom" } }
-      }
-    },
-    "工作日" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "工作日" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "工作日" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekdays" } }
-      }
-    },
-    "时区" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "时区" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "時區" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time Zone" } }
-      }
-    },
-    "每周第一天" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "每周第一天" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "每週第一天" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "First Day of Week" } }
-      }
-    },
-    "时间格式" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "时间格式" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "時間格式" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Time Format" } }
-      }
-    },
-    "外观" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "外观" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "外觀" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Appearance" } }
-      }
-    },
-    "自动" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "自动" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "自動" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Auto" } }
-      }
-    },
-    "浅色" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "浅色" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "淺色" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Light" } }
-      }
-    },
-    "深色" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "深色" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "深色" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Dark" } }
-      }
-    },
-    "历法" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "历法" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "曆法" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Calendars" } }
-      }
-    },
-    "其他历法" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "其他历法" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "其他曆法" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Other Calendars" } }
-      }
-    },
-    "其他" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "其他" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "其他" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Other" } }
-      }
-    },
-    "语言" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "语言" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "語言" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Language" } }
-      }
-    },
-    "关于 DayRing" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "关于 DayRing" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "關於 DayRing" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "About DayRing" } }
-      }
-    },
-    "每周重复" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "每周重复" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "每週重複" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Weekly Repeat" } }
-      }
-    },
-    "选择每周哪些天响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "选择每周哪些天响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "選擇每週哪些天響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Select which days of the week to ring" } }
-      }
-    },
-    "默认全选。点击取消选择对应的日期。" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "默认全选。点击取消选择对应的日期。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "預設全選。點擊取消選擇對應的日期。" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "All selected by default. Tap to deselect." } }
-      }
-    },
-    "以两周为一个循环，大周和小周可分别选择响铃日。" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "以两周为一个循环，大周和小周可分别选择响铃日。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "以兩週為一個循環，大週和小週可分別選擇響鈴日。" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "A two-week cycle. Set ring days separately for each week." } }
-      }
-    },
-    "自定义日历" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "自定义日历" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "自訂日曆" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Custom Calendar" } }
-      }
-    },
-    "点击日期选择响铃日，长按拖动可批量选择。" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "点击日期选择响铃日，长按拖动可批量选择。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "點擊日期選擇響鈴日，長按拖動可批量選擇。" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tap dates to select ring days. Long press and drag to select multiple." } }
-      }
-    },
-    "循环预览" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "循环预览" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "循環預覽" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Cycle Preview" } }
-      }
-    },
-    "不提前" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "不提前" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "不提前" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "No Advance" } }
-      }
-    },
-    "关闭" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "关闭" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "關閉" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Off" } }
-      }
-    },
-    "已关闭" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已关闭" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "已關閉" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Disabled" } }
-      }
-    },
-    "明天响铃 · 跳过节假日" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "明天响铃 · 跳过节假日" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "明天響鈴 · 跳過節假日" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rings Tomorrow · Skips Holidays" } }
-      }
-    },
-    "明天不响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "明天不响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "明天不響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Won't Ring Tomorrow" } }
-      }
-    },
-    "休" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "休" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "休" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Off" } }
-      }
-    },
-    "补班" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "补班" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "補班" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Makeup" } }
-      }
-    },
-    "每天都响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "每天都响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "每天都響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rings every day" } }
-      }
-    },
-    "两周为一个循环" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "两周为一个循环" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "兩週為一個循環" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Two-week cycle" } }
-      }
-    },
-    "响铃天数 + 间隔天数循环" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "响铃天数 + 间隔天数循环" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "響鈴天數 + 間隔天數循環" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ring days + gap days cycle" } }
-      }
-    },
-    "通过日历自由配置响铃日" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "通过日历自由配置响铃日" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "通過日曆自由配置響鈴日" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Freely configure ring days via calendar" } }
-      }
-    },
-    "设置轮休周期：响铃天数 + 间隔天数为一个循环，间隔期间不响铃。" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "设置轮休周期：响铃天数 + 间隔天数为一个循环，间隔期间不响铃。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "設定輪休週期：響鈴天數 + 間隔天數為一個循環，間隔期間不響鈴。" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Set rotating cycle: ring days + gap days form one cycle. No ringing during gaps." } }
-      }
-    },
-    "以两周为一个循环，选择每周哪些天响铃。" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "以两周为一个循环，选择每周哪些天响铃。" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "以兩週為一個循環，選擇每週哪些天響鈴。" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "A two-week cycle. Select which days to ring each week." } }
-      }
-    },
-    "第 1 周" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "第 1 周" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "第 1 週" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Week 1" } }
-      }
-    },
-    "第 2 周" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "第 2 周" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "第 2 週" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Week 2" } }
-      }
-    },
-    "开始日期" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "开始日期" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "開始日期" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Start Date" } }
-      }
-    },
-    "响铃天数" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "响铃天数" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "響鈴天數" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ring Days" } }
-      }
-    },
-    "间隔天数" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "间隔天数" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "間隔天數" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Gap Days" } }
-      }
-    },
-    "天" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "天" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "天" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : " days" } }
-      }
-    },
-    "间隔" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "间隔" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "間隔" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Gap" } }
-      }
-    },
-    "响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ring" } }
-      }
-    },
-    "间隔（不响铃）" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "间隔（不响铃）" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "間隔（不響鈴）" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Gap (No Ring)" } }
-      }
-    },
-    "响铃日" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "响铃日" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "響鈴日" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ring Day" } }
-      }
-    },
-    "不响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "不响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "不響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "No Ring" } }
-      }
-    },
-    "年" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "年" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "年" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "/" } }
-      }
-    },
-    "月" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "月" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "月" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "" } }
-      }
-    },
-    "节假日" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "节假日" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "節假日" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Holiday" } }
-      }
-    },
-    "补班日" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "补班日" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "補班日" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Makeup Day" } }
-      }
-    },
-    "已覆盖" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "已覆盖" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "已覆蓋" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Overridden" } }
-      }
-    },
-    "法定节假日 · 闹钟默认不响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "法定节假日 · 闹钟默认不响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "法定節假日 · 鬧鐘預設不響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Public Holiday · Alarm off by default" } }
-      }
-    },
-    "补班日 · 闹钟默认响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "补班日 · 闹钟默认响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "補班日 · 鬧鐘預設響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Makeup Day · Alarm on by default" } }
-      }
-    },
-    "手动覆盖 · 强制响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "手动覆盖 · 强制响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "手動覆蓋 · 強制響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Manual Override · Force Ring" } }
-      }
-    },
-    "手动覆盖 · 不响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "手动覆盖 · 不响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "手動覆蓋 · 不響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Manual Override · No Ring" } }
-      }
-    },
-    "节假日跳过 · 不响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "节假日跳过 · 不响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "節假日跳過 · 不響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Holiday Skip · No Ring" } }
-      }
-    },
-    "补班日 · 正常响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "补班日 · 正常响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "補班日 · 正常響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Makeup Day · Normal Ring" } }
-      }
-    },
-    "正常响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "正常响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "正常響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Normal Ring" } }
-      }
+    ":" : {
+
     },
-    "周日" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "周日" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "週日" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sun" } }
-      }
+    "···" : {
+
     },
-    "周一" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "周一" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "週一" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mon" } }
-      }
+    "%@" : {
+
     },
-    "周二" : {
+    "%@  |  %@ · %@" : {
       "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "周二" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "週二" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tue" } }
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@  |  %2$@ · %3$@"
+          }
+        }
       }
     },
-    "周三" : {
+    "%@ · %@" : {
       "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "周三" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "週三" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Wed" } }
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ · %2$@"
+          }
+        }
       }
     },
-    "周四" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "周四" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "週四" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Thu" } }
-      }
+    "+%@" : {
+
     },
-    "周五" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "周五" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "週五" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fri" } }
-      }
+    "12h" : {
+
     },
-    "周六" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "周六" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "週六" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sat" } }
-      }
+    "24h" : {
+
     },
     "一" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "一" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "一" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Mon" } }
-      }
-    },
-    "二" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "二" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "二" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Tue" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mon"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一"
+          }
+        }
       }
     },
     "三" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "三" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "三" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Wed" } }
-      }
-    },
-    "四" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "四" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "四" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Thu" } }
-      }
-    },
-    "五" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "五" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "五" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Fri" } }
-      }
-    },
-    "六" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "六" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "六" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sat" } }
-      }
-    },
-    "日" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "日" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "日" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Sun" } }
-      }
-    },
-    "农历" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "农历" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "農曆" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Lunar" } }
-      }
-    },
-    "伊斯兰历" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "伊斯兰历" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "伊斯蘭曆" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Islamic" } }
-      }
-    },
-    "希伯来历" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "希伯来历" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "希伯來曆" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Hebrew" } }
-      }
-    },
-    "波斯历" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "波斯历" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "波斯曆" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Persian" } }
-      }
-    },
-    "印度历" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "印度历" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "印度曆" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Indian" } }
-      }
-    },
-    "跟随系统" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "跟随系统" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "跟隨系統" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Follow System" } }
-      }
-    },
-    "响" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "响" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "響" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Ring " } }
-      }
-    },
-    "分钟" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "分钟" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "分鐘" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "min" } }
-      }
-    },
-    "小时" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "小时" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "小時" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "h " } }
-      }
-    },
-    "后响铃" : {
-      "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "后响铃" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "後響鈴" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "from now" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wed"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "三"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "三"
+          }
+        }
       }
     },
     "下一个闹钟将在" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "下一个闹钟将在" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "下一個鬧鐘將在" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Next alarm in" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next alarm in"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下一个闹钟将在"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "下一個鬧鐘將在"
+          }
+        }
+      }
+    },
+    "不响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Ring"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不響鈴"
+          }
+        }
+      }
+    },
+    "不提前" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Advance"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不提前"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不提前"
+          }
+        }
+      }
+    },
+    "两周为一个循环" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Two-week cycle"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "两周为一个循环"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "兩週為一個循環"
+          }
+        }
+      }
+    },
+    "二" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tue"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "二"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "二"
+          }
+        }
+      }
+    },
+    "五" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fri"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "五"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "五"
+          }
+        }
+      }
+    },
+    "今天" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Today"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今天"
+          }
+        }
+      }
+    },
+    "以两周为一个循环，大周和小周可分别选择响铃日。" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A two-week cycle. Set ring days separately for each week."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以两周为一个循环，大周和小周可分别选择响铃日。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以兩週為一個循環，大週和小週可分別選擇響鈴日。"
+          }
+        }
+      }
+    },
+    "以两周为一个循环，选择每周哪些天响铃。" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A two-week cycle. Select which days to ring each week."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以两周为一个循环，选择每周哪些天响铃。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "以兩週為一個循環，選擇每週哪些天響鈴。"
+          }
+        }
+      }
+    },
+    "伊斯兰历" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Islamic"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "伊斯兰历"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "伊斯蘭曆"
+          }
+        }
+      }
+    },
+    "休" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Off"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "休"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "休"
+          }
+        }
+      }
+    },
+    "保存" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "保存"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "儲存"
+          }
+        }
+      }
+    },
+    "六" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sat"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "六"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "六"
+          }
+        }
+      }
+    },
+    "关于 DayRing" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About DayRing"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关于 DayRing"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "關於 DayRing"
+          }
+        }
+      }
+    },
+    "关闭" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Off"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "关闭"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "關閉"
+          }
+        }
+      }
+    },
+    "其他" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他"
+          }
+        }
+      }
+    },
+    "其他历法" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other Calendars"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他历法"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "其他曆法"
+          }
+        }
+      }
+    },
+    "农历" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lunar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "农历"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "農曆"
+          }
+        }
+      }
+    },
+    "分钟" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "min"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分钟"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "分鐘"
+          }
+        }
+      }
+    },
+    "删除" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "删除"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "刪除"
+          }
+        }
+      }
+    },
+    "印度历" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indian"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "印度历"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "印度曆"
+          }
+        }
+      }
+    },
+    "历法" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendars"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "历法"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "曆法"
+          }
+        }
+      }
+    },
+    "取消" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "取消"
+          }
+        }
+      }
+    },
+    "后响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "from now"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "后响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "後響鈴"
+          }
+        }
       }
     },
     "后天响铃 · 明天为" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "后天响铃 · 明天为" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "後天響鈴 · 明天為" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "Rings Day After · Tomorrow is " } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rings Day After · Tomorrow is "
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "后天响铃 · 明天为"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "後天響鈴 · 明天為"
+          }
+        }
       }
     },
     "周" : {
+      "extractionState" : "stale",
       "localizations" : {
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "周" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "週" } },
-        "en" : { "stringUnit" : { "state" : "translated", "value" : "" } }
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "周"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "週"
+          }
+        }
+      }
+    },
+    "周一" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mon"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "周一"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "週一"
+          }
+        }
+      }
+    },
+    "周三" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wed"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "周三"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "週三"
+          }
+        }
+      }
+    },
+    "周二" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tue"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "周二"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "週二"
+          }
+        }
+      }
+    },
+    "周五" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fri"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "周五"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "週五"
+          }
+        }
+      }
+    },
+    "周六" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sat"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "周六"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "週六"
+          }
+        }
+      }
+    },
+    "周四" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thu"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "周四"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "週四"
+          }
+        }
+      }
+    },
+    "周日" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sun"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "周日"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "週日"
+          }
+        }
+      }
+    },
+    "响" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ring "
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "响"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "響"
+          }
+        }
+      }
+    },
+    "响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ring"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "響鈴"
+          }
+        }
+      }
+    },
+    "响铃后删除" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete After Ring"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "响铃后删除"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "響鈴後刪除"
+          }
+        }
+      }
+    },
+    "响铃天数" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ring Days"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "响铃天数"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "響鈴天數"
+          }
+        }
+      }
+    },
+    "响铃天数 + 间隔天数循环" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ring days + gap days cycle"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "响铃天数 + 间隔天数循环"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "響鈴天數 + 間隔天數循環"
+          }
+        }
+      }
+    },
+    "响铃日" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ring Day"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "响铃日"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "響鈴日"
+          }
+        }
+      }
+    },
+    "四" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thu"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "四"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "四"
+          }
+        }
+      }
+    },
+    "外观" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appearance"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "外观"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "外觀"
+          }
+        }
+      }
+    },
+    "大小周" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Biweekly"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大小周"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "大小週"
+          }
+        }
+      }
+    },
+    "天" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " days"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "天"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "天"
+          }
+        }
+      }
+    },
+    "完成" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完成"
+          }
+        }
+      }
+    },
+    "小时" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "h "
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小时"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "小時"
+          }
+        }
+      }
+    },
+    "工作日" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekdays"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "工作日"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "工作日"
+          }
+        }
+      }
+    },
+    "已关闭" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disabled"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已关闭"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已關閉"
+          }
+        }
+      }
+    },
+    "已覆盖" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overridden"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已覆盖"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已覆蓋"
+          }
+        }
+      }
+    },
+    "希伯来历" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hebrew"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "希伯来历"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "希伯來曆"
+          }
+        }
+      }
+    },
+    "年" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "年"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "年"
+          }
+        }
+      }
+    },
+    "开启后，节假日自动跳过闹钟，补班日自动恢复响铃。也可以在日历中手动覆盖某天的响铃状态。" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When enabled, alarms are automatically skipped on holidays and restored on makeup workdays. You can also manually override the ring status for any day in the calendar."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开启后，节假日自动跳过闹钟，补班日自动恢复响铃。也可以在日历中手动覆盖某天的响铃状态。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開啟後，節假日自動跳過鬧鐘，補班日自動恢復響鈴。也可以在日曆中手動覆蓋某天的響鈴狀態。"
+          }
+        }
+      }
+    },
+    "开启开关可手动覆盖该天的闹钟响铃状态，优先级高于自动规则。" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Toggle to manually override the alarm status for this day. Manual overrides take priority over automatic rules."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开启开关可手动覆盖该天的闹钟响铃状态，优先级高于自动规则。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開啟開關可手動覆蓋該天的鬧鐘響鈴狀態，優先級高於自動規則。"
+          }
+        }
+      }
+    },
+    "开始日期" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Start Date"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开始日期"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "開始日期"
+          }
+        }
+      }
+    },
+    "当天闹钟响铃状态" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarm Status for This Day"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "当天闹钟响铃状态"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "當天鬧鐘響鈴狀態"
+          }
+        }
+      }
+    },
+    "循环预览" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cycle Preview"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "循环预览"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "循環預覽"
+          }
+        }
+      }
+    },
+    "手动覆盖 · 不响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manual Override · No Ring"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手动覆盖 · 不响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手動覆蓋 · 不響鈴"
+          }
+        }
+      }
+    },
+    "手动覆盖 · 强制响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manual Override · Force Ring"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手动覆盖 · 强制响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "手動覆蓋 · 強制響鈴"
+          }
+        }
+      }
+    },
+    "提前响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Early Ring"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提前响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "提前響鈴"
+          }
+        }
+      }
+    },
+    "新建闹钟" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New Alarm"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新建闹钟"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "新增鬧鐘"
+          }
+        }
+      }
+    },
+    "无" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無"
+          }
+        }
+      }
+    },
+    "日" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sun"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日"
+          }
+        }
+      }
+    },
+    "日历" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calendar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日历"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "日曆"
+          }
+        }
+      }
+    },
+    "时区" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time Zone"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "时区"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "時區"
+          }
+        }
+      }
+    },
+    "时间格式" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time Format"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "时间格式"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "時間格式"
+          }
+        }
+      }
+    },
+    "明天不响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Won't Ring Tomorrow"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "明天不响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "明天不響鈴"
+          }
+        }
+      }
+    },
+    "明天响铃 · 跳过节假日" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rings Tomorrow · Skips Holidays"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "明天响铃 · 跳过节假日"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "明天響鈴 · 跳過節假日"
+          }
+        }
+      }
+    },
+    "智能日历" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smart Calendar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "智能日历"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "智慧日曆"
+          }
+        }
+      }
+    },
+    "暂无闹钟" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Alarms"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暂无闹钟"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暫無鬧鐘"
+          }
+        }
+      }
+    },
+    "月" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ""
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "月"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "月"
+          }
+        }
+      }
+    },
+    "查看日历覆盖" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View Calendar Overrides"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查看日历覆盖"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查看日曆覆蓋"
+          }
+        }
+      }
+    },
+    "标签" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Label"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "标签"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "標籤"
+          }
+        }
+      }
+    },
+    "正常响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Normal Ring"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正常响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正常響鈴"
+          }
+        }
+      }
+    },
+    "每周" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekly"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每周"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每週"
+          }
+        }
+      }
+    },
+    "每周第一天" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First Day of Week"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每周第一天"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每週第一天"
+          }
+        }
+      }
+    },
+    "每周重复" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weekly Repeat"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每周重复"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每週重複"
+          }
+        }
+      }
+    },
+    "每天" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Daily"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每天"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每天"
+          }
+        }
+      }
+    },
+    "每天都响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rings every day"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每天都响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "每天都響鈴"
+          }
+        }
+      }
+    },
+    "法定节假日 · 闹钟默认不响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Public Holiday · Alarm off by default"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "法定节假日 · 闹钟默认不响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "法定節假日 · 鬧鐘預設不響鈴"
+          }
+        }
+      }
+    },
+    "波斯历" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Persian"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "波斯历"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "波斯曆"
+          }
+        }
+      }
+    },
+    "浅色" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "浅色"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "淺色"
+          }
+        }
+      }
+    },
+    "深色" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "深色"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "深色"
+          }
+        }
+      }
+    },
+    "点击日期选择响铃日，长按拖动可批量选择。" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap dates to select ring days. Long press and drag to select multiple."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "点击日期选择响铃日，长按拖动可批量选择。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "點擊日期選擇響鈴日，長按拖動可批量選擇。"
+          }
+        }
+      }
+    },
+    "稍后提醒" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Snooze"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "稍后提醒"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "稍後提醒"
+          }
+        }
+      }
+    },
+    "第 1 周" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Week 1"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 1 周"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 1 週"
+          }
+        }
+      }
+    },
+    "第 2 周" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Week 2"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 2 周"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "第 2 週"
+          }
+        }
+      }
+    },
+    "编辑" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "編輯"
+          }
+        }
+      }
+    },
+    "编辑闹钟" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Edit Alarm"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "编辑闹钟"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "編輯鬧鐘"
+          }
+        }
+      }
+    },
+    "自动" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Auto"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自动"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自動"
+          }
+        }
+      }
+    },
+    "自定义" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定义"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自訂"
+          }
+        }
+      }
+    },
+    "自定义日历" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Custom Calendar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自定义日历"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "自訂日曆"
+          }
+        }
+      }
+    },
+    "节假日" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Holiday"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "节假日"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "節假日"
+          }
+        }
+      }
+    },
+    "节假日跳过" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skip Holidays"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "节假日跳过"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "節假日跳過"
+          }
+        }
+      }
+    },
+    "节假日跳过 · 不响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Holiday Skip · No Ring"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "节假日跳过 · 不响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "節假日跳過 · 不響鈴"
+          }
+        }
+      }
+    },
+    "补班" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Makeup"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "补班"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "補班"
+          }
+        }
+      }
+    },
+    "补班日" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Makeup Day"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "补班日"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "補班日"
+          }
+        }
+      }
+    },
+    "补班日 · 正常响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Makeup Day · Normal Ring"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "补班日 · 正常响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "補班日 · 正常響鈴"
+          }
+        }
+      }
+    },
+    "补班日 · 闹钟默认响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Makeup Day · Alarm on by default"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "补班日 · 闹钟默认响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "補班日 · 鬧鐘預設響鈴"
+          }
+        }
+      }
+    },
+    "补班日响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ring on Makeup Days"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "补班日响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "補班日響鈴"
+          }
+        }
+      }
+    },
+    "设置" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
+          }
+        }
+      }
+    },
+    "设置轮休周期：响铃天数 + 间隔天数为一个循环，间隔期间不响铃。" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set rotating cycle: ring days + gap days form one cycle. No ringing during gaps."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置轮休周期：响铃天数 + 间隔天数为一个循环，间隔期间不响铃。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定輪休週期：響鈴天數 + 間隔天數為一個循環，間隔期間不響鈴。"
+          }
+        }
+      }
+    },
+    "语言" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "语言"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "語言"
+          }
+        }
+      }
+    },
+    "跟随系统" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Follow System"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跟随系统"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跟隨系統"
+          }
+        }
+      }
+    },
+    "跳过下次" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Skip Next"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跳过下次"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "跳過下次"
+          }
+        }
+      }
+    },
+    "轮休" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rotating"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轮休"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "輪休"
+          }
+        }
+      }
+    },
+    "选择每周哪些天响铃" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select which days of the week to ring"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择每周哪些天响铃"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇每週哪些天響鈴"
+          }
+        }
+      }
+    },
+    "通过日历自由配置响铃日" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Freely configure ring days via calendar"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通过日历自由配置响铃日"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通過日曆自由配置響鈴日"
+          }
+        }
+      }
+    },
+    "重复" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Repeat"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重复"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重複"
+          }
+        }
+      }
+    },
+    "铃声" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sound"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "铃声"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鈴聲"
+          }
+        }
+      }
+    },
+    "间隔" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "间隔"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "間隔"
+          }
+        }
+      }
+    },
+    "间隔（不响铃）" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap (No Ring)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "间隔（不响铃）"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "間隔（不響鈴）"
+          }
+        }
+      }
+    },
+    "间隔天数" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap Days"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "间隔天数"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "間隔天數"
+          }
+        }
+      }
+    },
+    "闹钟" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Alarms"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "闹钟"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "鬧鐘"
+          }
+        }
+      }
+    },
+    "默认全选。点击取消选择对应的日期。" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All selected by default. Tap to deselect."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "默认全选。点击取消选择对应的日期。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "預設全選。點擊取消選擇對應的日期。"
+          }
+        }
       }
     }
   },

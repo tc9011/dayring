@@ -3,9 +3,18 @@ import SwiftData
 
 struct CalendarTabView: View {
     @Query(sort: \Alarm.hour) private var alarms: [Alarm]
+    @Query private var allSettings: [AppSettings]
     @Environment(\.localeManager) private var locale
     @State private var viewModel = CalendarViewModel()
     @State private var showingDayDetail = false
+
+    private var settings: AppSettings {
+        allSettings.first ?? AppSettings()
+    }
+
+    private var is24HourFormat: Bool {
+        settings.timeFormat == .h24
+    }
 
     var body: some View {
         VStack(spacing: 0) {
@@ -16,6 +25,7 @@ struct CalendarTabView: View {
                     CalendarGridView(
                         viewModel: viewModel,
                         alarms: alarms,
+                        is24HourFormat: is24HourFormat,
                         onDateTapped: { date in
                             viewModel.selectedDate = date
                             showingDayDetail = true
@@ -35,7 +45,7 @@ struct CalendarTabView: View {
                 DayDetailSheet(
                     date: date,
                     alarms: alarms,
-                    is24HourFormat: true
+                    is24HourFormat: is24HourFormat
                 )
             }
         }

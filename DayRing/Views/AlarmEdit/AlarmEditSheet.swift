@@ -7,13 +7,22 @@ struct AlarmEditSheet: View {
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @Environment(\.localeManager) private var locale
+    @Query private var allSettings: [AppSettings]
     @State private var viewModel = AlarmEditViewModel()
+
+    private var settings: AppSettings {
+        allSettings.first ?? AppSettings()
+    }
 
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 16) {
-                    TimePickerView(hour: $viewModel.hour, minute: $viewModel.minute)
+                    TimePickerView(
+                        hour: $viewModel.hour,
+                        minute: $viewModel.minute,
+                        is24HourFormat: settings.timeFormat == .h24
+                    )
 
                     GroupBox {
                         VStack(spacing: 0) {

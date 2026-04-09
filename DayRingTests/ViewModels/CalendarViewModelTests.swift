@@ -101,8 +101,26 @@ struct CalendarViewModelTests {
         let alarm2 = Alarm(hour: 8, minute: 30, isEnabled: false) // disabled, should be filtered
         let alarm3 = Alarm(hour: 6, minute: 30, isEnabled: true)
 
-        let times = vm.alarmTimes(for: date, alarms: [alarm1, alarm2, alarm3])
-        #expect(times.count == 2)
-        #expect(times == ["06:30", "07:00"]) // sorted
+        let times24 = vm.alarmTimes(for: date, alarms: [alarm1, alarm2, alarm3], is24HourFormat: true)
+        #expect(times24.count == 2)
+        #expect(times24 == ["06:30", "07:00"]) // sorted, 24h format
+    }
+
+    @Test("Alarm times respects 12h format")
+    func alarmTimes12hFormat() {
+        let vm = CalendarViewModel()
+        var components = DateComponents()
+        components.year = 2026
+        components.month = 10
+        components.day = 14 // Wednesday
+        let date = Calendar.current.date(from: components)!
+
+        let alarm1 = Alarm(hour: 7, minute: 0, isEnabled: true)
+        let alarm2 = Alarm(hour: 14, minute: 30, isEnabled: true) // 2:30 PM
+
+        let times12 = vm.alarmTimes(for: date, alarms: [alarm1, alarm2], is24HourFormat: false)
+        #expect(times12.count == 2)
+        #expect(times12[0] == "7:00 AM")
+        #expect(times12[1] == "2:30 PM")
     }
 }

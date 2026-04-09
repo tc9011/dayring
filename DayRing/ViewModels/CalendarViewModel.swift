@@ -66,13 +66,19 @@ final class CalendarViewModel {
         return days
     }
 
-    func alarmTimes(for date: Date, alarms: [Alarm]) -> [String] {
+    func alarmTimes(for date: Date, alarms: [Alarm], is24HourFormat: Bool) -> [String] {
         let year = Calendar.current.component(.year, from: date)
         let holidays = holidayProvider.holidays(for: year)
         let makeupDays = holidayProvider.makeupDays(for: year)
         return alarms
             .filter { $0.isEnabled && $0.shouldRing(on: date, holidays: holidays, makeupDays: makeupDays) }
-            .map { $0.timeString }
-            .sorted()
+            .sorted { ($0.hour, $0.minute) < ($1.hour, $1.minute) }
+            .map { alarm in
+                if is24HourFormat {
+                    return alarm.timeString
+                } else {
+                    return String(format: "%d:%02d %@", alarm.hour12, alarm.minute, alarm.amPmString)
+                }
+            }
     }
 }
