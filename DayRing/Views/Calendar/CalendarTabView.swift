@@ -7,9 +7,10 @@ struct CalendarTabView: View {
     @State private var showingDayDetail = false
 
     var body: some View {
-        NavigationStack {
+        VStack(spacing: 0) {
+            headerRow
             ScrollView {
-                VStack(spacing: 0) {
+                VStack(spacing: 12) {
                     monthNavigationBar
                     CalendarGridView(
                         viewModel: viewModel,
@@ -23,29 +24,37 @@ struct CalendarTabView: View {
                         .padding(.top, 16)
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background {
-                Color.bgPrimary.ignoresSafeArea()
-            }
-            .navigationTitle("日历")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("今天") {
-                        viewModel.goToToday()
-                    }
-                    .foregroundStyle(Color.accent)
-                }
-            }
-            .sheet(isPresented: $showingDayDetail) {
-                if let date = viewModel.selectedDate {
-                    DayDetailSheet(
-                        date: date,
-                        alarms: alarms,
-                        is24HourFormat: true
-                    )
-                }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background {
+            Color.bgPrimary.ignoresSafeArea()
+        }
+        .sheet(isPresented: $showingDayDetail) {
+            if let date = viewModel.selectedDate {
+                DayDetailSheet(
+                    date: date,
+                    alarms: alarms,
+                    is24HourFormat: true
+                )
             }
         }
+    }
+
+    private var headerRow: some View {
+        HStack(alignment: .center) {
+            Text("日历")
+                .font(.system(size: 34, weight: .bold))
+                .foregroundStyle(Color.fgPrimary)
+            Spacer()
+            Button("今天") {
+                viewModel.goToToday()
+            }
+            .font(.system(size: 17))
+            .foregroundStyle(Color.accent)
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
+        .padding(.bottom, 8)
     }
 
     private var monthNavigationBar: some View {
@@ -56,7 +65,7 @@ struct CalendarTabView: View {
                 Image(systemName: "chevron.left")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundStyle(Color.fgPrimary)
-                    .frame(width: 32, height: 32)
+                    .frame(width: 36, height: 36)
                     .background(Color.bgTertiary)
                     .clipShape(Circle())
             }
@@ -64,7 +73,7 @@ struct CalendarTabView: View {
             Spacer()
 
             Text(viewModel.monthTitle)
-                .font(.system(size: 17, weight: .semibold))
+                .font(.system(size: 18, weight: .semibold))
                 .foregroundStyle(Color.fgPrimary)
 
             Spacer()
@@ -75,13 +84,16 @@ struct CalendarTabView: View {
                 Image(systemName: "chevron.right")
                     .font(.system(size: 14, weight: .semibold))
                     .foregroundStyle(Color.fgPrimary)
-                    .frame(width: 32, height: 32)
+                    .frame(width: 36, height: 36)
                     .background(Color.bgTertiary)
                     .clipShape(Circle())
             }
         }
-        .padding(.horizontal, 16)
+        .padding(.horizontal, 8)
         .padding(.vertical, 8)
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .padding(.horizontal, 16)
     }
 
     private var legendRow: some View {

@@ -9,8 +9,9 @@ struct AlarmListView: View {
     @State private var editingAlarm: Alarm?
 
     var body: some View {
-        NavigationStack {
-            ZStack(alignment: .bottomTrailing) {
+        ZStack(alignment: .bottomTrailing) {
+            VStack(spacing: 0) {
+                headerRow
                 ScrollView {
                     VStack(spacing: 12) {
                         if let bannerText = viewModel.nextAlarmText() {
@@ -35,41 +36,49 @@ struct AlarmListView: View {
                     .padding(.horizontal, 16)
                     .padding(.bottom, 100)
                 }
+            }
 
-                Button {
-                    editingAlarm = nil
-                    showingEditor = true
-                } label: {
-                    Image(systemName: "plus")
-                        .font(.system(size: 24, weight: .medium))
-                        .foregroundStyle(.white)
-                        .frame(width: 56, height: 56)
-                        .background(Color.accent, in: Circle())
-                        .shadow(color: Color.accent.opacity(0.3), radius: 8, y: 4)
-                }
-                .padding(.trailing, 20)
-                .padding(.bottom, 20)
+            Button {
+                editingAlarm = nil
+                showingEditor = true
+            } label: {
+                Image(systemName: "plus")
+                    .font(.system(size: 24, weight: .medium))
+                    .foregroundStyle(.white)
+                    .frame(width: 56, height: 56)
+                    .background(Color.accent, in: Circle())
+                    .shadow(color: Color.accent.opacity(0.3), radius: 8, y: 4)
             }
-            .background {
-                Color.bgPrimary.ignoresSafeArea()
-            }
-            .navigationTitle("闹钟")
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("编辑") { }
-                        .foregroundStyle(Color.accent)
-                }
-            }
-            .onAppear {
-                viewModel.alarms = alarms
-            }
-            .onChange(of: alarms) {
-                viewModel.alarms = alarms
-            }
-            .sheet(isPresented: $showingEditor) {
-                AlarmEditSheet(alarm: editingAlarm)
-            }
+            .padding(.trailing, 20)
+            .padding(.bottom, 20)
         }
+        .background {
+            Color.bgPrimary.ignoresSafeArea()
+        }
+        .onAppear {
+            viewModel.alarms = alarms
+        }
+        .onChange(of: alarms) {
+            viewModel.alarms = alarms
+        }
+        .sheet(isPresented: $showingEditor) {
+            AlarmEditSheet(alarm: editingAlarm)
+        }
+    }
+
+    private var headerRow: some View {
+        HStack(alignment: .center) {
+            Text("闹钟")
+                .font(.system(size: 34, weight: .bold))
+                .foregroundStyle(Color.fgPrimary)
+            Spacer()
+            Button("编辑") { }
+                .font(.system(size: 17))
+                .foregroundStyle(Color.accent)
+        }
+        .padding(.horizontal, 16)
+        .padding(.top, 8)
+        .padding(.bottom, 8)
     }
 }
 

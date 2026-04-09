@@ -11,16 +11,19 @@ struct CalendarGridView: View {
         VStack(spacing: 0) {
             weekHeaderRow
             LazyVGrid(columns: columns, spacing: 2) {
-                ForEach(Array(viewModel.daysInMonth().enumerated()), id: \.offset) { _, date in
-                    cellView(for: date)
+                ForEach(Array(viewModel.daysInMonth().enumerated()), id: \.offset) { _, entry in
+                    cellView(for: entry)
                         .onTapGesture {
-                            if let date { onDateTapped(date) }
+                            if entry.isCurrentMonth { onDateTapped(entry.date) }
                         }
                 }
             }
-            .padding(.horizontal, 8)
-            .padding(.vertical, 4)
+            .padding(.horizontal, 4)
+            .padding(.vertical, 8)
         }
+        .background(Color.bgSecondary)
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .padding(.horizontal, 16)
     }
 
     private var weekHeaderRow: some View {
@@ -28,43 +31,55 @@ struct CalendarGridView: View {
             ForEach(Weekday.allCases, id: \.self) { day in
                 Text(day.shortName)
                     .font(Font.smallCaption())
-                    .foregroundStyle(weekdayColor(for: day))
+                    .foregroundStyle(weekHeaderColor(for: day))
                     .frame(maxWidth: .infinity)
             }
         }
-        .padding(.horizontal, 8)
+        .padding(.horizontal, 4)
         .padding(.vertical, 6)
     }
 
-    private func weekdayColor(for day: Weekday) -> Color {
+    private func weekHeaderColor(for day: Weekday) -> Color {
         switch day {
-        case .saturday, .sunday:
-            return Color.fgTertiary
+        case .saturday:
+            return Color.accent
+        case .sunday:
+            return Color.holidayRed
         default:
             return Color.fgSecondary
         }
     }
 
-    private func cellView(for date: Date?) -> CalendarDayCellView {
+    private func cellView(for entry: (date: Date, isCurrentMonth: Bool)) -> CalendarDayCellView {
         let calendar = Calendar.current
-        let today = Date()
-        let isToday = date.map { calendar.isDateInToday($0) } ?? false
-        let year = date.map { calendar.component(.year, from: $0) } ?? calendar.component(.year, from: today)
-        let dateKey = date?.dateKey ?? ""
+        let date = entry.date
+        let isToday = calendar.isDateInToday(date) && entry.isCurrentMonth
+        let year = calendar.component(.year, from: date)
+        let dateKey = date.dateKey
+        let weekdayNum = calendar.component(.weekday, from: date)
+        let weekday = Weekday(rawValue: weekdayNum == 1 ? 7 : weekdayNum - 1) ?? .monday
 
-        let lunarText = date.map { viewModel.chineseCalendar.lunarDateString(for: $0) } ?? ""
-        let holidayName = viewModel.holidayProvider.holidayName(for: dateKey, year: year)
+        let lunarText = viewModel.chineseCalendar.lunarDateString(for: date)
         let isHoliday = viewModel.holidayProvider.isHoliday(dateKey, year: year)
         let isMakeupDay = viewModel.holidayProvider.isMakeupDay(dateKey, year: year)
-        let times = date.map { viewModel.alarmTimes(for: $0, alarms: alarms) } ?? []
+        let isFirstDayOfHoliday = viewModel.holidayProvider.isFirstDayOfHoliday(dateKey, year: year)
+        let holidayDisplayText = viewModel.holidayProvider.holidayDisplayText(for: dateKey, year: year)
+        let makeupDayDisplayText = viewModel.holidayProvider.makeupDayDisplayText(for: dateKey, year: year)
+        let solarTerm = viewModel.chineseCalendar.solarTerm(for: date)
+        let times = viewModel.alarmTimes(for: date, alarms: alarms)
 
         return CalendarDayCellView(
             date: date,
+            isCurrentMonth: entry.isCurrentMonth,
             isToday: isToday,
+            weekday: weekday,
             lunarText: lunarText,
-            holidayName: holidayName,
             isHoliday: isHoliday,
             isMakeupDay: isMakeupDay,
+            isFirstDayOfHoliday: isFirstDayOfHoliday,
+            holidayDisplayText: holidayDisplayText,
+            makeupDayDisplayText: makeupDayDisplayText,
+            solarTerm: solarTerm,
             alarmTimes: times
         )
     }

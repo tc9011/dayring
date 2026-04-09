@@ -46,10 +46,33 @@ struct CalendarViewModelTests {
         // Oct 2026: 31 days, starts on Thursday (offset 3 for Mon-start), total should be multiple of 7
         #expect(days.count % 7 == 0)
         #expect(days.count >= 31)
-        // First non-nil should be Oct 1
-        let firstNonNil = days.first(where: { $0 != nil })!
-        let day = Calendar.current.component(.day, from: firstNonNil!)
+        // First current-month entry should be Oct 1
+        let firstCurrentMonth = days.first(where: { $0.isCurrentMonth })!
+        let day = Calendar.current.component(.day, from: firstCurrentMonth.date)
         #expect(day == 1)
+    }
+
+    @Test("Days in month includes previous/next month padding dates")
+    func daysInMonthPadding() {
+        let vm = CalendarViewModel()
+        // Oct 2026 starts on Thursday — first 3 entries should be Mon-Wed from September
+        var components = DateComponents()
+        components.year = 2026
+        components.month = 10
+        components.day = 1
+        vm.displayedMonth = Calendar.current.date(from: components)!
+        let days = vm.daysInMonth()
+        // First 3 should be previous month (Sep 28, 29, 30)
+        #expect(days[0].isCurrentMonth == false)
+        #expect(days[1].isCurrentMonth == false)
+        #expect(days[2].isCurrentMonth == false)
+        // Fourth should be Oct 1 (current month)
+        #expect(days[3].isCurrentMonth == true)
+        let day = Calendar.current.component(.day, from: days[3].date)
+        #expect(day == 1)
+        // Last entry should be next month (not current)
+        let last = days.last!
+        #expect(last.isCurrentMonth == false)
     }
 
     @Test("Go to today resets to current month")

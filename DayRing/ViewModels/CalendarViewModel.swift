@@ -27,22 +27,40 @@ final class CalendarViewModel {
         displayedMonth = Date()
     }
 
-    func daysInMonth() -> [Date?] {
+    func daysInMonth() -> [(date: Date, isCurrentMonth: Bool)] {
         let calendar = Calendar.current
         let range = calendar.range(of: .day, in: .month, for: displayedMonth)!
         let components = calendar.dateComponents([.year, .month], from: displayedMonth)
         guard let firstDay = calendar.date(from: components) else { return [] }
         let weekday = calendar.component(.weekday, from: firstDay)
         let offset = (weekday + 5) % 7
-        var days: [Date?] = Array(repeating: nil, count: offset)
+
+        var days: [(date: Date, isCurrentMonth: Bool)] = []
+
+        for i in (0..<offset).reversed() {
+            if let prevDate = calendar.date(byAdding: .day, value: -(i + 1), to: firstDay) {
+                days.append((prevDate, false))
+            }
+        }
+
         for day in range {
             var dc = components
             dc.day = day
-            days.append(calendar.date(from: dc))
+            if let date = calendar.date(from: dc) {
+                days.append((date, true))
+            }
         }
+
+        let lastDayOfMonth = calendar.date(byAdding: .day, value: -1,
+            to: calendar.date(byAdding: .month, value: 1, to: firstDay)!)!
+        var nextDay = 1
         while days.count % 7 != 0 {
-            days.append(nil)
+            if let nextDate = calendar.date(byAdding: .day, value: nextDay, to: lastDayOfMonth) {
+                days.append((nextDate, false))
+            }
+            nextDay += 1
         }
+
         return days
     }
 
