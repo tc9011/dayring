@@ -1,0 +1,75 @@
+name: DayRing
+options:
+  bundleIdPrefix: com.dayring
+  deploymentTarget:
+    iOS: "26.0"
+  xcodeVersion: "26.4"
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    SWIFT_STRICT_CONCURRENCY: complete
+    IPHONEOS_DEPLOYMENT_TARGET: "26.0"
+
+targets:
+  DayRing:
+    type: application
+    platform: iOS
+    sources:
+      - path: DayRing
+        excludes:
+          - "Resources/Fonts/**"
+    resources:
+      - path: DayRing/Resources/Assets.xcassets
+      - path: DayRing/Resources/Fonts
+        buildPhase: resources
+      - path: DayRing/Resources/Localizable.xcstrings
+        optional: true
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dayring.app
+        INFOPLIST_VALUES:
+          CFBundleDisplayName: "该起了"
+          CFBundleName: DayRing
+          CFBundleShortVersionString: "1.0"
+          CFBundleVersion: "1"
+          UILaunchScreen: {}
+          UIApplicationSceneManifest:
+            UIApplicationSupportsMultipleScenes: true
+          UIAppFonts:
+            - GeistMono-Light.ttf
+            - GeistMono-Regular.ttf
+            - GeistMono-Medium.ttf
+        TARGETED_DEVICE_FAMILY: "1,2"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        GENERATE_INFOPLIST_FILE: true
+
+  DayRingTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: DayRingTests
+    dependencies:
+      - target: DayRing
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.dayring.app.tests
+        GENERATE_INFOPLIST_FILE: true
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/DayRing.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/DayRing"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+schemes:
+  DayRing:
+    build:
+      targets:
+        DayRing: all
+        DayRingTests: [test]
+    test:
+      targets:
+        - DayRingTests
+      gatherCoverageData: true
+    run:
+      config: Debug
