@@ -50,7 +50,9 @@ struct AlarmListView: View {
                 .padding(.trailing, 20)
                 .padding(.bottom, 20)
             }
-            .background(Color.bgPrimary)
+            .background {
+                Color.bgPrimary.ignoresSafeArea()
+            }
             .navigationTitle("闹钟")
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

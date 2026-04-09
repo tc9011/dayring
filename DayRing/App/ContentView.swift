@@ -15,6 +15,9 @@ struct ContentView: View {
                 SettingsView()
             }
         }
+        .background {
+            Color.bgPrimary.ignoresSafeArea()
+        }
         .tint(Color.accent)
     }
 }

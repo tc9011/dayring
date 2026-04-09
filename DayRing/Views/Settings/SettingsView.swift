@@ -10,7 +10,9 @@ struct SettingsView: View {
                     .padding(.top, 200)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.bgPrimary)
+            .background {
+                Color.bgPrimary.ignoresSafeArea()
+            }
             .navigationTitle("设置")
         }
     }
