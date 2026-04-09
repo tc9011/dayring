@@ -5,16 +5,32 @@ struct TimePickerView: View {
     @Binding var minute: Int
 
     var body: some View {
-        HStack(spacing: 4) {
-            Text(String(format: "%02d", hour))
-                .font(.timeLarge())
-                .foregroundStyle(Color.fgPrimary)
+        HStack(spacing: 0) {
+            Picker("", selection: $hour) {
+                ForEach(0..<24, id: \.self) { h in
+                    Text(String(format: "%02d", h))
+                        .font(.timeLarge())
+                        .tag(h)
+                }
+            }
+            .pickerStyle(.wheel)
+            .frame(width: 100, height: 200)
+            .clipped()
+
             Text(":")
                 .font(.timeLarge())
                 .foregroundStyle(Color.accent)
-            Text(String(format: "%02d", minute))
-                .font(.timeLarge())
-                .foregroundStyle(Color.fgPrimary)
+
+            Picker("", selection: $minute) {
+                ForEach(0..<60, id: \.self) { m in
+                    Text(String(format: "%02d", m))
+                        .font(.timeLarge())
+                        .tag(m)
+                }
+            }
+            .pickerStyle(.wheel)
+            .frame(width: 100, height: 200)
+            .clipped()
         }
         .padding(.vertical, 16)
     }
