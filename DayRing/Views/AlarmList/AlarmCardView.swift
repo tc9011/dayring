@@ -6,6 +6,7 @@ struct AlarmCardView: View {
     let statusText: String
     let statusColor: AlarmListViewModel.StatusColor
     let is24HourFormat: Bool
+    let isSkipActive: Bool
     let onSkipNext: () -> Void
     var onTap: () -> Void = {}
 
@@ -25,7 +26,7 @@ struct AlarmCardView: View {
                         }
                     }
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderless)
                 Spacer()
                 Toggle("", isOn: $alarm.isEnabled)
                     .labelsHidden()
@@ -46,7 +47,7 @@ struct AlarmCardView: View {
                     Spacer()
                 }
             }
-            .buttonStyle(.plain)
+            .buttonStyle(.borderless)
 
             HStack {
                 Button(action: onTap) {
@@ -59,20 +60,28 @@ struct AlarmCardView: View {
                             .foregroundStyle(statusColor.color)
                     }
                 }
-                .buttonStyle(.plain)
+                .buttonStyle(.borderless)
                 Spacer()
-                Button(action: onSkipNext) {
+                Button {
+                    onSkipNext()
+                } label: {
                     HStack(spacing: 4) {
-                        Image(systemName: "forward.fill")
+                        Image(systemName: isSkipActive ? "bell.fill" : "forward.fill")
                             .font(.system(size: 10))
-                        Text(locale.localizedString("跳过下次"))
+                        Text(locale.localizedString(isSkipActive ? "继续响铃" : "跳过下次"))
                             .font(.system(size: 11, weight: .medium))
                     }
-                    .foregroundStyle(Color.fgSecondary)
+                    .foregroundStyle(isSkipActive ? Color.accent : Color.fgSecondary)
                     .padding(.horizontal, 10)
                     .padding(.vertical, 4)
-                    .glassEffect(.regular, in: Capsule())
+                    .contentShape(Capsule())
+                    .background(
+                        (isSkipActive ? Color.accent : Color.fgSecondary).opacity(0.12),
+                        in: Capsule()
+                    )
                 }
+                .buttonStyle(.borderless)
+                .contentShape(Capsule())
             }
         }
         .padding(.horizontal, 16)

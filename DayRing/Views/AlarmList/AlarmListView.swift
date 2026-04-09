@@ -30,12 +30,12 @@ struct AlarmListView: View {
                 }
 
                 ForEach(alarms) { alarm in
-                    let status = viewModel.statusInfo(for: alarm)
                     AlarmCardView(
                         alarm: alarm,
-                        statusText: status.text,
-                        statusColor: status.color,
+                        statusText: viewModel.statusInfo(for: alarm).text,
+                        statusColor: viewModel.statusInfo(for: alarm).color,
                         is24HourFormat: is24HourFormat,
+                        isSkipActive: viewModel.isSkipActive(alarm),
                         onSkipNext: { viewModel.skipNext(alarm) },
                         onTap: {
                             editingAlarm = alarm
