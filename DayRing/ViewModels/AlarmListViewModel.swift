@@ -60,7 +60,14 @@ final class AlarmListViewModel {
     }
 
     func skipNext(_ alarm: Alarm) {
-        alarm.skipNextDate = Calendar.current.date(byAdding: .day, value: 1, to: Date())
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())
+        if let skipDate = alarm.skipNextDate,
+           let tom = tomorrow,
+           Calendar.current.isDate(skipDate, inSameDayAs: tom) {
+            alarm.skipNextDate = nil
+        } else {
+            alarm.skipNextDate = tomorrow
+        }
         alarm.updatedAt = Date()
         rescheduleAlarm(alarm)
     }

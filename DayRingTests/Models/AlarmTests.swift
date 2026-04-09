@@ -140,6 +140,18 @@ struct AlarmTests {
         #expect(alarm.shouldRing(on: tomorrow, holidays: [], makeupDays: []) == false)
     }
 
+    @Test("Skip next clears when already set for same date")
+    func skipNextToggle() {
+        let alarm = Alarm()
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        alarm.skipNextDate = tomorrow
+        #expect(alarm.skipNextDate != nil)
+
+        alarm.skipNextDate = nil
+        #expect(alarm.skipNextDate == nil)
+        #expect(alarm.shouldRing(on: tomorrow, holidays: [], makeupDays: []) == true)
+    }
+
     @Test("Delete after ring flag")
     func deleteAfterRing() {
         let alarm = Alarm(deleteAfterRing: true)

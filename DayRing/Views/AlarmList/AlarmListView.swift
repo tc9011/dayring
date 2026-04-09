@@ -19,59 +19,43 @@ struct AlarmListView: View {
     }
 
     var body: some View {
-        ZStack(alignment: .bottomTrailing) {
-            VStack(spacing: 0) {
-                headerRow
-                List {
-                    if let bannerText = viewModel.nextAlarmText() {
-                        NextAlarmBanner(text: bannerText)
-                            .listRowBackground(Color.clear)
-                            .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
-                            .listRowSeparator(.hidden)
-                    }
-
-                    ForEach(alarms) { alarm in
-                        let status = viewModel.statusInfo(for: alarm)
-                        AlarmCardView(
-                            alarm: alarm,
-                            statusText: status.text,
-                            statusColor: status.color,
-                            is24HourFormat: is24HourFormat,
-                            onSkipNext: { viewModel.skipNext(alarm) }
-                        )
-                        .onTapGesture {
-                            editingAlarm = alarm
-                            showingEditor = true
-                        }
+        VStack(spacing: 0) {
+            headerRow
+            List {
+                if let bannerText = viewModel.nextAlarmText() {
+                    NextAlarmBanner(text: bannerText)
                         .listRowBackground(Color.clear)
                         .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
                         .listRowSeparator(.hidden)
-                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                            Button(role: .destructive) {
-                                modelContext.delete(alarm)
-                            } label: {
-                                Label(locale.localizedString("删除"), systemImage: "trash")
-                            }
+                }
+
+                ForEach(alarms) { alarm in
+                    let status = viewModel.statusInfo(for: alarm)
+                    AlarmCardView(
+                        alarm: alarm,
+                        statusText: status.text,
+                        statusColor: status.color,
+                        is24HourFormat: is24HourFormat,
+                        onSkipNext: { viewModel.skipNext(alarm) },
+                        onTap: {
+                            editingAlarm = alarm
+                            showingEditor = true
+                        }
+                    )
+                    .listRowBackground(Color.clear)
+                    .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                    .listRowSeparator(.hidden)
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button(role: .destructive) {
+                            modelContext.delete(alarm)
+                        } label: {
+                            Label(locale.localizedString("删除"), systemImage: "trash")
                         }
                     }
                 }
-                .listStyle(.plain)
-                .scrollContentBackground(.hidden)
             }
-
-            Button {
-                editingAlarm = nil
-                showingEditor = true
-            } label: {
-                Image(systemName: "plus")
-                    .font(.system(size: 24, weight: .medium))
-                    .foregroundStyle(.white)
-                    .frame(width: 56, height: 56)
-                    .background(Color.accent, in: Circle())
-                    .shadow(color: Color.accent.opacity(0.3), radius: 8, y: 4)
-            }
-            .padding(.trailing, 20)
-            .padding(.bottom, 20)
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
         }
         .background {
             Color.bgPrimary.ignoresSafeArea()

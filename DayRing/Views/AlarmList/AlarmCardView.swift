@@ -7,49 +7,59 @@ struct AlarmCardView: View {
     let statusColor: AlarmListViewModel.StatusColor
     let is24HourFormat: Bool
     let onSkipNext: () -> Void
+    var onTap: () -> Void = {}
 
     var body: some View {
         VStack(spacing: 10) {
             HStack {
-                HStack(alignment: .bottom, spacing: 4) {
-                    Text(is24HourFormat ? alarm.timeString : "\(String(format: "%02d:%02d", alarm.hour12, alarm.minute))")
-                        .font(.timeCard())
-                        .foregroundStyle(Color.fgPrimary)
-                    if !is24HourFormat {
-                        Text(alarm.amPmString)
-                            .font(.smallCaption())
-                            .fontWeight(.medium)
-                            .foregroundStyle(Color.fgSecondary)
+                Button(action: onTap) {
+                    HStack(alignment: .bottom, spacing: 4) {
+                        Text(is24HourFormat ? alarm.timeString : "\(String(format: "%02d:%02d", alarm.hour12, alarm.minute))")
+                            .font(.timeCard())
+                            .foregroundStyle(Color.fgPrimary)
+                        if !is24HourFormat {
+                            Text(alarm.amPmString)
+                                .font(.smallCaption())
+                                .fontWeight(.medium)
+                                .foregroundStyle(Color.fgSecondary)
+                        }
                     }
                 }
+                .buttonStyle(.plain)
                 Spacer()
                 Toggle("", isOn: $alarm.isEnabled)
                     .labelsHidden()
                     .tint(Color.iosGreen)
             }
 
-            HStack {
-                if !alarm.label.isEmpty {
-                    Text("\(alarm.label)  |  \(alarm.repeatModeDisplayName) · \(alarm.repeatDetailText)")
-                        .font(.caption())
-                        .foregroundStyle(Color.fgSecondary)
-                } else {
-                    Text("\(alarm.repeatModeDisplayName) · \(alarm.repeatDetailText)")
-                        .font(.caption())
-                        .foregroundStyle(Color.fgSecondary)
+            Button(action: onTap) {
+                HStack {
+                    if !alarm.label.isEmpty {
+                        Text("\(alarm.label)  |  \(alarm.repeatModeDisplayName) · \(alarm.repeatDetailText)")
+                            .font(.caption())
+                            .foregroundStyle(Color.fgSecondary)
+                    } else {
+                        Text("\(alarm.repeatModeDisplayName) · \(alarm.repeatDetailText)")
+                            .font(.caption())
+                            .foregroundStyle(Color.fgSecondary)
+                    }
+                    Spacer()
                 }
-                Spacer()
             }
+            .buttonStyle(.plain)
 
             HStack {
-                HStack(spacing: 4) {
-                    Circle()
-                        .fill(statusColor.color)
-                        .frame(width: 6, height: 6)
-                    Text(statusText)
-                        .font(.system(size: 11))
-                        .foregroundStyle(statusColor.color)
+                Button(action: onTap) {
+                    HStack(spacing: 4) {
+                        Circle()
+                            .fill(statusColor.color)
+                            .frame(width: 6, height: 6)
+                        Text(statusText)
+                            .font(.system(size: 11))
+                            .foregroundStyle(statusColor.color)
+                    }
                 }
+                .buttonStyle(.plain)
                 Spacer()
                 Button(action: onSkipNext) {
                     HStack(spacing: 4) {
