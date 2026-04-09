@@ -13,13 +13,13 @@ enum Weekday: Int, Codable, CaseIterable, Hashable, Comparable, Sendable {
 
     var shortName: String {
         switch self {
-        case .monday: "一"
-        case .tuesday: "二"
-        case .wednesday: "三"
-        case .thursday: "四"
-        case .friday: "五"
-        case .saturday: "六"
-        case .sunday: "日"
+        case .monday: LocaleManager.shared.localizedString("一")
+        case .tuesday: LocaleManager.shared.localizedString("二")
+        case .wednesday: LocaleManager.shared.localizedString("三")
+        case .thursday: LocaleManager.shared.localizedString("四")
+        case .friday: LocaleManager.shared.localizedString("五")
+        case .saturday: LocaleManager.shared.localizedString("六")
+        case .sunday: LocaleManager.shared.localizedString("日")
         }
     }
 

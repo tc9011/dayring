@@ -10,9 +10,11 @@ final class CalendarViewModel {
     let holidayProvider = HolidayDataProvider()
 
     var monthTitle: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年M月"
-        return formatter.string(from: displayedMonth)
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: displayedMonth)
+        let month = calendar.component(.month, from: displayedMonth)
+        let l = LocaleManager.shared
+        return "\(year)" + l.localizedString("年") + "\(month)" + l.localizedString("月")
     }
 
     func previousMonth() {

@@ -13,6 +13,7 @@ struct CalendarDayCellView: View {
     let makeupDayDisplayText: String?
     let solarTerm: String?
     let alarmTimes: [String]
+    @Environment(\.localeManager) private var locale
 
     var body: some View {
         VStack(spacing: 2) {
@@ -47,7 +48,7 @@ struct CalendarDayCellView: View {
     @ViewBuilder
     private var subtitleView: some View {
         if isToday {
-            Text("今天")
+            Text(locale.localizedString("今天"))
                 .font(Font.tinyCaption())
                 .fontWeight(.semibold)
                 .foregroundStyle(Color.accent)
@@ -96,8 +97,6 @@ struct CalendarDayCellView: View {
             }
         }
     }
-
-    // MARK: - Computed Styles
 
     private var cellBackground: Color {
         guard isCurrentMonth else { return Color.clear }

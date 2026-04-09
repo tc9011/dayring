@@ -60,7 +60,26 @@ enum AppLocale: String, Codable, CaseIterable, Sendable {
     case zhHans = "简体中文"
     case zhHant = "繁體中文"
     case en = "English"
-    case ja = "日本語"
+
+    /// The `.lproj` folder identifier used to load localized bundles at runtime.
+    var bundleIdentifier: String? {
+        switch self {
+        case .system: nil
+        case .zhHans: "zh-Hans"
+        case .zhHant: "zh-Hant"
+        case .en: "en"
+        }
+    }
+
+    /// Display name shown in the language picker, always in the target language.
+    var nativeName: String {
+        switch self {
+        case .system: "跟随系统"
+        case .zhHans: "简体中文"
+        case .zhHant: "繁體中文"
+        case .en: "English"
+        }
+    }
 }
 
 enum CalendarType: String, Codable, CaseIterable, Hashable, Sendable {
@@ -69,6 +88,10 @@ enum CalendarType: String, Codable, CaseIterable, Hashable, Sendable {
     case hebrew = "希伯来历"
     case persian = "波斯历"
     case indian = "印度历"
+
+    var localizedName: String {
+        LocaleManager.shared.localizedString(rawValue)
+    }
 }
 
 enum TimezoneOption: Codable, Hashable, Sendable {
@@ -77,7 +100,7 @@ enum TimezoneOption: Codable, Hashable, Sendable {
 
     var displayName: String {
         switch self {
-        case .system: "跟随系统"
+        case .system: LocaleManager.shared.localizedString("跟随系统")
         case .specific(let id):
             TimeZone(identifier: id)?.localizedName(for: .standard, locale: .current) ?? id
         }
@@ -88,6 +111,10 @@ enum AppearanceMode: String, Codable, CaseIterable, Sendable {
     case system = "自动"
     case light = "浅色"
     case dark = "深色"
+
+    var localizedName: String {
+        LocaleManager.shared.localizedString(rawValue)
+    }
 
     var colorScheme: ColorScheme? {
         switch self {

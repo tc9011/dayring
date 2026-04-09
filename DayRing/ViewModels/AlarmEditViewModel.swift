@@ -70,10 +70,12 @@ final class AlarmEditViewModel {
     }
 
     var advanceMinutesText: String {
-        advanceMinutes == 0 ? "不提前" : "\(advanceMinutes) 分钟"
+        let l = LocaleManager.shared
+        return advanceMinutes == 0 ? l.localizedString("不提前") : "\(advanceMinutes) " + l.localizedString("分钟")
     }
 
     var snoozeDurationText: String {
-        snoozeDuration == 0 ? "关闭" : "\(snoozeDuration) 分钟"
+        let l = LocaleManager.shared
+        return snoozeDuration == 0 ? l.localizedString("关闭") : "\(snoozeDuration) " + l.localizedString("分钟")
     }
 }

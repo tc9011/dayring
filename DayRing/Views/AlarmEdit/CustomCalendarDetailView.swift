@@ -2,12 +2,13 @@ import SwiftUI
 
 struct CustomCalendarDetailView: View {
     @Binding var repeatMode: RepeatMode
+    @Environment(\.localeManager) private var locale
     @State private var selectedDates: Set<DateComponents> = []
     @State private var displayedMonth = Date()
 
     var body: some View {
         VStack(spacing: 16) {
-            Text("点击日期选择响铃日，长按拖动可批量选择。")
+            Text(locale.localizedString("点击日期选择响铃日，长按拖动可批量选择。"))
                 .font(.system(size: 15))
                 .foregroundStyle(Color.fgSecondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -30,20 +31,20 @@ struct CustomCalendarDetailView: View {
             calendarGrid
 
             HStack(spacing: 16) {
-                legendItem(color: Color.accent, text: "响铃日")
-                legendItem(color: Color.bgTertiary, text: "不响铃")
-                legendItem(color: .clear, borderColor: Color.accent, text: "今天")
+                legendItem(color: Color.accent, text: locale.localizedString("响铃日"))
+                legendItem(color: Color.bgTertiary, text: locale.localizedString("不响铃"))
+                legendItem(color: .clear, borderColor: Color.accent, text: locale.localizedString("今天"))
             }
 
             Spacer()
         }
         .padding(20)
         .background(Color.bgPrimary)
-        .navigationTitle("自定义日历")
+        .navigationTitle(locale.localizedString("自定义日历"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
-                Button("完成") {
+                Button(locale.localizedString("完成")) {
                     repeatMode = .custom(dates: selectedDates)
                 }
                 .fontWeight(.semibold)
@@ -91,9 +92,13 @@ struct CustomCalendarDetailView: View {
     }
 
     private var monthTitle: String {
+        let lm = LocaleManager.shared
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy年M月"
-        return formatter.string(from: displayedMonth)
+        let yearStr = "\(Calendar.current.component(.year, from: displayedMonth))"
+        let monthStr = "\(Calendar.current.component(.month, from: displayedMonth))"
+        let yearLabel = lm.localizedString("年")
+        let monthLabel = lm.localizedString("月")
+        return "\(yearStr)\(yearLabel)\(monthStr)\(monthLabel)"
     }
 
     private func changeMonth(_ delta: Int) {

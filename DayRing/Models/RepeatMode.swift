@@ -11,11 +11,11 @@ enum RepeatMode: Codable, Hashable, Sendable {
 
     var displayName: String {
         switch self {
-        case .daily: "每天"
-        case .weekly: "每周"
-        case .biweekly: "大小周"
-        case .rotating: "轮休"
-        case .custom: "自定义"
+        case .daily: LocaleManager.shared.localizedString("每天")
+        case .weekly: LocaleManager.shared.localizedString("每周")
+        case .biweekly: LocaleManager.shared.localizedString("大小周")
+        case .rotating: LocaleManager.shared.localizedString("轮休")
+        case .custom: LocaleManager.shared.localizedString("自定义")
         }
     }
 }

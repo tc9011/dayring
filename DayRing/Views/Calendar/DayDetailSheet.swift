@@ -5,11 +5,10 @@ struct DayDetailSheet: View {
     let date: Date
     let alarms: [Alarm]
     let is24HourFormat: Bool
+    @Environment(\.localeManager) private var locale
 
     private let chineseCalendar = ChineseCalendarService()
     private let holidayProvider = HolidayDataProvider()
-
-    // MARK: - Computed
 
     private var dateKey: String { Alarm.dateKey(for: date) }
     private var calendar: Calendar { Calendar.current }
@@ -24,7 +23,8 @@ struct DayDetailSheet: View {
     private var isToday: Bool { calendar.isDateInToday(date) }
 
     private var monthString: String {
-        "\(calendar.component(.month, from: date))月"
+        let m = calendar.component(.month, from: date)
+        return "\(m)" + locale.localizedString("月")
     }
 
     private var yearString: String {
@@ -33,8 +33,8 @@ struct DayDetailSheet: View {
 
     private var weekdayString: String {
         let weekday = calendar.component(.weekday, from: date)
-        let names = ["", "周日", "周一", "周二", "周三", "周四", "周五", "周六"]
-        return names[weekday]
+        let keys = ["", "周日", "周一", "周二", "周三", "周四", "周五", "周六"]
+        return locale.localizedString(keys[weekday])
     }
 
     private var dayNumberColor: Color {
@@ -55,8 +55,6 @@ struct DayDetailSheet: View {
         return Color.fgSecondary
     }
 
-    // MARK: - Body
-
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
@@ -73,8 +71,6 @@ struct DayDetailSheet: View {
         .background { Color.bgPrimary.ignoresSafeArea() }
         .presentationDetents([.medium, .large])
     }
-
-    // MARK: - Date Header
 
     private var dateHeaderSection: some View {
         VStack(spacing: 4) {
@@ -94,8 +90,6 @@ struct DayDetailSheet: View {
         .frame(maxWidth: .infinity)
     }
 
-    // MARK: - Lunar Info
-
     private var lunarInfoSection: some View {
         VStack(spacing: 8) {
             Text(lunarDisplayString)
@@ -104,14 +98,14 @@ struct DayDetailSheet: View {
 
             if isHoliday {
                 badgeView(
-                    text: "法定节假日 · 闹钟默认不响铃",
+                    text: locale.localizedString("法定节假日 · 闹钟默认不响铃"),
                     dotColor: Color.holidayRed,
                     textColor: Color.holidayRed,
                     bgColor: Color.holidayRedBg
                 )
             } else if isMakeupDay {
                 badgeView(
-                    text: "补班日 · 闹钟默认响铃",
+                    text: locale.localizedString("补班日 · 闹钟默认响铃"),
                     dotColor: Color.makeupPurple,
                     textColor: Color.makeupPurple,
                     bgColor: Color.makeupPurpleBg
@@ -140,16 +134,14 @@ struct DayDetailSheet: View {
         .background(bgColor, in: Capsule())
     }
 
-    // MARK: - Alarm Section
-
     private var alarmSection: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("当天闹钟响铃状态")
+            Text(locale.localizedString("当天闹钟响铃状态"))
                 .font(Font.caption())
                 .foregroundStyle(Color.fgSecondary)
 
             if alarms.isEmpty {
-                Text("暂无闹钟")
+                Text(locale.localizedString("暂无闹钟"))
                     .font(Font.bodyText())
                     .foregroundStyle(Color.fgTertiary)
                     .frame(maxWidth: .infinity)
@@ -215,23 +207,19 @@ struct DayDetailSheet: View {
         }
     }
 
-    // MARK: - Hint
-
     private var separatorLine: some View {
         Color(light: "E5E5EA", dark: "38383A")
             .frame(height: 0.5)
     }
 
     private var hintSection: some View {
-        Text("开启开关可手动覆盖该天的闹钟响铃状态，优先级高于自动规则。")
+        Text(locale.localizedString("开启开关可手动覆盖该天的闹钟响铃状态，优先级高于自动规则。"))
             .font(Font.smallCaption())
             .foregroundStyle(Color.fgSecondary)
             .multilineTextAlignment(.center)
             .padding(.horizontal, 16)
             .frame(maxWidth: .infinity)
     }
-
-    // MARK: - Helpers
 
     private func overrideBinding(for alarm: Alarm) -> Binding<Bool> {
         Binding(
@@ -249,26 +237,26 @@ struct DayDetailSheet: View {
     private func statusInfo(for alarm: Alarm) -> (text: String, color: Color) {
         if let override = alarm.manualOverrides[dateKey] {
             if override {
-                return ("手动覆盖 · 强制响铃", Color.iosGreen)
+                return (locale.localizedString("手动覆盖 · 强制响铃"), Color.iosGreen)
             } else {
-                return ("手动覆盖 · 不响铃", Color.holidayRed)
+                return (locale.localizedString("手动覆盖 · 不响铃"), Color.holidayRed)
             }
         }
 
         if holidayProvider.isHoliday(dateKey, year: year) && alarm.skipHolidays {
-            return ("节假日跳过 · 不响铃", Color.holidayRed)
+            return (locale.localizedString("节假日跳过 · 不响铃"), Color.holidayRed)
         }
 
         if holidayProvider.isMakeupDay(dateKey, year: year) && alarm.ringOnMakeupDays {
-            return ("补班日 · 正常响铃", Color.iosGreen)
+            return (locale.localizedString("补班日 · 正常响铃"), Color.iosGreen)
         }
 
         let holidays = holidayProvider.holidays(for: year)
         let makeupDays = holidayProvider.makeupDays(for: year)
         if alarm.shouldRing(on: date, holidays: holidays, makeupDays: makeupDays) {
-            return ("正常响铃", Color.iosGreen)
+            return (locale.localizedString("正常响铃"), Color.iosGreen)
         } else {
-            return ("不响铃", Color.fgSecondary)
+            return (locale.localizedString("不响铃"), Color.fgSecondary)
         }
     }
 }

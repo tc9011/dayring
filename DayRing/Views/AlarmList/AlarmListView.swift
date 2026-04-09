@@ -4,6 +4,7 @@ import SwiftData
 struct AlarmListView: View {
     @Query(sort: \Alarm.hour, order: .forward) private var alarms: [Alarm]
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.localeManager) private var locale
     @State private var viewModel = AlarmListViewModel()
     @State private var showingEditor = false
     @State private var editingAlarm: Alarm?
@@ -70,11 +71,11 @@ struct AlarmListView: View {
 
     private var headerRow: some View {
         HStack(alignment: .center) {
-            Text("闹钟")
+            Text(locale.localizedString("闹钟"))
                 .font(.system(size: 34, weight: .bold))
                 .foregroundStyle(Color.fgPrimary)
             Spacer()
-            Button("编辑") { }
+            Button(locale.localizedString("编辑")) { }
                 .font(.system(size: 17))
                 .foregroundStyle(Color.accent)
         }

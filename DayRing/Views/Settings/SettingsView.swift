@@ -4,7 +4,9 @@ import SwiftData
 struct SettingsView: View {
     @Query private var allSettings: [AppSettings]
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.localeManager) private var locale
     @State private var viewModel = SettingsViewModel()
+    @State private var showingLanguagePicker = false
 
     private var settings: AppSettings {
         if let existing = allSettings.first {
@@ -36,13 +38,19 @@ struct SettingsView: View {
         .background {
             Color.bgPrimary.ignoresSafeArea()
         }
+        .onAppear {
+            locale.currentLocale = settings.locale
+        }
+        .sheet(isPresented: $showingLanguagePicker) {
+            languagePickerSheet
+        }
     }
 
     // MARK: - Header
 
     private var headerRow: some View {
         HStack {
-            Text("设置")
+            Text(locale.localizedString("设置"))
                 .font(.system(size: 34, weight: .bold))
                 .foregroundStyle(Color.fgPrimary)
             Spacer()
@@ -59,7 +67,7 @@ struct SettingsView: View {
             settingsRow(
                 icon: "globe",
                 iconColor: Color.iosBlue,
-                title: "时区",
+                title: locale.localizedString("时区"),
                 value: viewModel.timezoneDisplayName
             )
 
@@ -68,7 +76,7 @@ struct SettingsView: View {
             settingsRow(
                 icon: "calendar",
                 iconColor: Color.accent,
-                title: "每周第一天",
+                title: locale.localizedString("每周第一天"),
                 value: viewModel.firstDayDisplayName
             )
 
@@ -85,8 +93,8 @@ struct SettingsView: View {
     }
 
     private var calendarSection: some View {
-        VStack(spacing: 0) {
-            Text("历法")
+        VStack(spacing: 8) {
+            Text(locale.localizedString("历法"))
                 .font(.system(size: 13))
                 .foregroundStyle(Color.fgSecondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -96,7 +104,7 @@ struct SettingsView: View {
                 settingsRow(
                     icon: "book",
                     iconColor: Color.makeupPurple,
-                    title: "其他历法",
+                    title: locale.localizedString("其他历法"),
                     value: viewModel.calendarDisplayName
                 )
             }
@@ -106,20 +114,24 @@ struct SettingsView: View {
     }
 
     private var otherSection: some View {
-        VStack(spacing: 0) {
-            Text("其他")
+        VStack(spacing: 8) {
+            Text(locale.localizedString("其他"))
                 .font(.system(size: 13))
                 .foregroundStyle(Color.fgSecondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 4)
 
             VStack(spacing: 0) {
-                settingsRow(
-                    icon: "translate",
-                    iconColor: Color.iosGray,
-                    title: "语言",
-                    value: viewModel.languageDisplayName
-                )
+                Button {
+                    showingLanguagePicker = true
+                } label: {
+                    settingsRow(
+                        icon: "translate",
+                        iconColor: Color.iosGray,
+                        title: locale.localizedString("语言"),
+                        value: settings.locale.nativeName
+                    )
+                }
 
                 sectionSeparator
 
@@ -130,12 +142,49 @@ struct SettingsView: View {
         }
     }
 
+    // MARK: - Language Picker Sheet
+
+    private var languagePickerSheet: some View {
+        NavigationStack {
+            List {
+                ForEach(AppLocale.allCases, id: \.self) { appLocale in
+                    Button {
+                        settings.locale = appLocale
+                        locale.currentLocale = appLocale
+                        showingLanguagePicker = false
+                    } label: {
+                        HStack {
+                            Text(appLocale.nativeName)
+                                .foregroundStyle(Color.fgPrimary)
+                            Spacer()
+                            if settings.locale == appLocale {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(Color.accent)
+                                    .fontWeight(.semibold)
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle(locale.localizedString("语言"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(locale.localizedString("完成")) {
+                        showingLanguagePicker = false
+                    }
+                    .foregroundStyle(Color.accent)
+                }
+            }
+        }
+    }
+
     // MARK: - Rows
 
     private var timeFormatRow: some View {
         HStack {
             settingsIcon("clock.fill", color: Color.iosIndigo)
-            Text("时间格式")
+            Text(locale.localizedString("时间格式"))
                 .font(Font.bodyText())
                 .foregroundStyle(Color.fgPrimary)
             Spacer()
@@ -153,13 +202,13 @@ struct SettingsView: View {
     private var appearanceRow: some View {
         HStack {
             settingsIcon("moon.fill", color: Color.settingsIconBlack)
-            Text("外观")
+            Text(locale.localizedString("外观"))
                 .font(Font.bodyText())
                 .foregroundStyle(Color.fgPrimary)
             Spacer()
             Picker("", selection: Bindable(settings).appearanceMode) {
                 ForEach(AppearanceMode.allCases, id: \.self) { mode in
-                    Text(mode.rawValue).tag(mode)
+                    Text(mode.localizedName).tag(mode)
                 }
             }
             .pickerStyle(.segmented)
@@ -172,7 +221,7 @@ struct SettingsView: View {
     private var aboutRow: some View {
         HStack {
             settingsIcon("info.circle.fill", color: Color.iosTeal)
-            Text("关于 DayRing")
+            Text(locale.localizedString("关于 DayRing"))
                 .font(Font.bodyText())
                 .foregroundStyle(Color.fgPrimary)
             Spacer()

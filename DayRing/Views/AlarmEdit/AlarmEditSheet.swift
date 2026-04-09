@@ -6,6 +6,7 @@ struct AlarmEditSheet: View {
 
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.localeManager) private var locale
     @State private var viewModel = AlarmEditViewModel()
 
     var body: some View {
@@ -16,22 +17,22 @@ struct AlarmEditSheet: View {
 
                     GroupBox {
                         VStack(spacing: 0) {
-                            settingsRow("标签", value: viewModel.label.isEmpty ? "无" : viewModel.label)
+                            settingsRow(locale.localizedString("标签"), value: viewModel.label.isEmpty ? locale.localizedString("无") : viewModel.label)
                             Divider()
                             NavigationLink {
                                 RepeatModePicker(repeatMode: $viewModel.repeatMode)
                             } label: {
-                                settingsRowChevron("重复", value: viewModel.repeatMode.displayName)
+                                settingsRowChevron(locale.localizedString("重复"), value: viewModel.repeatMode.displayName)
                             }
                             Divider()
-                            settingsRowChevron("铃声", value: viewModel.ringtone)
+                            settingsRowChevron(locale.localizedString("铃声"), value: viewModel.ringtone)
                             Divider()
-                            settingsRow("稍后提醒", value: viewModel.snoozeDurationText)
+                            settingsRow(locale.localizedString("稍后提醒"), value: viewModel.snoozeDurationText)
                             Divider()
-                            settingsRowChevron("提前响铃", value: viewModel.advanceMinutesText)
+                            settingsRowChevron(locale.localizedString("提前响铃"), value: viewModel.advanceMinutesText)
                             Divider()
                             HStack {
-                                Text("响铃后删除")
+                                Text(locale.localizedString("响铃后删除"))
                                     .font(.bodyText())
                                 Spacer()
                                 Toggle("", isOn: $viewModel.deleteAfterRing)
@@ -44,7 +45,7 @@ struct AlarmEditSheet: View {
                     .backgroundStyle(Color.bgSecondary)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
 
-                    Text("智能日历")
+                    Text(locale.localizedString("智能日历"))
                         .font(.caption())
                         .foregroundStyle(Color.fgSecondary)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -53,7 +54,7 @@ struct AlarmEditSheet: View {
                     GroupBox {
                         VStack(spacing: 0) {
                             HStack {
-                                Text("节假日跳过")
+                                Text(locale.localizedString("节假日跳过"))
                                     .font(.bodyText())
                                 Spacer()
                                 Toggle("", isOn: $viewModel.skipHolidays)
@@ -66,7 +67,7 @@ struct AlarmEditSheet: View {
                             Divider()
 
                             HStack {
-                                Text("补班日响铃")
+                                Text(locale.localizedString("补班日响铃"))
                                     .font(.bodyText())
                                 Spacer()
                                 Toggle("", isOn: $viewModel.ringOnMakeupDays)
@@ -79,7 +80,7 @@ struct AlarmEditSheet: View {
                             Divider()
 
                             HStack {
-                                Text("查看日历覆盖")
+                                Text(locale.localizedString("查看日历覆盖"))
                                     .font(.bodyText())
                                     .foregroundStyle(Color.accent)
                                 Spacer()
@@ -94,7 +95,7 @@ struct AlarmEditSheet: View {
                     .backgroundStyle(Color.bgSecondary)
                     .clipShape(RoundedRectangle(cornerRadius: 12))
 
-                    Text("开启后，节假日自动跳过闹钟，补班日自动恢复响铃。也可以在日历中手动覆盖某天的响铃状态。")
+                    Text(locale.localizedString("开启后，节假日自动跳过闹钟，补班日自动恢复响铃。也可以在日历中手动覆盖某天的响铃状态。"))
                         .font(.caption())
                         .foregroundStyle(Color.fgTertiary)
                         .padding(.horizontal, 4)
@@ -103,15 +104,15 @@ struct AlarmEditSheet: View {
                 .padding(.bottom, 20)
             }
             .background(Color.bgPrimary)
-            .navigationTitle(alarm == nil ? "新建闹钟" : "编辑闹钟")
+            .navigationTitle(alarm == nil ? locale.localizedString("新建闹钟") : locale.localizedString("编辑闹钟"))
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("取消") { dismiss() }
+                    Button(locale.localizedString("取消")) { dismiss() }
                         .foregroundStyle(Color.accent)
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("保存") {
+                    Button(locale.localizedString("保存")) {
                         let saved = viewModel.save(to: alarm)
                         if alarm == nil {
                             modelContext.insert(saved)
@@ -127,8 +128,6 @@ struct AlarmEditSheet: View {
             viewModel.load(from: alarm)
         }
     }
-
-    // MARK: - Row helpers
 
     private func settingsRow(_ label: String, value: String) -> some View {
         HStack {

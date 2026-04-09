@@ -86,19 +86,22 @@ final class Alarm {
     }
 
     var repeatDetailText: String {
+        let l = LocaleManager.shared
         switch repeatMode {
         case .daily:
-            return "每天"
+            return l.localizedString("每天")
         case .weekly(let days):
-            if days == Weekday.workdays { return "工作日" }
-            if days == Weekday.allDays { return "每天" }
+            if days == Weekday.workdays { return l.localizedString("工作日") }
+            if days == Weekday.allDays { return l.localizedString("每天") }
             return days.sorted().map(\.shortName).joined(separator: "、")
         case .biweekly:
-            return "大小周"
+            return l.localizedString("大小周")
         case .rotating(_, let ring, let gap):
-            return "响\(ring)天休\(gap)天"
+            let ringPart = l.localizedString("响") + "\(ring)" + l.localizedString("天")
+            let gapPart = l.localizedString("休") + "\(gap)" + l.localizedString("天")
+            return ringPart + gapPart
         case .custom(let dates):
-            return "\(dates.count)天"
+            return "\(dates.count)" + l.localizedString("天")
         }
     }
 

@@ -2,25 +2,26 @@ import SwiftUI
 
 struct RotatingDetailView: View {
     @Binding var repeatMode: RepeatMode
+    @Environment(\.localeManager) private var locale
     @State private var startDate = Date()
     @State private var ringDays = 4
     @State private var gapDays = 2
 
     var body: some View {
         VStack(spacing: 20) {
-            Text("设置轮休周期：响铃天数 + 间隔天数为一个循环，间隔期间不响铃。")
+            Text(locale.localizedString("设置轮休周期：响铃天数 + 间隔天数为一个循环，间隔期间不响铃。"))
                 .font(.system(size: 15))
                 .foregroundStyle(Color.fgSecondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             GroupBox {
                 VStack(spacing: 0) {
-                    DatePicker("开始日期", selection: $startDate, displayedComponents: .date)
+                    DatePicker(locale.localizedString("开始日期"), selection: $startDate, displayedComponents: .date)
                         .padding(.horizontal, 16).padding(.vertical, 14)
                     Divider()
-                    stepperRow("响铃天数", value: $ringDays, range: 1...30)
+                    stepperRow(locale.localizedString("响铃天数"), value: $ringDays, range: 1...30)
                     Divider()
-                    stepperRow("间隔天数", value: $gapDays, range: 1...30)
+                    stepperRow(locale.localizedString("间隔天数"), value: $gapDays, range: 1...30)
                 }
             }
             .backgroundStyle(Color.bgSecondary)
@@ -28,7 +29,13 @@ struct RotatingDetailView: View {
 
             cyclePreview
 
-            Text("响铃 \(ringDays) 天 → 间隔 \(gapDays) 天 → 响铃 \(ringDays) 天 → ···")
+            let ringLabel = locale.localizedString("响铃")
+            let gapLabel = locale.localizedString("间隔")
+            let dayLabel = locale.localizedString("天")
+            let part1 = ringLabel + " \(ringDays) " + dayLabel
+            let part2 = " → " + gapLabel + " \(gapDays) " + dayLabel
+            let part3 = " → " + ringLabel + " \(ringDays) " + dayLabel + " → ···"
+            Text(part1 + part2 + part3)
                 .font(.caption())
                 .foregroundStyle(Color.fgTertiary)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -37,11 +44,11 @@ struct RotatingDetailView: View {
         }
         .padding(20)
         .background(Color.bgPrimary)
-        .navigationTitle("轮休")
+        .navigationTitle(locale.localizedString("轮休"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
-                Button("完成") {
+                Button(locale.localizedString("完成")) {
                     repeatMode = .rotating(startDate: startDate, ringDays: ringDays, gapDays: gapDays)
                 }
                 .fontWeight(.semibold)
@@ -68,7 +75,7 @@ struct RotatingDetailView: View {
 
     private var cyclePreview: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("循环预览")
+            Text(locale.localizedString("循环预览"))
                 .font(.system(size: 15, weight: .semibold))
 
             HStack(spacing: 4) {
@@ -89,8 +96,8 @@ struct RotatingDetailView: View {
             }
 
             HStack(spacing: 16) {
-                legendItem(color: Color.accent, text: "响铃")
-                legendItem(color: Color.bgTertiary, text: "间隔（不响铃）")
+                legendItem(color: Color.accent, text: locale.localizedString("响铃"))
+                legendItem(color: Color.bgTertiary, text: locale.localizedString("间隔（不响铃）"))
             }
         }
         .padding(16)

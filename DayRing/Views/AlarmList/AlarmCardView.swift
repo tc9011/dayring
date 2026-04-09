@@ -2,6 +2,7 @@ import SwiftUI
 
 struct AlarmCardView: View {
     @Bindable var alarm: Alarm
+    @Environment(\.localeManager) private var locale
     let statusText: String
     let statusColor: AlarmListViewModel.StatusColor
     let is24HourFormat: Bool
@@ -54,7 +55,7 @@ struct AlarmCardView: View {
                     HStack(spacing: 4) {
                         Image(systemName: "forward.fill")
                             .font(.system(size: 10))
-                        Text("跳过下次")
+                        Text(locale.localizedString("跳过下次"))
                             .font(.system(size: 11, weight: .medium))
                     }
                     .foregroundStyle(Color.fgSecondary)

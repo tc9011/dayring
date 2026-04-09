@@ -2,6 +2,7 @@ import SwiftUI
 
 struct RepeatModePicker: View {
     @Binding var repeatMode: RepeatMode
+    @Environment(\.localeManager) private var locale
 
     var body: some View {
         List {
@@ -9,8 +10,8 @@ struct RepeatModePicker: View {
                 modeRow(
                     icon: "repeat",
                     iconColor: Color.iosGreen,
-                    name: "每天",
-                    subtitle: "每天都响铃",
+                    name: locale.localizedString("每天"),
+                    subtitle: locale.localizedString("每天都响铃"),
                     isSelected: isDaily,
                     destination: { selectDaily() }
                 )
@@ -21,8 +22,8 @@ struct RepeatModePicker: View {
                     modeRowContent(
                         icon: "calendar",
                         iconColor: Color.accent,
-                        name: "每周",
-                        subtitle: "选择每周哪些天响铃",
+                        name: locale.localizedString("每周"),
+                        subtitle: locale.localizedString("选择每周哪些天响铃"),
                         isSelected: isWeekly
                     )
                 }
@@ -33,8 +34,8 @@ struct RepeatModePicker: View {
                     modeRowContent(
                         icon: "calendar.badge.clock",
                         iconColor: Color.iosIndigo,
-                        name: "大小周",
-                        subtitle: "两周为一个循环",
+                        name: locale.localizedString("大小周"),
+                        subtitle: locale.localizedString("两周为一个循环"),
                         isSelected: isBiweekly
                     )
                 }
@@ -45,8 +46,8 @@ struct RepeatModePicker: View {
                     modeRowContent(
                         icon: "arrow.triangle.2.circlepath",
                         iconColor: Color.iosPink,
-                        name: "轮休",
-                        subtitle: "响铃天数 + 间隔天数循环",
+                        name: locale.localizedString("轮休"),
+                        subtitle: locale.localizedString("响铃天数 + 间隔天数循环"),
                         isSelected: isRotating
                     )
                 }
@@ -57,18 +58,16 @@ struct RepeatModePicker: View {
                     modeRowContent(
                         icon: "slider.horizontal.3",
                         iconColor: Color.iosBlue,
-                        name: "自定义",
-                        subtitle: "通过日历自由配置响铃日",
+                        name: locale.localizedString("自定义"),
+                        subtitle: locale.localizedString("通过日历自由配置响铃日"),
                         isSelected: isCustom
                     )
                 }
             }
         }
-        .navigationTitle("重复")
+        .navigationTitle(locale.localizedString("重复"))
         .navigationBarTitleDisplayMode(.inline)
     }
-
-    // MARK: - Selection state
 
     private var isDaily: Bool {
         if case .daily = repeatMode { return true }
@@ -98,8 +97,6 @@ struct RepeatModePicker: View {
     private func selectDaily() {
         repeatMode = .daily
     }
-
-    // MARK: - Row views
 
     private func modeRow(
         icon: String, iconColor: Color, name: String,

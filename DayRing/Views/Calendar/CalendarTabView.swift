@@ -3,6 +3,7 @@ import SwiftData
 
 struct CalendarTabView: View {
     @Query(sort: \Alarm.hour) private var alarms: [Alarm]
+    @Environment(\.localeManager) private var locale
     @State private var viewModel = CalendarViewModel()
     @State private var showingDayDetail = false
 
@@ -42,11 +43,11 @@ struct CalendarTabView: View {
 
     private var headerRow: some View {
         HStack(alignment: .center) {
-            Text("日历")
+            Text(locale.localizedString("日历"))
                 .font(.system(size: 34, weight: .bold))
                 .foregroundStyle(Color.fgPrimary)
             Spacer()
-            Button("今天") {
+            Button(locale.localizedString("今天")) {
                 viewModel.goToToday()
             }
             .font(.system(size: 17))
@@ -98,10 +99,10 @@ struct CalendarTabView: View {
 
     private var legendRow: some View {
         HStack(spacing: 16) {
-            legendItem(color: Color.holidayRed, text: "节假日")
-            legendItem(color: Color.makeupPurple, text: "补班日")
-            legendItem(color: Color.accent, text: "今天")
-            legendItem(color: Color.iosBlue, text: "已覆盖")
+            legendItem(color: Color.holidayRed, text: locale.localizedString("节假日"))
+            legendItem(color: Color.makeupPurple, text: locale.localizedString("补班日"))
+            legendItem(color: Color.accent, text: locale.localizedString("今天"))
+            legendItem(color: Color.iosBlue, text: locale.localizedString("已覆盖"))
         }
         .padding(.horizontal, 16)
         .padding(.bottom, 8)

@@ -2,20 +2,21 @@ import SwiftUI
 
 struct BiweeklyDetailView: View {
     @Binding var repeatMode: RepeatMode
+    @Environment(\.localeManager) private var locale
     @State private var week1Days: Set<Weekday> = Weekday.workdays
     @State private var week2Days: Set<Weekday> = [.monday, .tuesday, .wednesday, .thursday]
 
     var body: some View {
         VStack(spacing: 24) {
-            Text("以两周为一个循环，选择每周哪些天响铃。")
+            Text(locale.localizedString("以两周为一个循环，选择每周哪些天响铃。"))
                 .font(.system(size: 15))
                 .foregroundStyle(Color.fgSecondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            weekBox(title: "第 1 周", days: $week1Days)
-            weekBox(title: "第 2 周", days: $week2Days)
+            weekBox(title: locale.localizedString("第 1 周"), days: $week1Days)
+            weekBox(title: locale.localizedString("第 2 周"), days: $week2Days)
 
-            Text("以两周为一个循环，大周和小周可分别选择响铃日。")
+            Text(locale.localizedString("以两周为一个循环，大周和小周可分别选择响铃日。"))
                 .font(.caption())
                 .foregroundStyle(Color.fgTertiary)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -24,11 +25,11 @@ struct BiweeklyDetailView: View {
         }
         .padding(20)
         .background(Color.bgPrimary)
-        .navigationTitle("大小周")
+        .navigationTitle(locale.localizedString("大小周"))
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
-                Button("完成") {
+                Button(locale.localizedString("完成")) {
                     repeatMode = .biweekly(week1: week1Days, week2: week2Days)
                 }
                 .fontWeight(.semibold)

@@ -16,18 +16,19 @@ final class SettingsViewModel {
     }
 
     var firstDayDisplayName: String {
-        "周\(settings.firstDayOfWeek.shortName)"
+        let l = LocaleManager.shared
+        return l.localizedString("周") + settings.firstDayOfWeek.shortName
     }
 
     var calendarDisplayName: String {
-        settings.selectedCalendars.map(\.rawValue).sorted().joined(separator: "、")
+        settings.selectedCalendars.map(\.localizedName).sorted().joined(separator: "、")
     }
 
     var languageDisplayName: String {
-        settings.locale.rawValue
+        settings.locale.nativeName
     }
 
     var appearanceDisplayName: String {
-        settings.appearanceMode.rawValue
+        settings.appearanceMode.localizedName
     }
 }
