@@ -120,6 +120,13 @@
         "en" : { "stringUnit" : { "state" : "translated", "value" : "Early Ring" } }
       }
     },
+    "删除" : {
+      "localizations" : {
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "删除" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "刪除" } },
+        "en" : { "stringUnit" : { "state" : "translated", "value" : "Delete" } }
+      }
+    },
     "响铃后删除" : {
       "localizations" : {
         "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "响铃后删除" } },

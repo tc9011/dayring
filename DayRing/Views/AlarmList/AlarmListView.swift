@@ -3,42 +3,60 @@ import SwiftData
 
 struct AlarmListView: View {
     @Query(sort: \Alarm.hour, order: .forward) private var alarms: [Alarm]
+    @Query private var allSettings: [AppSettings]
     @Environment(\.modelContext) private var modelContext
     @Environment(\.localeManager) private var locale
     @State private var viewModel = AlarmListViewModel()
     @State private var showingEditor = false
     @State private var editingAlarm: Alarm?
 
+    private var settings: AppSettings {
+        allSettings.first ?? AppSettings()
+    }
+
+    private var is24HourFormat: Bool {
+        settings.timeFormat == .h24
+    }
+
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             VStack(spacing: 0) {
                 headerRow
-                ScrollView {
-                    GlassEffectContainer(spacing: 12) {
-                        VStack(spacing: 12) {
-                            if let bannerText = viewModel.nextAlarmText() {
-                                NextAlarmBanner(text: bannerText)
-                            }
+                List {
+                    if let bannerText = viewModel.nextAlarmText() {
+                        NextAlarmBanner(text: bannerText)
+                            .listRowBackground(Color.clear)
+                            .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                            .listRowSeparator(.hidden)
+                    }
 
-                            ForEach(alarms) { alarm in
-                                let status = viewModel.statusInfo(for: alarm)
-                                AlarmCardView(
-                                    alarm: alarm,
-                                    statusText: status.text,
-                                    statusColor: status.color,
-                                    is24HourFormat: true,
-                                    onSkipNext: { viewModel.skipNext(alarm) }
-                                )
-                                .onTapGesture {
-                                    editingAlarm = alarm
-                                    showingEditor = true
-                                }
+                    ForEach(alarms) { alarm in
+                        let status = viewModel.statusInfo(for: alarm)
+                        AlarmCardView(
+                            alarm: alarm,
+                            statusText: status.text,
+                            statusColor: status.color,
+                            is24HourFormat: is24HourFormat,
+                            onSkipNext: { viewModel.skipNext(alarm) }
+                        )
+                        .onTapGesture {
+                            editingAlarm = alarm
+                            showingEditor = true
+                        }
+                        .listRowBackground(Color.clear)
+                        .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
+                        .listRowSeparator(.hidden)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            Button(role: .destructive) {
+                                modelContext.delete(alarm)
+                            } label: {
+                                Label(locale.localizedString("删除"), systemImage: "trash")
                             }
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.bottom, 100)
                     }
                 }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
             }
 
             Button {
@@ -75,9 +93,14 @@ struct AlarmListView: View {
                 .font(.system(size: 34, weight: .bold))
                 .foregroundStyle(Color.fgPrimary)
             Spacer()
-            Button(locale.localizedString("编辑")) { }
-                .font(.system(size: 17))
-                .foregroundStyle(Color.accent)
+            Button {
+                editingAlarm = nil
+                showingEditor = true
+            } label: {
+                Image(systemName: "plus")
+                    .font(.system(size: 20, weight: .medium))
+                    .foregroundStyle(Color.accent)
+            }
         }
         .padding(.horizontal, 16)
         .padding(.top, 8)

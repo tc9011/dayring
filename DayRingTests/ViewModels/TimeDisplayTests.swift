@@ -43,4 +43,31 @@ struct TimeDisplayTests {
         #expect(alarm.hour12 == 11)
         #expect(alarm.amPmString == "PM")
     }
+
+    // MARK: - Settings-driven format selection
+
+    @Test("AppSettings.timeFormat drives is24HourFormat: h24 → true")
+    func settingsDriveFormat24h() {
+        let settings = AppSettings(timeFormat: .h24)
+        let is24Hour = settings.timeFormat == .h24
+        #expect(is24Hour == true)
+    }
+
+    @Test("AppSettings.timeFormat drives is24HourFormat: h12 → false")
+    func settingsDriveFormat12h() {
+        let settings = AppSettings(timeFormat: .h12)
+        let is24Hour = settings.timeFormat == .h24
+        #expect(is24Hour == false)
+    }
+
+    @Test("12h format display string differs from 24h for PM hours")
+    func formatDisplayDifference() {
+        let alarm = Alarm(hour: 14, minute: 30)
+        let display24 = alarm.timeString
+        let display12 = String(format: "%02d:%02d", alarm.hour12, alarm.minute)
+
+        #expect(display24 == "14:30")
+        #expect(display12 == "02:30")
+        #expect(display24 != display12)
+    }
 }
