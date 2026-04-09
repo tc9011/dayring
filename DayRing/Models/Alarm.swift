@@ -73,7 +73,8 @@ final class Alarm {
     }
 
     var amPmString: String {
-        hour < 12 ? "AM" : "PM"
+        let key = hour < 12 ? "AM" : "PM"
+        return LocaleManager.shared.localizedString(key)
     }
 
     var hour12: Int {

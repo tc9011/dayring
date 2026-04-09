@@ -22,24 +22,26 @@ struct AlarmTests {
     func timeString() {
         let alarm = Alarm(hour: 7, minute: 0)
         #expect(alarm.timeString == "07:00")
-        #expect(alarm.amPmString == "AM")
         #expect(alarm.hour12 == 7)
 
         let pm = Alarm(hour: 14, minute: 30)
         #expect(pm.timeString == "14:30")
-        #expect(pm.amPmString == "PM")
         #expect(pm.hour12 == 2)
+
+        #expect(alarm.amPmString != pm.amPmString)
     }
 
     @Test("Midnight and noon edge cases for 12h conversion")
     func hour12EdgeCases() {
         let midnight = Alarm(hour: 0, minute: 0)
         #expect(midnight.hour12 == 12)
-        #expect(midnight.amPmString == "AM")
+        #expect(midnight.amPmString == Alarm(hour: 6, minute: 0).amPmString)
 
         let noon = Alarm(hour: 12, minute: 0)
         #expect(noon.hour12 == 12)
-        #expect(noon.amPmString == "PM")
+        #expect(noon.amPmString == Alarm(hour: 18, minute: 0).amPmString)
+
+        #expect(midnight.amPmString != noon.amPmString)
     }
 
     @Test("Weekly pattern matches weekdays, not weekends")

@@ -116,11 +116,11 @@ struct CalendarViewModelTests {
         let date = Calendar.current.date(from: components)!
 
         let alarm1 = Alarm(hour: 7, minute: 0, isEnabled: true)
-        let alarm2 = Alarm(hour: 14, minute: 30, isEnabled: true) // 2:30 PM
+        let alarm2 = Alarm(hour: 14, minute: 30, isEnabled: true)
 
         let times12 = vm.alarmTimes(for: date, alarms: [alarm1, alarm2], is24HourFormat: false)
         #expect(times12.count == 2)
-        #expect(times12[0] == "7:00 AM")
-        #expect(times12[1] == "2:30 PM")
+        #expect(times12[0].hasPrefix("7:00"))
+        #expect(times12[1].hasPrefix("2:30"))
     }
 }

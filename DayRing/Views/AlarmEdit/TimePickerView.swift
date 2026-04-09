@@ -4,6 +4,7 @@ struct TimePickerView: View {
     @Binding var hour: Int
     @Binding var minute: Int
     var is24HourFormat: Bool = true
+    @Environment(\.localeManager) private var locale
 
     private var hour12: Int {
         let h = hour % 12
@@ -98,8 +99,8 @@ struct TimePickerView: View {
                 get: { isAM },
                 set: { setHour12(hour12, am: $0) }
             )) {
-                Text("AM").tag(true)
-                Text("PM").tag(false)
+                Text(locale.localizedString("AM")).tag(true)
+                Text(locale.localizedString("PM")).tag(false)
             }
             .pickerStyle(.wheel)
             .frame(width: 60, height: 200)
