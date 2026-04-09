@@ -115,7 +115,7 @@ struct SettingsView: View {
 
             VStack(spacing: 0) {
                 settingsRow(
-                    icon: "textformat.abc",
+                    icon: "translate",
                     iconColor: Color.iosGray,
                     title: "语言",
                     value: viewModel.languageDisplayName
