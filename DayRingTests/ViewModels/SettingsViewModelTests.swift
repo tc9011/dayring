@@ -77,4 +77,39 @@ struct SettingsViewModelTests {
         let vm = SettingsViewModel()
         #expect(vm.languageDisplayName == "跟随系统")
     }
+
+    // MARK: - AppearanceMode
+
+    @Test("Default appearance mode is system")
+    func defaultAppearanceMode() {
+        let settings = AppSettings()
+        #expect(settings.appearanceMode == .system)
+    }
+
+    @Test("Appearance mode can be set to light")
+    func setAppearanceLight() {
+        let settings = AppSettings()
+        settings.appearanceMode = .light
+        #expect(settings.appearanceMode == .light)
+    }
+
+    @Test("Appearance mode can be set to dark")
+    func setAppearanceDark() {
+        let settings = AppSettings()
+        settings.appearanceMode = .dark
+        #expect(settings.appearanceMode == .dark)
+    }
+
+    @Test("AppearanceMode has correct colorScheme mapping")
+    func appearanceColorScheme() {
+        #expect(AppearanceMode.system.colorScheme == nil)
+        #expect(AppearanceMode.light.colorScheme == .light)
+        #expect(AppearanceMode.dark.colorScheme == .dark)
+    }
+
+    @Test("ViewModel appearanceDisplayName returns 自动 for system")
+    func appearanceDisplayName() {
+        let vm = SettingsViewModel()
+        #expect(vm.appearanceDisplayName == "自动")
+    }
 }

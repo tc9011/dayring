@@ -35,7 +35,7 @@ extension Color {
     // MARK: - Brand
 
     static let accent = Color(light: "FF9500", dark: "FF9F0A")
-    static let todayBg = Color(light: "FF950020", dark: "FF9F0A30")
+    static let todayBg = Color(light: "20FF9500", dark: "30FF9F0A")
 
     // MARK: - Backgrounds
 
@@ -60,12 +60,15 @@ extension Color {
 
     // MARK: - Glass
 
-    static let glassBg = Color(light: "FFFFFFCC", dark: "1C1C1ECC")
-    static let glassBorder = Color(light: "FFFFFF66", dark: "FFFFFF1A")
+    static let glassBg = Color(light: "CCFFFFFF", dark: "CC1C1C1E")
+    static let glassBorder = Color(light: "66FFFFFF", dark: "1AFFFFFF")
 
     // MARK: - System Accent (non-adaptive)
 
     static let iosBlue = Color(hex: "007AFF")
     static let iosIndigo = Color(hex: "5856D6")
     static let iosPink = Color(hex: "FF2D55")
+    static let iosTeal = Color(light: "30B0C7", dark: "40C8E0")
+    static let iosGray = Color(hex: "8E8E93")
+    static let settingsIconBlack = Color(light: "1C1C1E", dark: "48484A")
 }

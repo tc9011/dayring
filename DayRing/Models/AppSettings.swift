@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import SwiftData
 
 @Model
@@ -6,6 +7,7 @@ final class AppSettings {
     var timeFormat: TimeFormat
     var firstDayOfWeek: Weekday
     var locale: AppLocale
+    var appearanceMode: AppearanceMode
     var selectedCalendarsData: Data
     var timezoneData: Data
 
@@ -35,12 +37,14 @@ final class AppSettings {
         timeFormat: TimeFormat = .h24,
         firstDayOfWeek: Weekday = .monday,
         locale: AppLocale = .system,
+        appearanceMode: AppearanceMode = .system,
         selectedCalendars: Set<CalendarType> = [.lunar],
         timezone: TimezoneOption = .system
     ) {
         self.timeFormat = timeFormat
         self.firstDayOfWeek = firstDayOfWeek
         self.locale = locale
+        self.appearanceMode = appearanceMode
         self.selectedCalendarsData = (try? JSONEncoder().encode(selectedCalendars)) ?? Data()
         self.timezoneData = (try? JSONEncoder().encode(timezone)) ?? Data()
     }
@@ -76,6 +80,20 @@ enum TimezoneOption: Codable, Hashable, Sendable {
         case .system: "跟随系统"
         case .specific(let id):
             TimeZone(identifier: id)?.localizedName(for: .standard, locale: .current) ?? id
+        }
+    }
+}
+
+enum AppearanceMode: String, Codable, CaseIterable, Sendable {
+    case system = "自动"
+    case light = "浅色"
+    case dark = "深色"
+
+    var colorScheme: ColorScheme? {
+        switch self {
+        case .system: nil
+        case .light: .light
+        case .dark: .dark
         }
     }
 }

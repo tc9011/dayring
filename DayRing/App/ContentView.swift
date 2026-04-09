@@ -1,7 +1,9 @@
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
     @State private var selectedTab = 0
+    @Query private var allSettings: [AppSettings]
 
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -19,6 +21,7 @@ struct ContentView: View {
             Color.bgPrimary.ignoresSafeArea()
         }
         .tint(Color.accent)
+        .preferredColorScheme(allSettings.first?.appearanceMode.colorScheme)
     }
 }
 

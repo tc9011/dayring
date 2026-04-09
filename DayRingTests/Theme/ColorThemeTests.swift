@@ -26,9 +26,10 @@ struct ColorThemeTests {
             .holidayRed, .holidayRedBg,
             .makeupPurple, .makeupPurpleBg,
             .iosGreen, .iosBlue, .iosIndigo, .iosPink,
+            .iosTeal, .iosGray, .settingsIconBlack,
             .separator, .glassBg, .glassBorder,
         ]
-        #expect(colors.count == 19)
+        #expect(colors.count == 22)
     }
 
     @Test("8-digit hex handles alpha channel")

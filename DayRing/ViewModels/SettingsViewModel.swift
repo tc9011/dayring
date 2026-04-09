@@ -26,4 +26,8 @@ final class SettingsViewModel {
     var languageDisplayName: String {
         settings.locale.rawValue
     }
+
+    var appearanceDisplayName: String {
+        settings.appearanceMode.rawValue
+    }
 }
