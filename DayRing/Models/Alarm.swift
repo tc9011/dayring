@@ -81,6 +81,10 @@ final class Alarm {
         return h == 0 ? 12 : h
     }
 
+    var repeatModeDisplayName: String {
+        repeatMode.displayName
+    }
+
     var repeatDetailText: String {
         switch repeatMode {
         case .daily:
