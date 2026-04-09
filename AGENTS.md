@@ -5,7 +5,8 @@ Coding guidelines for AI agents working on the DayRing (该起了) codebase.
 ## Project Overview
 
 **Type**: Native iOS app  
-**Purpose**: Smart calendar alarm clock that integrates Chinese holidays, makeup workdays, and multiple repeat patterns (daily, weekly, biweekly, rotating shifts, custom) with intelligent skip/override logic.
+**Purpose**: Smart calendar alarm clock that integrates Chinese holidays, makeup workdays, and multiple repeat patterns (daily, weekly, biweekly, rotating shifts, custom) with intelligent skip/override logic.  
+**Status**: All 14 implementation tasks (Task 0–13) are complete. The app is in QA/polish phase.
 
 **Tech Stack**:
 
@@ -16,8 +17,10 @@ Coding guidelines for AI agents working on the DayRing (该起了) codebase.
 - **Persistence**: SwiftData (`@Model`)
 - **Alarm Scheduling**: AlarmKit (iOS 26)
 - **Calendar**: Foundation `Calendar(identifier: .chinese)` for lunar dates
-- **Testing**: Swift Testing framework (`@Test`, `#expect`, `@Suite`)
+- **i18n**: Runtime locale switching via `LocaleManager` + `.xcstrings` (zh-Hans, zh-Hant, en)
+- **Testing**: Swift Testing framework (`@Test`, `#expect`, `@Suite`) — 104 tests, 10 suites
 - **Fonts**: Inter (system on iOS 26) + Geist Mono (bundled)
+- **Project Generation**: XcodeGen (`project.yml` → `DayRing.xcodeproj`)
 
 ## MUST FOLLOW
 
@@ -27,21 +30,24 @@ Coding guidelines for AI agents working on the DayRing (该起了) codebase.
    - **Refactor** — Clean up while keeping tests green
    - No implementation code may be written before its corresponding tests exist and fail
 
-2. **Do not start development until explicitly approved by the user.** Design review is ongoing — implementation is blocked until approval.
+2. Before writing any code, read the implementation plan at `docs/plans/2026-04-09-dayring-implementation.md` and the design system at `DESIGN.md`.
 
-3. Before writing any code, read the implementation plan at `docs/plans/2026-04-09-dayring-implementation.md` and the design system at `DESIGN.md`.
+3. If a task requires changes to more than 5 files, break it into smaller sub-tasks first.
 
-4. If a task requires changes to more than 5 files, break it into smaller sub-tasks first.
+4. After writing code, run `xcodebuild test` and verify all tests pass before committing.
 
-5. After writing code, run `xcodebuild test` and verify all tests pass before committing.
+5. When there's a bug, write a test that reproduces it first, then fix until the test passes.
 
-6. When there's a bug, write a test that reproduces it first, then fix until the test passes.
+6. After adding new `.swift` files, run `xcodegen generate` to regenerate the Xcode project before building.
 
 ## Build, Lint, and Test Commands
 
 ### Development
 
 ```bash
+# Regenerate Xcode project after adding/removing .swift files
+xcodegen generate
+
 # Build for simulator
 xcodebuild build -scheme DayRing -destination 'platform=iOS Simulator,name=iPhone 16 Pro' 2>&1 | xcpretty
 
@@ -79,7 +85,7 @@ DayRing/
 │   ├── Alarm.swift                   # SwiftData @Model — core alarm entity
 │   ├── RepeatMode.swift              # Enum: daily/weekly/biweekly/rotating/custom
 │   ├── AppSettings.swift             # App settings model (time format, locale, etc.)
-│   └── Weekday.swift                 # Mon=1...Sun=7 with Chinese short names
+│   └── Weekday.swift                 # Mon=1...Sun=7 with localized short names
 ├── ViewModels/
 │   ├── AlarmListViewModel.swift      # Alarm list logic, next-alarm calculation
 │   ├── CalendarViewModel.swift       # Month navigation, day metadata
@@ -96,7 +102,7 @@ DayRing/
 │   │   ├── CalendarDayCellView.swift # Individual day cell
 │   │   └── DayDetailSheet.swift      # Screen 5: day detail with overrides
 │   ├── Settings/
-│   │   └── SettingsView.swift        # Screen 3: app settings
+│   │   └── SettingsView.swift        # Screen 3: app settings + language picker
 │   ├── AlarmEdit/
 │   │   ├── AlarmEditSheet.swift      # Screen 4: alarm editor modal
 │   │   ├── TimePickerView.swift      # Large time display/picker
@@ -106,20 +112,22 @@ DayRing/
 │   │   ├── RotatingDetailView.swift  # Screen 8: ring/gap cycle
 │   │   └── CustomCalendarDetailView.swift  # Screen 9: tap-to-select calendar
 │   └── Shared/
-│       ├── WeekdaySelectorView.swift # Reusable weekday circle row
-│       └── ToggleRow.swift           # Label + Toggle row
+│       └── WeekdaySelectorView.swift # Reusable weekday circle row
 ├── Services/
 │   ├── AlarmScheduler.swift          # AlarmKit integration
+│   ├── AlarmScheduleCalculator.swift # Next-ring date calculation
 │   ├── ChineseCalendarService.swift  # Lunar dates via Foundation
-│   └── HolidayDataProvider.swift     # Holiday/makeup day static data
+│   ├── HolidayDataProvider.swift     # Holiday/makeup day static data
+│   └── LocaleManager.swift           # Runtime i18n via .lproj bundle switching
 ├── Extensions/
 │   ├── Color+Theme.swift             # Adaptive colors with hex init
 │   ├── Font+Theme.swift              # Type scale definitions
-│   └── Date+Extensions.swift         # Date formatting helpers
+│   ├── Date+Extensions.swift         # Date formatting helpers
+│   └── LocaleManager+Environment.swift # SwiftUI @Environment key for LocaleManager
 └── Resources/
     ├── Assets.xcassets                # App icons, color assets
     ├── Fonts/                         # Geist Mono .otf files
-    └── Localizable.xcstrings          # i18n strings (zh-Hans, zh-Hant, en, ja)
+    └── Localizable.xcstrings          # i18n strings (zh-Hans, zh-Hant, en)
 
 DayRingTests/
 ├── Theme/
@@ -127,8 +135,13 @@ DayRingTests/
 ├── Models/
 │   └── AlarmTests.swift              # Alarm model + shouldRing logic tests
 ├── Services/
-│   └── ChineseCalendarServiceTests.swift  # Lunar date + holiday tests
+│   ├── AlarmSchedulerTests.swift     # Alarm scheduling tests
+│   ├── ChineseCalendarServiceTests.swift  # Lunar date + holiday tests
+│   └── LocaleManagerTests.swift      # i18n bundle loading + string lookup tests
 └── ViewModels/
+    ├── AlarmEditViewModelTests.swift  # Alarm edit form tests
+    ├── CalendarViewModelTests.swift   # Calendar navigation tests
+    ├── SettingsViewModelTests.swift   # Settings persistence tests
     └── TimeDisplayTests.swift        # 12h/24h format display tests
 ```
 
@@ -202,6 +215,24 @@ final class AlarmListViewModel {
 // In views, use @State for owned ViewModels
 @State private var viewModel = AlarmListViewModel()
 ```
+
+### Localization (i18n)
+
+All user-facing strings go through `LocaleManager` for runtime locale switching without app restart.
+
+```swift
+// In Views — use @Environment
+@Environment(\.localeManager) private var locale
+
+Text(locale.localizedString("闹钟"))    // ✅ Localized at runtime
+Text("闹钟")                            // ❌ Hardcoded — won't switch
+
+// In Models / ViewModels — use singleton
+LocaleManager.shared.localizedString("设置")
+```
+
+Supported locales: `.system` (follows device), `.zhHans`, `.zhHant`, `.en`.  
+String keys are Chinese (the source language). Translations live in `Localizable.xcstrings`.
 
 ## Architecture
 
@@ -280,6 +311,11 @@ struct AlarmTests {
 | Holiday provider | Holiday/makeup day lookup, regular day returns false |
 | Time display | 24h hides AM/PM, 12h shows AM/PM, hour12 conversion |
 | Biweekly | All 7 days available, weekend selection persists |
+| LocaleManager | Bundle loading per locale, string lookup, locale switching, fallback, Codable round-trip |
+| Alarm scheduler | Schedule/cancel operations, next-ring calculation |
+| Alarm edit VM | Form state, save/load, validation |
+| Calendar VM | Month navigation, title formatting |
+| Settings VM | Default values, display name generation |
 
 ### Running Tests
 
