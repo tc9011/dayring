@@ -50,7 +50,7 @@ struct BiweeklyDetailView: View {
         VStack(alignment: .leading, spacing: 12) {
             Text(title)
                 .font(.system(size: 15, weight: .semibold))
-            HStack(spacing: 6) {
+            HStack(spacing: 8) {
                 ForEach(Weekday.allCases, id: \.self) { day in
                     Button {
                         if days.wrappedValue.contains(day) {
@@ -60,10 +60,9 @@ struct BiweeklyDetailView: View {
                         }
                     } label: {
                         Text(day.shortName)
-                            .font(.system(size: 13, weight: days.wrappedValue.contains(day) ? .semibold : .medium))
+                            .font(.system(size: 15, weight: days.wrappedValue.contains(day) ? .semibold : .medium))
                             .foregroundStyle(days.wrappedValue.contains(day) ? .white : Color.fgSecondary)
-                            .frame(maxWidth: .infinity)
-                            .aspectRatio(1, contentMode: .fit)
+                            .frame(width: 44, height: 44)
                             .background(
                                 days.wrappedValue.contains(day) ? Color.accent : Color.bgTertiary,
                                 in: Circle()

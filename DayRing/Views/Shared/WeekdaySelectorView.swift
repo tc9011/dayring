@@ -4,7 +4,7 @@ struct WeekdaySelectorView: View {
     @Binding var selectedDays: Set<Weekday>
 
     var body: some View {
-        HStack(spacing: 6) {
+        HStack(spacing: 8) {
             ForEach(Weekday.allCases, id: \.self) { day in
                 Button {
                     if selectedDays.contains(day) {
@@ -14,10 +14,9 @@ struct WeekdaySelectorView: View {
                     }
                 } label: {
                     Text(day.shortName)
-                        .font(.system(size: 14, weight: selectedDays.contains(day) ? .semibold : .medium))
+                        .font(.system(size: 15, weight: selectedDays.contains(day) ? .semibold : .medium))
                         .foregroundStyle(selectedDays.contains(day) ? .white : Color.fgSecondary)
-                        .frame(maxWidth: .infinity)
-                        .aspectRatio(1, contentMode: .fit)
+                        .frame(width: 44, height: 44)
                         .background(
                             selectedDays.contains(day) ? Color.accent : Color.bgTertiary,
                             in: Circle()

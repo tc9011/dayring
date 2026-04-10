@@ -66,8 +66,31 @@ struct RotatingDetailView: View {
         HStack {
             Text(label).font(.bodyText())
             Spacer()
-            Stepper("\(value.wrappedValue)", value: value, in: range)
-                .font(.timeSmall())
+            HStack(spacing: 12) {
+                Button {
+                    if value.wrappedValue > range.lowerBound { value.wrappedValue -= 1 }
+                } label: {
+                    Image(systemName: "minus")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(value.wrappedValue > range.lowerBound ? Color.fgPrimary : Color.fgTertiary)
+                        .frame(width: 28, height: 28)
+                        .background(Color.bgTertiary, in: Circle())
+                }
+
+                Text("\(value.wrappedValue)")
+                    .font(.timeSmall())
+                    .monospacedDigit()
+
+                Button {
+                    if value.wrappedValue < range.upperBound { value.wrappedValue += 1 }
+                } label: {
+                    Image(systemName: "plus")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(.white)
+                        .frame(width: 28, height: 28)
+                        .background(Color.accent, in: Circle())
+                }
+            }
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 14)
@@ -78,21 +101,26 @@ struct RotatingDetailView: View {
             Text(locale.localizedString("循环预览"))
                 .font(.system(size: 15, weight: .semibold))
 
-            HStack(spacing: 4) {
-                let cycle = ringDays + gapDays
-                ForEach(0..<min(cycle + 1, 10), id: \.self) { i in
+            let cycle = ringDays + gapDays
+            let previewCount = cycle + 1
+            let cellSize: CGFloat = 28
+            let columns = Array(repeating: GridItem(.fixed(cellSize), spacing: 3), count: 8)
+            LazyVGrid(columns: columns, alignment: .leading, spacing: 3) {
+                ForEach(0..<previewCount, id: \.self) { i in
                     let isRing = i < ringDays || (i >= cycle && i < cycle + ringDays)
                     Text("\(i % cycle + 1)")
-                        .font(.system(size: 13, weight: isRing ? .semibold : .medium))
+                        .font(.system(size: 11, weight: isRing ? .semibold : .medium))
                         .foregroundStyle(isRing ? .white : Color.fgSecondary)
-                        .frame(width: 36, height: 36)
+                        .frame(width: cellSize, height: cellSize)
                         .background(
                             isRing ? Color.accent : Color.bgTertiary,
-                            in: RoundedRectangle(cornerRadius: 6)
+                            in: RoundedRectangle(cornerRadius: 5)
                         )
                 }
                 Text("···")
+                    .font(.system(size: 11))
                     .foregroundStyle(Color.fgTertiary)
+                    .frame(width: cellSize, height: cellSize)
             }
 
             HStack(spacing: 16) {

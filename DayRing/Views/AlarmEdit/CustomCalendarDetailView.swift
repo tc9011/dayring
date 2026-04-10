@@ -7,6 +7,20 @@ struct CustomCalendarDetailView: View {
     @State private var selectedDates: Set<DateComponents> = []
     @State private var displayedMonth = Date()
 
+    private var gridCells: [CalendarGridCell] {
+        CalendarGridHelper.gridCells(for: displayedMonth)
+    }
+
+    private var gridRows: [[CalendarGridCell]] {
+        CalendarGridHelper.gridRows(from: gridCells)
+    }
+
+    private var weekdaySymbols: [String] {
+        let bundleId = LocaleManager.shared.currentLocale.bundleIdentifier
+        let loc = bundleId.map { Locale(identifier: $0) }
+        return CalendarGridHelper.weekdaySymbols(locale: loc)
+    }
+
     var body: some View {
         VStack(spacing: 16) {
             Text(locale.localizedString("点击日期选择响铃日，长按拖动可批量选择。"))
@@ -61,32 +75,50 @@ struct CustomCalendarDetailView: View {
     }
 
     private var calendarGrid: some View {
-        LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 7), spacing: 8) {
-            ForEach(datesInMonth(), id: \.self) { components in
-                if let date = Calendar.current.date(from: components) {
-                    let isSelected = selectedDates.contains(components)
-                    let isToday = Calendar.current.isDateInToday(date)
+        Grid(horizontalSpacing: 8, verticalSpacing: 8) {
+            GridRow {
+                ForEach(weekdaySymbols, id: \.self) { symbol in
+                    Text(symbol)
+                        .font(.system(size: 13, weight: .medium))
+                        .foregroundStyle(Color.fgTertiary)
+                        .frame(height: 30)
+                }
+            }
 
-                    Button {
-                        if isSelected {
-                            selectedDates.remove(components)
-                        } else {
-                            selectedDates.insert(components)
-                        }
-                    } label: {
-                        Text("\(components.day ?? 0)")
-                            .font(.system(size: 16, weight: isSelected ? .semibold : .regular))
-                            .foregroundStyle(isSelected ? .white : (isToday ? Color.accent : Color.fgSecondary))
-                            .frame(width: 44, height: 44)
-                            .background(
-                                isSelected ? Color.accent : (isToday ? Color.todayBg : Color.bgTertiary),
-                                in: Circle()
-                            )
-                            .overlay {
-                                if isToday && !isSelected {
-                                    Circle().stroke(Color.accent, lineWidth: 2)
+            ForEach(gridRows, id: \.self) { row in
+                GridRow {
+                    ForEach(row, id: \.id) { cell in
+                        if let components = cell.dateComponents,
+                           let date = Calendar.current.date(from: components) {
+                            let isSelected = selectedDates.contains(where: {
+                                $0.year == components.year && $0.month == components.month && $0.day == components.day
+                            })
+                            let isToday = Calendar.current.isDateInToday(date)
+
+                            Button {
+                                if isSelected {
+                                    selectedDates.remove(components)
+                                } else {
+                                    selectedDates.insert(components)
                                 }
+                            } label: {
+                                Text("\(components.day ?? 0)")
+                                    .font(.system(size: 16, weight: isSelected ? .semibold : .regular))
+                                    .foregroundStyle(isSelected ? .white : (isToday ? Color.accent : Color.fgSecondary))
+                                    .frame(width: 44, height: 44)
+                                    .background(
+                                        isSelected ? Color.accent : (isToday ? Color.todayBg : Color.bgTertiary),
+                                        in: Circle()
+                                    )
+                                    .overlay {
+                                        if isToday && !isSelected {
+                                            Circle().stroke(Color.accent, lineWidth: 2)
+                                        }
+                                    }
                             }
+                        } else {
+                            Color.clear.frame(width: 44, height: 44)
+                        }
                     }
                 }
             }
@@ -95,7 +127,6 @@ struct CustomCalendarDetailView: View {
 
     private var monthTitle: String {
         let lm = LocaleManager.shared
-        let formatter = DateFormatter()
         let yearStr = "\(Calendar.current.component(.year, from: displayedMonth))"
         let monthStr = "\(Calendar.current.component(.month, from: displayedMonth))"
         let yearLabel = lm.localizedString("年")
@@ -107,23 +138,14 @@ struct CustomCalendarDetailView: View {
         displayedMonth = Calendar.current.date(byAdding: .month, value: delta, to: displayedMonth) ?? displayedMonth
     }
 
-    private func datesInMonth() -> [DateComponents] {
-        let calendar = Calendar.current
-        let range = calendar.range(of: .day, in: .month, for: displayedMonth)!
-        let components = calendar.dateComponents([.year, .month], from: displayedMonth)
-        return range.map { day in
-            DateComponents(year: components.year, month: components.month, day: day)
-        }
-    }
-
     private func legendItem(color: Color, borderColor: Color? = nil, text: String) -> some View {
         HStack(spacing: 4) {
-            Circle()
+            RoundedRectangle(cornerRadius: 3)
                 .fill(color)
-                .frame(width: 22, height: 22)
+                .frame(width: 12, height: 12)
                 .overlay {
                     if let bc = borderColor {
-                        Circle().stroke(bc, lineWidth: 2)
+                        RoundedRectangle(cornerRadius: 3).stroke(bc, lineWidth: 2)
                     }
                 }
             Text(text).font(.smallCaption()).foregroundStyle(Color.fgSecondary)
