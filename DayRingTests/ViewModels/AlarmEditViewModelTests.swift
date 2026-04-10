@@ -4,12 +4,13 @@ import Testing
 @Suite("AlarmEditViewModel Tests")
 struct AlarmEditViewModelTests {
 
-    @Test("Default state is 07:00 with workday weekly repeat")
+    @Test("Default state is 07:00 with no repeat")
     func defaultState() {
         let vm = AlarmEditViewModel()
         #expect(vm.hour == 7)
         #expect(vm.minute == 0)
         #expect(vm.label == "")
+        #expect(vm.repeatMode.isNone)
         #expect(vm.ringtone == "radar")
         #expect(vm.snoozeDuration == 5)
         #expect(vm.advanceMinutes == 0)

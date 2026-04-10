@@ -6,7 +6,7 @@ Coding guidelines for AI agents working on the DayRing (该起了) codebase.
 
 **Type**: Native iOS app  
 **Purpose**: Smart calendar alarm clock that integrates Chinese holidays, makeup workdays, and multiple repeat patterns (daily, weekly, biweekly, rotating shifts, custom) with intelligent skip/override logic.  
-**Status**: All 14 implementation tasks (Task 0–13) are complete. The app is in QA/polish phase.
+**Status**: All 14 implementation tasks (Task 0–13) are complete. Alarm edit enhancements (editable label, ringtone, snooze, advance, repeat mode with "no repeat" default, delete-after-ring for non-repeating alarms) are implemented. The app is in QA/polish phase.
 
 **Tech Stack**:
 
@@ -18,7 +18,7 @@ Coding guidelines for AI agents working on the DayRing (该起了) codebase.
 - **Alarm Scheduling**: AlarmKit (iOS 26)
 - **Calendar**: Foundation `Calendar(identifier: .chinese)` for lunar dates
 - **i18n**: Runtime locale switching via `LocaleManager` + `.xcstrings` (zh-Hans, zh-Hant, en)
-- **Testing**: Swift Testing framework (`@Test`, `#expect`, `@Suite`) — 104 tests, 10 suites
+- **Testing**: Swift Testing framework (`@Test`, `#expect`, `@Suite`) — 135 tests, 11 suites
 - **Fonts**: Inter (system on iOS 26) + Geist Mono (bundled)
 - **Project Generation**: XcodeGen (`project.yml` → `DayRing.xcodeproj`)
 
@@ -83,7 +83,7 @@ DayRing/
 │   └── ContentView.swift             # Root TabView (3 tabs)
 ├── Models/
 │   ├── Alarm.swift                   # SwiftData @Model — core alarm entity
-│   ├── RepeatMode.swift              # Enum: daily/weekly/biweekly/rotating/custom
+│   ├── RepeatMode.swift              # Enum: none/daily/weekly/biweekly/rotating/custom
 │   ├── AppSettings.swift             # App settings model (time format, locale, etc.)
 │   └── Weekday.swift                 # Mon=1...Sun=7 with localized short names
 ├── ViewModels/
@@ -133,7 +133,8 @@ DayRingTests/
 ├── Theme/
 │   └── ColorThemeTests.swift         # Theme system tests
 ├── Models/
-│   └── AlarmTests.swift              # Alarm model + shouldRing logic tests
+│   ├── AlarmTests.swift              # Alarm model + shouldRing logic tests
+│   └── AlarmFullFlowTests.swift      # Full-flow: create → save → shouldRing for all repeat modes
 ├── Services/
 │   ├── AlarmSchedulerTests.swift     # Alarm scheduling tests
 │   ├── ChineseCalendarServiceTests.swift  # Lunar date + holiday tests
@@ -285,7 +286,7 @@ Priority order for `shouldRing(on:)`:
 @Suite("Alarm Model Tests")
 struct AlarmTests {
 
-    @Test("Default alarm is 07:00 weekdays")
+    @Test("Default alarm is 07:00 no repeat")
     func defaultAlarm() {
         let alarm = Alarm()
         #expect(alarm.hour == 7)
@@ -306,6 +307,7 @@ struct AlarmTests {
 | Area | Tests Required |
 |------|---------------|
 | Alarm model | Default init, time formatting, repeat pattern matching, holiday skip, manual override, skip-next |
+| Full flow | Create → save → load round-trip → shouldRing for every repeat mode (none, daily, weekly, biweekly, rotating, custom) |
 | Theme system | Hex init, adaptive color existence, all tokens defined |
 | Chinese calendar | Lunar date strings for known dates |
 | Holiday provider | Holiday/makeup day lookup, regular day returns false |

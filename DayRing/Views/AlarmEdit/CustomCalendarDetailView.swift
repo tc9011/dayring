@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CustomCalendarDetailView: View {
     @Binding var repeatMode: RepeatMode
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.localeManager) private var locale
     @State private var selectedDates: Set<DateComponents> = []
     @State private var displayedMonth = Date()
@@ -46,6 +47,7 @@ struct CustomCalendarDetailView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button(locale.localizedString("完成")) {
                     repeatMode = .custom(dates: selectedDates)
+                    dismiss()
                 }
                 .fontWeight(.semibold)
                 .foregroundStyle(Color.accent)

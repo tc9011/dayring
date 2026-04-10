@@ -2,6 +2,7 @@ import SwiftUI
 
 struct BiweeklyDetailView: View {
     @Binding var repeatMode: RepeatMode
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.localeManager) private var locale
     @State private var week1Days: Set<Weekday> = Weekday.workdays
     @State private var week2Days: Set<Weekday> = [.monday, .tuesday, .wednesday, .thursday]
@@ -31,6 +32,7 @@ struct BiweeklyDetailView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button(locale.localizedString("完成")) {
                     repeatMode = .biweekly(week1: week1Days, week2: week2Days)
+                    dismiss()
                 }
                 .fontWeight(.semibold)
                 .foregroundStyle(Color.accent)

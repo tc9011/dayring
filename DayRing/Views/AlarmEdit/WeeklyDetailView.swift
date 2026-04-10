@@ -2,6 +2,7 @@ import SwiftUI
 
 struct WeeklyDetailView: View {
     @Binding var repeatMode: RepeatMode
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.localeManager) private var locale
     @State private var selectedDays: Set<Weekday> = Weekday.allDays
 
@@ -29,6 +30,7 @@ struct WeeklyDetailView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button(locale.localizedString("完成")) {
                     repeatMode = .weekly(days: selectedDays)
+                    dismiss()
                 }
                 .fontWeight(.semibold)
                 .foregroundStyle(Color.accent)

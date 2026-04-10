@@ -8,6 +8,15 @@ struct RepeatModePicker: View {
         List {
             Section {
                 modeRow(
+                    icon: "minus.circle",
+                    iconColor: Color.iosGray,
+                    name: locale.localizedString("不重复"),
+                    subtitle: locale.localizedString("仅响铃一次"),
+                    isSelected: isNone,
+                    destination: { selectNone() }
+                )
+
+                modeRow(
                     icon: "repeat",
                     iconColor: Color.iosGreen,
                     name: locale.localizedString("每天"),
@@ -69,6 +78,11 @@ struct RepeatModePicker: View {
         .navigationBarTitleDisplayMode(.inline)
     }
 
+    private var isNone: Bool {
+        if case .none = repeatMode { return true }
+        return false
+    }
+
     private var isDaily: Bool {
         if case .daily = repeatMode { return true }
         return false
@@ -92,6 +106,10 @@ struct RepeatModePicker: View {
     private var isCustom: Bool {
         if case .custom = repeatMode { return true }
         return false
+    }
+
+    private func selectNone() {
+        repeatMode = .none
     }
 
     private func selectDaily() {

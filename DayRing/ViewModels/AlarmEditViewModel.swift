@@ -6,7 +6,7 @@ final class AlarmEditViewModel {
     var hour: Int = 7
     var minute: Int = 0
     var label: String = ""
-    var repeatMode: RepeatMode = .weekly(days: Weekday.workdays)
+    var repeatMode: RepeatMode = .none
     var ringtone: String = "radar"
     var snoozeDuration: Int = 5
     var advanceMinutes: Int = 0
@@ -78,4 +78,10 @@ final class AlarmEditViewModel {
         let l = LocaleManager.shared
         return snoozeDuration == 0 ? l.localizedString("关闭") : "\(snoozeDuration) " + l.localizedString("分钟")
     }
+
+    static let ringtoneOptions = ["radar", "beacon", "chimes", "circuit", "constellation", "cosmic", "crystals", "hillside", "nightowl", "playtime", "presto", "radar", "reflection", "sencha", "signal", "silk", "slow_rise", "stargaze", "summit", "twinkle", "uplift"]
+
+    static let snoozeOptions = [0, 1, 3, 5, 10, 15, 30]
+
+    static let advanceOptions = [0, 5, 10, 15, 30, 60]
 }

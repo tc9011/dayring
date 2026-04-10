@@ -2,6 +2,7 @@ import SwiftUI
 
 struct RotatingDetailView: View {
     @Binding var repeatMode: RepeatMode
+    @Environment(\.dismiss) private var dismiss
     @Environment(\.localeManager) private var locale
     @State private var startDate = Date()
     @State private var ringDays = 4
@@ -14,17 +15,15 @@ struct RotatingDetailView: View {
                 .foregroundStyle(Color.fgSecondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
-            GroupBox {
-                VStack(spacing: 0) {
-                    DatePicker(locale.localizedString("开始日期"), selection: $startDate, displayedComponents: .date)
-                        .padding(.horizontal, 16).padding(.vertical, 14)
-                    Divider()
-                    stepperRow(locale.localizedString("响铃天数"), value: $ringDays, range: 1...30)
-                    Divider()
-                    stepperRow(locale.localizedString("间隔天数"), value: $gapDays, range: 1...30)
-                }
+            VStack(spacing: 0) {
+                DatePicker(locale.localizedString("开始日期"), selection: $startDate, displayedComponents: .date)
+                    .padding(.horizontal, 16).padding(.vertical, 14)
+                Color.bgTertiary.frame(height: 0.5).padding(.leading, 16)
+                stepperRow(locale.localizedString("响铃天数"), value: $ringDays, range: 1...30)
+                Color.bgTertiary.frame(height: 0.5).padding(.leading, 16)
+                stepperRow(locale.localizedString("间隔天数"), value: $gapDays, range: 1...30)
             }
-            .backgroundStyle(Color.bgSecondary)
+            .background(Color.bgSecondary)
             .clipShape(RoundedRectangle(cornerRadius: 12))
 
             cyclePreview
@@ -50,6 +49,7 @@ struct RotatingDetailView: View {
             ToolbarItem(placement: .confirmationAction) {
                 Button(locale.localizedString("完成")) {
                     repeatMode = .rotating(startDate: startDate, ringDays: ringDays, gapDays: gapDays)
+                    dismiss()
                 }
                 .fontWeight(.semibold)
                 .foregroundStyle(Color.accent)

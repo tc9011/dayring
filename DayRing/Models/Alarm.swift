@@ -26,7 +26,7 @@ final class Alarm {
     var repeatMode: RepeatMode {
         get {
             (try? JSONDecoder().decode(RepeatMode.self, from: repeatModeData))
-                ?? .weekly(days: Weekday.workdays)
+                ?? .none
         }
         set {
             repeatModeData = (try? JSONEncoder().encode(newValue)) ?? Data()
@@ -37,7 +37,7 @@ final class Alarm {
         hour: Int = 7,
         minute: Int = 0,
         label: String = "",
-        repeatMode: RepeatMode = .weekly(days: Weekday.workdays),
+        repeatMode: RepeatMode = .none,
         ringtone: String = "radar",
         snoozeDuration: Int = 5,
         advanceMinutes: Int = 0,
@@ -89,6 +89,8 @@ final class Alarm {
     var repeatDetailText: String {
         let l = LocaleManager.shared
         switch repeatMode {
+        case .none:
+            return l.localizedString("不重复")
         case .daily:
             return l.localizedString("每天")
         case .weekly(let days):
@@ -133,6 +135,9 @@ final class Alarm {
         let calendar = Calendar.current
 
         switch repeatMode {
+        case .none:
+            return true
+
         case .daily:
             return true
 
@@ -160,7 +165,9 @@ final class Alarm {
 
         case .custom(let dateComponents):
             let components = calendar.dateComponents([.year, .month, .day], from: date)
-            return dateComponents.contains(components)
+            return dateComponents.contains { dc in
+                dc.year == components.year && dc.month == components.month && dc.day == components.day
+            }
         }
     }
 

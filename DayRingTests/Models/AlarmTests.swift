@@ -5,17 +5,13 @@ import Foundation
 @Suite("Alarm Model Tests")
 struct AlarmTests {
 
-    @Test("Default alarm is 07:00 weekdays")
+    @Test("Default alarm is 07:00 no repeat")
     func defaultAlarm() {
         let alarm = Alarm()
         #expect(alarm.hour == 7)
         #expect(alarm.minute == 0)
         #expect(alarm.isEnabled == true)
-        if case .weekly(let days) = alarm.repeatMode {
-            #expect(days == Weekday.workdays)
-        } else {
-            Issue.record("Expected weekly repeat mode")
-        }
+        #expect(alarm.repeatMode.isNone)
     }
 
     @Test("24h time string formatting")
