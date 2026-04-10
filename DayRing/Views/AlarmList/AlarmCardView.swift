@@ -10,6 +10,16 @@ struct AlarmCardView: View {
     let onSkipNext: () -> Void
     var onTap: () -> Void = {}
 
+    private var repeatSummary: String {
+        let mode = alarm.repeatModeDisplayName
+        let detail = alarm.repeatDetailText
+        let repeatPart = (mode == detail) ? mode : "\(mode) · \(detail)"
+        if !alarm.label.isEmpty {
+            return "\(alarm.label)  |  \(repeatPart)"
+        }
+        return repeatPart
+    }
+
     var body: some View {
         VStack(spacing: 10) {
             HStack {
@@ -35,15 +45,9 @@ struct AlarmCardView: View {
 
             Button(action: onTap) {
                 HStack {
-                    if !alarm.label.isEmpty {
-                        Text("\(alarm.label)  |  \(alarm.repeatModeDisplayName) · \(alarm.repeatDetailText)")
-                            .font(.caption())
-                            .foregroundStyle(Color.fgSecondary)
-                    } else {
-                        Text("\(alarm.repeatModeDisplayName) · \(alarm.repeatDetailText)")
-                            .font(.caption())
-                            .foregroundStyle(Color.fgSecondary)
-                    }
+                    Text(repeatSummary)
+                        .font(.caption())
+                        .foregroundStyle(Color.fgSecondary)
                     Spacer()
                 }
             }
