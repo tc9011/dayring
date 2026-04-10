@@ -9,20 +9,21 @@ final class AlarmListViewModel {
 
     private let holidayProvider = HolidayDataProvider()
 
-    func nextAlarmText() -> String? {
-        let now = Date()
-        guard let next = alarms.first(where: { $0.isEnabled }) else { return nil }
+    func nextAlarmText(now: Date = Date()) -> String? {
+        let enabledAlarms = alarms.filter { $0.isEnabled }
+        guard !enabledAlarms.isEmpty else { return nil }
 
-        let calendar = Calendar.current
-        var components = calendar.dateComponents([.year, .month, .day], from: now)
-        components.hour = next.hour
-        components.minute = next.minute
+        let nearest = enabledAlarms
+            .compactMap { alarm -> (Alarm, Date)? in
+                guard let dt = nextRingDateTime(for: alarm, now: now) else { return nil }
+                return (alarm, dt)
+            }
+            .min { $0.1 < $1.1 }
 
-        guard let nextTime = calendar.date(from: components) else { return nil }
-        let target = nextTime > now ? nextTime : calendar.date(byAdding: .day, value: 1, to: nextTime)!
+        guard let target = nearest?.1 else { return nil }
 
         let l = LocaleManager.shared
-        let diff = calendar.dateComponents([.hour, .minute], from: now, to: target)
+        let diff = Calendar.current.dateComponents([.hour, .minute], from: now, to: target)
         if let h = diff.hour, let m = diff.minute {
             let prefix = l.localizedString("下一个闹钟将在")
             let hourPart = " \(h)" + l.localizedString("小时")
@@ -31,6 +32,53 @@ final class AlarmListViewModel {
             return prefix + hourPart + minutePart + suffix
         }
         return nil
+    }
+
+    func nextRingDateTime(for alarm: Alarm, now: Date = Date()) -> Date? {
+        guard alarm.isEnabled else { return nil }
+
+        let calendar = Calendar.current
+        let year = calendar.component(.year, from: now)
+        let holidays = holidayProvider.holidays(for: year)
+        let makeupDays = holidayProvider.makeupDays(for: year)
+
+        var todayComponents = calendar.dateComponents([.year, .month, .day], from: now)
+        todayComponents.hour = alarm.hour
+        todayComponents.minute = alarm.minute
+        todayComponents.second = 0
+
+        guard let todayAlarmTime = calendar.date(from: todayComponents) else { return nil }
+
+        if todayAlarmTime > now && alarm.shouldRing(on: now, holidays: holidays, makeupDays: makeupDays) {
+            return todayAlarmTime
+        }
+
+        var current = calendar.date(byAdding: .day, value: 1, to: now)!
+        for _ in 0..<365 {
+            if alarm.shouldRing(on: current, holidays: holidays, makeupDays: makeupDays) {
+                var comps = calendar.dateComponents([.year, .month, .day], from: current)
+                comps.hour = alarm.hour
+                comps.minute = alarm.minute
+                comps.second = 0
+                return calendar.date(from: comps)
+            }
+            current = calendar.date(byAdding: .day, value: 1, to: current)!
+        }
+        return nil
+    }
+
+    func sortedByNextRing(now: Date = Date()) -> [Alarm] {
+        let withDates: [(Alarm, Date?)] = alarms.map { alarm in
+            (alarm, nextRingDateTime(for: alarm, now: now))
+        }
+        return withDates.sorted { a, b in
+            switch (a.1, b.1) {
+            case let (dateA?, dateB?): return dateA < dateB
+            case (_?, nil): return true
+            case (nil, _?): return false
+            case (nil, nil): return false
+            }
+        }.map(\.0)
     }
 
     func statusInfo(for alarm: Alarm) -> (text: String, color: StatusColor) {

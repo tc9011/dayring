@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftData
 
 struct AlarmListView: View {
-    @Query(sort: \Alarm.hour, order: .forward) private var alarms: [Alarm]
+    @Query private var alarms: [Alarm]
     @Query private var allSettings: [AppSettings]
     @Environment(\.modelContext) private var modelContext
     @Environment(\.localeManager) private var locale
@@ -29,7 +29,7 @@ struct AlarmListView: View {
                         .listRowSeparator(.hidden)
                 }
 
-                ForEach(alarms) { alarm in
+                ForEach(viewModel.sortedByNextRing()) { alarm in
                     AlarmCardView(
                         alarm: alarm,
                         statusText: viewModel.statusInfo(for: alarm).text,
