@@ -95,11 +95,20 @@ final class AlarmListViewModel {
 
         if let skipDate = alarm.skipNextDate {
             let days = calendar.dateComponents([.day], from: calendar.startOfDay(for: today), to: calendar.startOfDay(for: skipDate)).day ?? 0
-            if days == 1 {
+            if days == 0 {
+                return (l.localizedString("已跳过今天"), .orange)
+            } else if days == 1 {
                 return (l.localizedString("已跳过明天"), .orange)
             } else {
                 return (l.localizedString("已跳过") + "\(days)" + l.localizedString("天后的响铃"), .orange)
             }
+        }
+
+        let todayRings = alarm.shouldRing(on: today, holidays: holidays, makeupDays: makeupDays)
+        let alarmTimeNotPassed = alarm.hour * 60 + alarm.minute > calendar.component(.hour, from: today) * 60 + calendar.component(.minute, from: today)
+
+        if todayRings && alarmTimeNotPassed {
+            return (l.localizedString("今天响铃"), .green)
         }
 
         let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
