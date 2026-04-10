@@ -326,4 +326,120 @@ struct AlarmListViewModelTests {
         vm.skipNext(alarm)
         #expect(alarm.skipNextDate == nil)
     }
+
+    // MARK: - repeatModeDisplayName vs repeatDetailText dedup
+
+    @Test("No-repeat: displayName equals detailText")
+    func repeatTextDedupNone() {
+        let alarm = Alarm(repeatMode: .none)
+        #expect(alarm.repeatModeDisplayName == alarm.repeatDetailText)
+    }
+
+    @Test("Daily: displayName equals detailText")
+    func repeatTextDedupDaily() {
+        let alarm = Alarm(repeatMode: .daily)
+        #expect(alarm.repeatModeDisplayName == alarm.repeatDetailText)
+    }
+
+    @Test("Weekly workdays: displayName differs from detailText")
+    func repeatTextDiffersWeeklyWorkdays() {
+        let alarm = Alarm(repeatMode: .weekly(days: Weekday.workdays))
+        #expect(alarm.repeatModeDisplayName != alarm.repeatDetailText)
+    }
+
+    @Test("Rotating: displayName differs from detailText")
+    func repeatTextDiffersRotating() {
+        let alarm = Alarm(repeatMode: .rotating(startDate: Date(), ringDays: 4, gapDays: 2))
+        #expect(alarm.repeatModeDisplayName != alarm.repeatDetailText)
+    }
+
+    // MARK: - statusInfo with injected now
+
+    @Test("statusInfo returns 今天响铃 when alarm time is later today")
+    func statusInfoTodayRings() {
+        // Alarm at 23:00, now is 08:00 → should show today
+        let now = makeDate(hour: 8, minute: 0)
+        let alarm = Alarm(hour: 23, minute: 0, repeatMode: .daily)
+        let vm = AlarmListViewModel()
+
+        let info = vm.statusInfo(for: alarm, now: now)
+        #expect(info.color == .green)
+        #expect(info.text.contains("今天"))
+    }
+
+    @Test("statusInfo returns 明天响铃 when alarm time already passed today")
+    func statusInfoTomorrowAfterPassed() {
+        // Alarm at 06:00, now is 20:00 → alarm passed, should show tomorrow
+        let now = makeDate(hour: 20, minute: 0)
+        let alarm = Alarm(hour: 6, minute: 0, repeatMode: .daily)
+        let vm = AlarmListViewModel()
+
+        let info = vm.statusInfo(for: alarm, now: now)
+        #expect(info.color == .green)
+        #expect(info.text.contains("明天"))
+    }
+
+    @Test("statusInfo returns 已跳过今天 when skipNextDate is today")
+    func statusInfoSkippedToday() {
+        let now = makeDate(hour: 8, minute: 0)
+        let alarm = Alarm(hour: 12, minute: 0, repeatMode: .daily)
+        alarm.skipNextDate = now
+        let vm = AlarmListViewModel()
+
+        let info = vm.statusInfo(for: alarm, now: now)
+        #expect(info.color == .orange)
+        #expect(info.text.contains("今天"))
+    }
+
+    @Test("statusInfo returns 已跳过明天 when skipNextDate is tomorrow")
+    func statusInfoSkippedTomorrow() {
+        let now = makeDate(hour: 8, minute: 0)
+        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: now)!
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .daily)
+        alarm.skipNextDate = tomorrow
+        let vm = AlarmListViewModel()
+
+        let info = vm.statusInfo(for: alarm, now: now)
+        #expect(info.color == .orange)
+        #expect(info.text.contains("明天"))
+    }
+
+    @Test("statusInfo returns 明天不响铃 for weekday alarm on Friday evening")
+    func statusInfoWeekdayFridayEvening() {
+        // April 10, 2026 is Friday. Workday alarm at 7:00. Now 20:00 Friday.
+        // Tomorrow is Saturday → won't ring
+        let now = makeDate(year: 2026, month: 4, day: 10, hour: 20, minute: 0)
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .weekly(days: Weekday.workdays))
+        let vm = AlarmListViewModel()
+
+        let info = vm.statusInfo(for: alarm, now: now)
+        #expect(info.color == .red)
+    }
+
+    // MARK: - RepeatMode.isNone (skip button visibility)
+
+    @Test("RepeatMode.isNone returns true for .none")
+    func repeatModeIsNoneTrue() {
+        #expect(RepeatMode.none.isNone == true)
+    }
+
+    @Test("RepeatMode.isNone returns false for .daily")
+    func repeatModeIsNoneFalseDaily() {
+        #expect(RepeatMode.daily.isNone == false)
+    }
+
+    @Test("RepeatMode.isNone returns false for .weekly")
+    func repeatModeIsNoneFalseWeekly() {
+        #expect(RepeatMode.weekly(days: [.monday]).isNone == false)
+    }
+
+    @Test("RepeatMode.isNone returns false for .rotating")
+    func repeatModeIsNoneFalseRotating() {
+        #expect(RepeatMode.rotating(startDate: Date(), ringDays: 4, gapDays: 2).isNone == false)
+    }
+
+    @Test("RepeatMode.isNone returns false for .custom")
+    func repeatModeIsNoneFalseCustom() {
+        #expect(RepeatMode.custom(dates: []).isNone == false)
+    }
 }

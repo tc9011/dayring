@@ -81,9 +81,9 @@ final class AlarmListViewModel {
         }.map(\.0)
     }
 
-    func statusInfo(for alarm: Alarm) -> (text: String, color: StatusColor) {
+    func statusInfo(for alarm: Alarm, now: Date = Date()) -> (text: String, color: StatusColor) {
         let calendar = Calendar.current
-        let today = Date()
+        let today = now
         let year = calendar.component(.year, from: today)
         let holidays = holidayProvider.holidays(for: year)
         let makeupDays = holidayProvider.makeupDays(for: year)
