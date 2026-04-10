@@ -151,4 +151,179 @@ struct AlarmListViewModelTests {
         let text = vm.nextAlarmText(now: now)
         #expect(text == nil)
     }
+
+    @Test("nextAlarmText returns nil when alarms list is empty")
+    func nextAlarmTextNilWhenEmpty() {
+        let vm = AlarmListViewModel()
+        vm.alarms = []
+        #expect(vm.nextAlarmText(now: makeDate()) == nil)
+    }
+
+    // MARK: - nextRingDateTime edge cases
+
+    @Test("nextRingDateTime for no-repeat alarm rings today if time not passed")
+    func nextRingDateTimeNoRepeatToday() {
+        let now = makeDate(hour: 8, minute: 0)
+        let alarm = Alarm(hour: 12, minute: 0, repeatMode: .none)
+        let vm = AlarmListViewModel()
+
+        let result = vm.nextRingDateTime(for: alarm, now: now)
+        #expect(result != nil)
+        let cal = Calendar.current
+        #expect(cal.isDate(result!, inSameDayAs: now))
+        #expect(cal.component(.hour, from: result!) == 12)
+    }
+
+    @Test("nextRingDateTime for no-repeat alarm rings tomorrow if time already passed")
+    func nextRingDateTimeNoRepeatTomorrow() {
+        let now = makeDate(hour: 15, minute: 0)
+        let alarm = Alarm(hour: 9, minute: 0, repeatMode: .none)
+        let vm = AlarmListViewModel()
+
+        let result = vm.nextRingDateTime(for: alarm, now: now)
+        #expect(result != nil)
+        let cal = Calendar.current
+        let tomorrow = cal.date(byAdding: .day, value: 1, to: now)!
+        #expect(cal.isDate(result!, inSameDayAs: tomorrow))
+    }
+
+    @Test("nextRingDateTime at exact alarm minute returns tomorrow")
+    func nextRingDateTimeExactMinute() {
+        // If now == alarm time, alarm already passed → tomorrow
+        let now = makeDate(hour: 7, minute: 0)
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .daily)
+        let vm = AlarmListViewModel()
+
+        let result = vm.nextRingDateTime(for: alarm, now: now)
+        #expect(result != nil)
+        let cal = Calendar.current
+        let tomorrow = cal.date(byAdding: .day, value: 1, to: now)!
+        #expect(cal.isDate(result!, inSameDayAs: tomorrow))
+    }
+
+    @Test("nextRingDateTime preserves correct hour and minute in result")
+    func nextRingDateTimePreservesTime() {
+        let now = makeDate(hour: 6, minute: 0)
+        let alarm = Alarm(hour: 23, minute: 45, repeatMode: .daily)
+        let vm = AlarmListViewModel()
+
+        let result = vm.nextRingDateTime(for: alarm, now: now)
+        #expect(result != nil)
+        let cal = Calendar.current
+        #expect(cal.component(.hour, from: result!) == 23)
+        #expect(cal.component(.minute, from: result!) == 45)
+    }
+
+    @Test("nextRingDateTime for weekly workday alarm skips weekend")
+    func nextRingDateTimeSkipsWeekend() {
+        // April 10, 2026 is Friday. Workday alarm at 7:00. Now is 20:00 Friday.
+        // Next workday is Monday April 13.
+        let now = makeDate(year: 2026, month: 4, day: 10, hour: 20, minute: 0)
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .weekly(days: Weekday.workdays))
+        let vm = AlarmListViewModel()
+
+        let result = vm.nextRingDateTime(for: alarm, now: now)
+        #expect(result != nil)
+        let cal = Calendar.current
+        #expect(cal.component(.day, from: result!) == 13)
+    }
+
+    // MARK: - sortedByNextRing edge cases
+
+    @Test("sortedByNextRing returns empty for empty alarms")
+    func sortedByNextRingEmpty() {
+        let vm = AlarmListViewModel()
+        vm.alarms = []
+        #expect(vm.sortedByNextRing(now: makeDate()).isEmpty)
+    }
+
+    @Test("sortedByNextRing with all disabled returns all (in original order)")
+    func sortedByNextRingAllDisabled() {
+        let now = makeDate(hour: 10, minute: 0)
+        let a1 = Alarm(hour: 8, minute: 0, repeatMode: .daily, isEnabled: false)
+        let a2 = Alarm(hour: 12, minute: 0, repeatMode: .daily, isEnabled: false)
+
+        let vm = AlarmListViewModel()
+        vm.alarms = [a1, a2]
+
+        let sorted = vm.sortedByNextRing(now: now)
+        #expect(sorted.count == 2)
+    }
+
+    @Test("sortedByNextRing with single alarm returns it")
+    func sortedByNextRingSingle() {
+        let now = makeDate(hour: 10, minute: 0)
+        let alarm = Alarm(hour: 14, minute: 0, repeatMode: .daily)
+
+        let vm = AlarmListViewModel()
+        vm.alarms = [alarm]
+
+        let sorted = vm.sortedByNextRing(now: now)
+        #expect(sorted.count == 1)
+        #expect(sorted[0].hour == 14)
+    }
+
+    @Test("sortedByNextRing mixed repeat modes: daily before weekly-skip")
+    func sortedByNextRingMixedModes() {
+        // April 10, 2026 is Friday. Now 10:00.
+        // Daily 11:00 → rings today at 11:00 (1h away)
+        // Weekly Mon-only 8:00 → next Monday April 13 at 8:00 (~70h away)
+        let now = makeDate(year: 2026, month: 4, day: 10, hour: 10, minute: 0)
+        let daily = Alarm(hour: 11, minute: 0, repeatMode: .daily)
+        let weeklyMon = Alarm(hour: 8, minute: 0, repeatMode: .weekly(days: [.monday]))
+
+        let vm = AlarmListViewModel()
+        vm.alarms = [weeklyMon, daily]
+
+        let sorted = vm.sortedByNextRing(now: now)
+        #expect(sorted[0].hour == 11)  // daily, today
+        #expect(sorted[1].hour == 8)   // weekly Mon, 3 days away
+    }
+
+    // MARK: - statusInfo
+
+    @Test("statusInfo returns disabled text when alarm is off")
+    func statusInfoDisabled() {
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .daily, isEnabled: false)
+        let vm = AlarmListViewModel()
+        let info = vm.statusInfo(for: alarm)
+        #expect(info.color == .gray)
+    }
+
+    @Test("statusInfo returns green when alarm rings tomorrow")
+    func statusInfoRingsTomorrow() {
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .daily, isEnabled: true)
+        let vm = AlarmListViewModel()
+        let info = vm.statusInfo(for: alarm)
+        #expect(info.color == .green)
+    }
+
+    // MARK: - skipNext / isSkipActive
+
+    @Test("isSkipActive returns false by default")
+    func isSkipActiveFalseByDefault() {
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .daily)
+        let vm = AlarmListViewModel()
+        #expect(vm.isSkipActive(alarm) == false)
+    }
+
+    @Test("isSkipActive returns true when skipNextDate is set")
+    func isSkipActiveTrueWhenSet() {
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .daily)
+        alarm.skipNextDate = Date()
+        let vm = AlarmListViewModel()
+        #expect(vm.isSkipActive(alarm) == true)
+    }
+
+    @Test("skipNext sets skipNextDate, calling again clears it")
+    func skipNextToggles() {
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .daily)
+        let vm = AlarmListViewModel()
+
+        #expect(alarm.skipNextDate == nil)
+        vm.skipNext(alarm)
+        #expect(alarm.skipNextDate != nil)
+        vm.skipNext(alarm)
+        #expect(alarm.skipNextDate == nil)
+    }
 }
