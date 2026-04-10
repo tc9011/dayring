@@ -9,6 +9,9 @@ struct DayRingApp: App {
         WindowGroup {
             ContentView()
                 .environment(\.localeManager, localeManager)
+                .task {
+                    try? await AlarmScheduler.shared.requestAuthorization()
+                }
         }
         .modelContainer(for: [Alarm.self, AppSettings.self])
     }

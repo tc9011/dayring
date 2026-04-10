@@ -1,5 +1,8 @@
 import Foundation
 import Observation
+import os.log
+
+private let logger = Logger(subsystem: "com.dayring.app", category: "AlarmEdit")
 
 @Observable
 final class AlarmEditViewModel {
@@ -56,7 +59,12 @@ final class AlarmEditViewModel {
             let year = Calendar.current.component(.year, from: Date())
             let holidays = provider.holidays(for: year)
             let makeupDays = provider.makeupDays(for: year)
-            try? await AlarmScheduler.shared.scheduleAlarm(unsafeAlarmRef, holidays: holidays, makeupDays: makeupDays)
+            do {
+                try await AlarmScheduler.shared.scheduleAlarm(unsafeAlarmRef, holidays: holidays, makeupDays: makeupDays)
+            } catch {
+                logger.error("Failed to schedule alarm '\(unsafeAlarmRef.label)': \(error.localizedDescription)")
+                AlarmScheduler.shared.lastSchedulingError = error
+            }
         }
 
         return target

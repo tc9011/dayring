@@ -1,8 +1,11 @@
 import Foundation
+import os.log
 #if canImport(AlarmKit)
 import AlarmKit
 typealias SystemAlarm = AlarmKit.Alarm
 #endif
+
+private let logger = Logger(subsystem: "com.dayring.app", category: "AlarmScheduler")
 
 protocol AlarmScheduling: Sendable {
     func scheduleAlarm(_ alarm: Alarm, holidays: Set<String>, makeupDays: Set<String>) async throws
@@ -16,6 +19,7 @@ final class AlarmScheduler: @unchecked Sendable, AlarmScheduling {
 
     private let calculator = AlarmScheduleCalculator()
     private let scheduleDaysAhead = 7
+    var lastSchedulingError: Error?
 
     private init() {}
 
@@ -65,16 +69,23 @@ final class AlarmScheduler: @unchecked Sendable, AlarmScheduling {
             _ = try await manager.schedule(id: alarm.id, configuration: configuration)
         }
         #else
-        _ = effectiveHour
-        _ = effectiveMinute
-        _ = ringDates
+        try await NotificationFallbackScheduler.schedule(
+            alarm: alarm,
+            ringDates: ringDates,
+            effectiveHour: effectiveHour,
+            effectiveMinute: effectiveMinute
+        )
         #endif
+
+        logger.info("Scheduled \(ringDates.count) alarm(s) for '\(alarm.label)' (id: \(alarm.id))")
     }
 
     func cancelAlarm(_ alarmID: UUID) async throws {
         #if canImport(AlarmKit)
         let manager = AlarmManager.shared
         try manager.cancel(id: alarmID)
+        #else
+        await NotificationFallbackScheduler.cancel(alarmId: alarmID)
         #endif
     }
 
@@ -89,6 +100,8 @@ final class AlarmScheduler: @unchecked Sendable, AlarmScheduling {
         let manager = AlarmManager.shared
         _ = try await manager.requestAuthorization()
         #endif
+        try await NotificationFallbackScheduler.requestAuthorization()
+        logger.info("Alarm authorization requested")
     }
 }
 
