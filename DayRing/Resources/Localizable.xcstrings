@@ -1386,6 +1386,29 @@
         }
       }
     },
+    "已过期" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Expired"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已过期"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "已過期"
+          }
+        }
+      }
+    },
     "希伯来历" : {
       "extractionState" : "stale",
       "localizations" : {

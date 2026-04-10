@@ -404,6 +404,28 @@ struct AlarmListViewModelTests {
         #expect(info.text.contains("明天"))
     }
 
+    @Test("statusInfo returns 已过期 for non-repeating alarm after time passed")
+    func statusInfoExpiredNonRepeating() {
+        let now = makeDate(hour: 20, minute: 0)
+        let alarm = Alarm(hour: 15, minute: 0, repeatMode: .none)
+        let vm = AlarmListViewModel()
+
+        let info = vm.statusInfo(for: alarm, now: now)
+        #expect(info.color == .gray)
+        #expect(info.text.contains("已过期"))
+    }
+
+    @Test("statusInfo returns 今天响铃 for non-repeating alarm before time")
+    func statusInfoNonRepeatingBeforeTime() {
+        let now = makeDate(hour: 8, minute: 0)
+        let alarm = Alarm(hour: 15, minute: 0, repeatMode: .none)
+        let vm = AlarmListViewModel()
+
+        let info = vm.statusInfo(for: alarm, now: now)
+        #expect(info.color == .green)
+        #expect(info.text.contains("今天"))
+    }
+
     @Test("statusInfo returns 明天不响铃 for weekday alarm on Friday evening")
     func statusInfoWeekdayFridayEvening() {
         // April 10, 2026 is Friday. Workday alarm at 7:00. Now 20:00 Friday.
@@ -414,6 +436,43 @@ struct AlarmListViewModelTests {
 
         let info = vm.statusInfo(for: alarm, now: now)
         #expect(info.color == .red)
+    }
+
+    @Test("disableExpiredNonRepeatingAlarms disables .none alarm after time passes")
+    func disableExpiredNonRepeating() {
+        let now = makeDate(hour: 16, minute: 0)
+        let alarm = Alarm(hour: 15, minute: 0, repeatMode: .none)
+        #expect(alarm.isEnabled == true)
+
+        let vm = AlarmListViewModel()
+        vm.alarms = [alarm]
+        vm.disableExpiredNonRepeatingAlarms(now: now)
+
+        #expect(alarm.isEnabled == false)
+    }
+
+    @Test("disableExpiredNonRepeatingAlarms keeps .none alarm enabled before time")
+    func keepNonRepeatingBeforeTime() {
+        let now = makeDate(hour: 10, minute: 0)
+        let alarm = Alarm(hour: 15, minute: 0, repeatMode: .none)
+
+        let vm = AlarmListViewModel()
+        vm.alarms = [alarm]
+        vm.disableExpiredNonRepeatingAlarms(now: now)
+
+        #expect(alarm.isEnabled == true)
+    }
+
+    @Test("disableExpiredNonRepeatingAlarms does not affect daily alarms")
+    func keepDailyAlarmEnabled() {
+        let now = makeDate(hour: 20, minute: 0)
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .daily)
+
+        let vm = AlarmListViewModel()
+        vm.alarms = [alarm]
+        vm.disableExpiredNonRepeatingAlarms(now: now)
+
+        #expect(alarm.isEnabled == true)
     }
 
     // MARK: - RepeatMode.isNone (skip button visibility)

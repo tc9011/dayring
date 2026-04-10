@@ -1,5 +1,6 @@
 import SwiftUI
 import SwiftData
+import Combine
 
 struct AlarmListView: View {
     @Query private var alarms: [Alarm]
@@ -7,8 +8,9 @@ struct AlarmListView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.localeManager) private var locale
     @State private var viewModel = AlarmListViewModel()
-    @State private var showingEditor = false
+    @State private var showingNewAlarm = false
     @State private var editingAlarm: Alarm?
+    @State private var refreshTick = Date()
 
     private var settings: AppSettings {
         allSettings.first ?? AppSettings()
@@ -22,24 +24,23 @@ struct AlarmListView: View {
         VStack(spacing: 0) {
             headerRow
             List {
-                if let bannerText = viewModel.nextAlarmText() {
+                if let bannerText = viewModel.nextAlarmText(now: refreshTick) {
                     NextAlarmBanner(text: bannerText)
                         .listRowBackground(Color.clear)
                         .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
                         .listRowSeparator(.hidden)
                 }
 
-                ForEach(viewModel.sortedByNextRing()) { alarm in
+                ForEach(viewModel.sortedByNextRing(now: refreshTick)) { alarm in
                     AlarmCardView(
                         alarm: alarm,
-                        statusText: viewModel.statusInfo(for: alarm).text,
-                        statusColor: viewModel.statusInfo(for: alarm).color,
+                        statusText: viewModel.statusInfo(for: alarm, now: refreshTick).text,
+                        statusColor: viewModel.statusInfo(for: alarm, now: refreshTick).color,
                         is24HourFormat: is24HourFormat,
                         isSkipActive: viewModel.isSkipActive(alarm),
                         onSkipNext: { viewModel.skipNext(alarm) },
                         onTap: {
                             editingAlarm = alarm
-                            showingEditor = true
                         }
                     )
                     .listRowBackground(Color.clear)
@@ -62,12 +63,20 @@ struct AlarmListView: View {
         }
         .onAppear {
             viewModel.alarms = alarms
+            viewModel.disableExpiredNonRepeatingAlarms()
         }
         .onChange(of: alarms) {
             viewModel.alarms = alarms
         }
-        .sheet(isPresented: $showingEditor) {
-            AlarmEditSheet(alarm: editingAlarm)
+        .onReceive(Timer.publish(every: 60, on: .main, in: .common).autoconnect()) { tick in
+            refreshTick = tick
+            viewModel.disableExpiredNonRepeatingAlarms(now: tick)
+        }
+        .sheet(isPresented: $showingNewAlarm) {
+            AlarmEditSheet(alarm: nil)
+        }
+        .sheet(item: $editingAlarm) { alarm in
+            AlarmEditSheet(alarm: alarm)
         }
     }
 
@@ -78,8 +87,7 @@ struct AlarmListView: View {
                 .foregroundStyle(Color.fgPrimary)
             Spacer()
             Button {
-                editingAlarm = nil
-                showingEditor = true
+                showingNewAlarm = true
             } label: {
                 Image(systemName: "plus")
                     .font(.system(size: 20, weight: .medium))

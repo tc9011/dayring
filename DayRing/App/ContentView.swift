@@ -23,6 +23,7 @@ struct ContentView: View {
         }
         .tint(Color.accent)
         .preferredColorScheme(allSettings.first?.appearanceMode.colorScheme)
+        .modifier(RescheduleAllAlarmsModifier())
     }
 }
 

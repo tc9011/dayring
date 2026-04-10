@@ -111,6 +111,11 @@ final class AlarmListViewModel {
             return (l.localizedString("今天响铃"), .green)
         }
 
+        // Non-repeating alarm whose time has already passed today — no future ring
+        if alarm.repeatMode.isNone && !alarmTimeNotPassed {
+            return (l.localizedString("已过期"), .gray)
+        }
+
         let tomorrow = calendar.date(byAdding: .day, value: 1, to: today)!
         let tomorrowKey = Alarm.dateKey(for: tomorrow)
         if let name = holidayProvider.holidayName(for: tomorrowKey, year: year),
@@ -168,10 +173,24 @@ final class AlarmListViewModel {
         let year = Calendar.current.component(.year, from: Date())
         let holidays = holidayProvider.holidays(for: year)
         let makeupDays = holidayProvider.makeupDays(for: year)
-        // nonisolated(unsafe): @Model isn't Sendable but alarm is only read, not mutated
         nonisolated(unsafe) let alarmRef = alarm
         Task {
-            try? await AlarmScheduler.shared.scheduleAlarm(alarmRef, holidays: holidays, makeupDays: makeupDays)
+            do {
+                try await AlarmScheduler.shared.scheduleAlarm(alarmRef, holidays: holidays, makeupDays: makeupDays)
+            } catch {
+                print("[AlarmListVM] rescheduleAlarm failed for \(alarmRef.id): \(error)")
+            }
+        }
+    }
+
+    func disableExpiredNonRepeatingAlarms(now: Date = Date()) {
+        let calendar = Calendar.current
+        let currentMinutes = calendar.component(.hour, from: now) * 60 + calendar.component(.minute, from: now)
+        for alarm in alarms where alarm.isEnabled && alarm.repeatMode.isNone {
+            if alarm.hour * 60 + alarm.minute <= currentMinutes {
+                alarm.isEnabled = false
+                alarm.updatedAt = now
+            }
         }
     }
 

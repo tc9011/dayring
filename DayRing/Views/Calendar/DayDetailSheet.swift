@@ -222,13 +222,22 @@ struct DayDetailSheet: View {
     }
 
     private func overrideBinding(for alarm: Alarm) -> Binding<Bool> {
-        Binding(
-            get: { alarm.manualOverrides[dateKey] ?? false },
+        let holidays = holidayProvider.holidays(for: year)
+        let makeupDays = holidayProvider.makeupDays(for: year)
+        let defaultWillRing = alarm.shouldRing(on: date, holidays: holidays, makeupDays: makeupDays)
+
+        return Binding(
+            get: {
+                if let override = alarm.manualOverrides[dateKey] {
+                    return override
+                }
+                return defaultWillRing
+            },
             set: { newValue in
-                if newValue {
-                    alarm.manualOverrides[dateKey] = true
-                } else {
+                if newValue == defaultWillRing {
                     alarm.manualOverrides.removeValue(forKey: dateKey)
+                } else {
+                    alarm.manualOverrides[dateKey] = newValue
                 }
             }
         )
