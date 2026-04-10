@@ -66,17 +66,18 @@ struct AlarmCardView: View {
                 }
                 .buttonStyle(.borderless)
                 Spacer()
-                Button {
-                    onSkipNext()
-                } label: {
-                    HStack(spacing: 4) {
-                        Image(systemName: isSkipActive ? "bell.fill" : "forward.fill")
-                            .font(.system(size: 10))
-                        Text(locale.localizedString(isSkipActive ? "继续响铃" : "跳过下次"))
-                            .font(.system(size: 11, weight: .medium))
-                    }
-                    .foregroundStyle(isSkipActive ? Color.accent : Color.fgSecondary)
-                    .padding(.horizontal, 10)
+                if !alarm.repeatMode.isNone {
+                    Button {
+                        onSkipNext()
+                    } label: {
+                        HStack(spacing: 4) {
+                            Image(systemName: isSkipActive ? "bell.fill" : "forward.fill")
+                                .font(.system(size: 10))
+                            Text(locale.localizedString(isSkipActive ? "继续响铃" : "跳过下次"))
+                                .font(.system(size: 11, weight: .medium))
+                        }
+                        .foregroundStyle(isSkipActive ? Color.accent : Color.fgSecondary)
+                        .padding(.horizontal, 10)
                     .padding(.vertical, 4)
                     .contentShape(Capsule())
                     .background(
@@ -86,6 +87,7 @@ struct AlarmCardView: View {
                 }
                 .buttonStyle(.borderless)
                 .contentShape(Capsule())
+                }
             }
         }
         .padding(.horizontal, 16)
