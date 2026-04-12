@@ -140,10 +140,12 @@ struct AlarmFullFlowTests {
 
     @Test("Create biweekly alarm via ViewModel and verify alternating weeks")
     func biweeklyFullFlow() {
+        let refDate = calendar.date(from: DateComponents(year: 2026, month: 4, day: 13))! // Monday
         let vm = AlarmEditViewModel()
         vm.hour = 9
         vm.minute = 0
         vm.repeatMode = .biweekly(
+            referenceDate: refDate,
             week1: Weekday.workdays,
             week2: [.monday, .wednesday, .friday]
         )
@@ -153,31 +155,29 @@ struct AlarmFullFlowTests {
 
         let vm2 = AlarmEditViewModel()
         vm2.load(from: alarm)
-        if case .biweekly(let w1, let w2) = vm2.repeatMode {
+        if case .biweekly(_, let w1, let w2) = vm2.repeatMode {
             #expect(w1 == Weekday.workdays)
             #expect(w2 == [.monday, .wednesday, .friday])
         } else {
             Issue.record("Expected biweekly after round-trip")
         }
 
-        // Apr 13 Mon → weekOfYear 15 (odd) → week2 [Mon,Wed,Fri] → Mon rings
+        // ref week (Apr 13-19) = week1 (workdays: Mon-Fri)
         let apr13Mon = calendar.date(from: DateComponents(year: 2026, month: 4, day: 13))!
-        // Apr 14 Tue → weekOfYear 15 (odd) → week2 [Mon,Wed,Fri] → Tue does NOT ring
         let apr14Tue = calendar.date(from: DateComponents(year: 2026, month: 4, day: 14))!
-        // Apr 20 Mon → weekOfYear 16 (even) → week1 (workdays) → Mon rings
+        // next week (Apr 20-26) = week2 (Mon, Wed, Fri)
         let apr20Mon = calendar.date(from: DateComponents(year: 2026, month: 4, day: 20))!
-        // Apr 21 Tue → weekOfYear 16 (even) → week1 (workdays) → Tue rings
         let apr21Tue = calendar.date(from: DateComponents(year: 2026, month: 4, day: 21))!
 
         #expect(alarm.shouldRing(on: apr13Mon, holidays: [], makeupDays: []) == true)
-        #expect(alarm.shouldRing(on: apr14Tue, holidays: [], makeupDays: []) == false)
+        #expect(alarm.shouldRing(on: apr14Tue, holidays: [], makeupDays: []) == true)
         #expect(alarm.shouldRing(on: apr20Mon, holidays: [], makeupDays: []) == true)
-        #expect(alarm.shouldRing(on: apr21Tue, holidays: [], makeupDays: []) == true)
+        #expect(alarm.shouldRing(on: apr21Tue, holidays: [], makeupDays: []) == false)
     }
 
     @Test("Biweekly detail text shows 大小周")
     func biweeklyDetailText() {
-        let alarm = Alarm(repeatMode: .biweekly(week1: Weekday.workdays, week2: [.monday]))
+        let alarm = Alarm(repeatMode: .biweekly(referenceDate: Date(), week1: Weekday.workdays, week2: [.monday]))
         #expect(alarm.repeatDetailText == "大小周")
     }
 
@@ -383,7 +383,7 @@ struct AlarmFullFlowTests {
         #expect(RepeatMode.none.isNone == true)
         #expect(RepeatMode.daily.isNone == false)
         #expect(RepeatMode.weekly(days: Weekday.workdays).isNone == false)
-        #expect(RepeatMode.biweekly(week1: [], week2: []).isNone == false)
+        #expect(RepeatMode.biweekly(referenceDate: Date(), week1: [], week2: []).isNone == false)
         #expect(RepeatMode.rotating(startDate: Date(), ringDays: 1, gapDays: 1).isNone == false)
         #expect(RepeatMode.custom(dates: []).isNone == false)
     }
@@ -394,7 +394,7 @@ struct AlarmFullFlowTests {
         #expect(!RepeatMode.none.displayName.isEmpty)
         #expect(!RepeatMode.daily.displayName.isEmpty)
         #expect(!RepeatMode.weekly(days: []).displayName.isEmpty)
-        #expect(!RepeatMode.biweekly(week1: [], week2: []).displayName.isEmpty)
+        #expect(!RepeatMode.biweekly(referenceDate: Date(), week1: [], week2: []).displayName.isEmpty)
         #expect(!RepeatMode.rotating(startDate: Date(), ringDays: 1, gapDays: 1).displayName.isEmpty)
         #expect(!RepeatMode.custom(dates: []).displayName.isEmpty)
     }

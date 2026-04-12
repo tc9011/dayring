@@ -6,7 +6,7 @@ enum RepeatMode: Codable, Hashable, Sendable {
     case none
     case daily
     case weekly(days: Set<Weekday>)
-    case biweekly(week1: Set<Weekday>, week2: Set<Weekday>)
+    case biweekly(referenceDate: Date, week1: Set<Weekday>, week2: Set<Weekday>)
     case rotating(startDate: Date, ringDays: Int, gapDays: Int)
     case custom(dates: Set<DateComponents>)
 

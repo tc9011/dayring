@@ -1,4 +1,5 @@
 import Testing
+import Foundation
 @testable import DayRing
 
 @Suite("AlarmEditViewModel Tests")
@@ -119,11 +120,11 @@ struct AlarmEditViewModelTests {
         let alarm = Alarm(
             hour: 7,
             minute: 0,
-            repeatMode: .biweekly(week1: Weekday.workdays, week2: [.monday, .wednesday])
+            repeatMode: .biweekly(referenceDate: Date(), week1: Weekday.workdays, week2: [.monday, .wednesday])
         )
         let vm = AlarmEditViewModel()
         vm.load(from: alarm)
-        if case .biweekly(let w1, let w2) = vm.repeatMode {
+        if case .biweekly(_, let w1, let w2) = vm.repeatMode {
             #expect(w1 == Weekday.workdays)
             #expect(w2 == [.monday, .wednesday])
         } else {

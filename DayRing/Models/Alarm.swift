@@ -148,12 +148,18 @@ final class Alarm {
             guard let wd = Weekday(rawValue: adjusted) else { return false }
             return days.contains(wd)
 
-        case .biweekly(let week1, let week2):
+        case .biweekly(let referenceDate, let week1, let week2):
             let weekday = calendar.component(.weekday, from: date)
             let adjusted = weekday == 1 ? 7 : weekday - 1
             guard let wd = Weekday(rawValue: adjusted) else { return false }
-            let weekNumber = calendar.component(.weekOfYear, from: date)
-            return weekNumber % 2 == 0 ? week1.contains(wd) : week2.contains(wd)
+            let daysSinceRef = calendar.dateComponents([.day], from: referenceDate, to: date).day ?? 0
+            let weekIndex: Int
+            if daysSinceRef >= 0 {
+                weekIndex = daysSinceRef / 7
+            } else {
+                weekIndex = (daysSinceRef - 6) / 7
+            }
+            return weekIndex % 2 == 0 ? week1.contains(wd) : week2.contains(wd)
 
         case .rotating(let startDate, let ringDays, let gapDays):
             let cycle = ringDays + gapDays

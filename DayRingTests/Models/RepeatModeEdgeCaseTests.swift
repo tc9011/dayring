@@ -59,141 +59,187 @@ struct RepeatModeEdgeCaseTests {
         #expect(dates.count == 1, ".none + deleteAfterRing should schedule exactly 1 date")
     }
 
-    // MARK: - .biweekly Edge Cases
+    // MARK: - .biweekly Edge Cases (referenceDate-based algorithm)
 
-    @Test("Biweekly uses weekOfYear — verify even/odd consistency across several weeks")
-    func biweeklyEvenOddWeeks() {
-        // week1 = Mon-Fri (even weekOfYear), week2 = Mon,Wed,Fri (odd weekOfYear)
+    @Test("Biweekly alternates week1/week2 based on weekIndex from referenceDate")
+    func biweeklyWeekIndexAlternation() {
+        // referenceDate = Mon Apr 6, 2026
+        // weekIndex 0 (Apr 6-12) = week1, weekIndex 1 (Apr 13-19) = week2, etc.
+        let ref = date(2026, 4, 6) // Monday
         let alarm = Alarm(repeatMode: .biweekly(
-            week1: Weekday.workdays,
+            referenceDate: ref,
+            week1: Weekday.workdays,          // Mon-Fri
             week2: [.monday, .wednesday, .friday]
         ))
 
-        // Check 4 consecutive Tuesdays to verify alternation
-        // Apr 7 Tue → weekOfYear 14 (even) → week1 → Tue in workdays → ring
-        let apr7 = date(2026, 4, 7)
-        let woy7 = calendar.component(.weekOfYear, from: apr7)
-        let apr7Rings = alarm.shouldRing(on: apr7, holidays: [], makeupDays: [])
+        // Week 0 (week1): Tue Apr 7 → workdays → ring
+        #expect(alarm.shouldRing(on: date(2026, 4, 7), holidays: [], makeupDays: []) == true,
+                "weekIndex 0 Tue → week1 (workdays) → ring")
 
-        // Apr 14 Tue → weekOfYear 15 (odd) → week2 → Tue NOT in [Mon,Wed,Fri] → no ring
-        let apr14 = date(2026, 4, 14)
-        let woy14 = calendar.component(.weekOfYear, from: apr14)
-        let apr14Rings = alarm.shouldRing(on: apr14, holidays: [], makeupDays: [])
+        // Week 1 (week2): Tue Apr 14 → NOT in MWF → no ring
+        #expect(alarm.shouldRing(on: date(2026, 4, 14), holidays: [], makeupDays: []) == false,
+                "weekIndex 1 Tue → week2 (MWF) → no ring")
 
-        // Apr 21 Tue → weekOfYear 16 (even) → week1 → ring
-        let apr21 = date(2026, 4, 21)
-        let woy21 = calendar.component(.weekOfYear, from: apr21)
-        let apr21Rings = alarm.shouldRing(on: apr21, holidays: [], makeupDays: [])
+        // Week 2 (week1): Tue Apr 21 → workdays → ring
+        #expect(alarm.shouldRing(on: date(2026, 4, 21), holidays: [], makeupDays: []) == true,
+                "weekIndex 2 Tue → week1 → ring")
 
-        // Apr 28 Tue → weekOfYear 17 (odd) → week2 → no ring
-        let apr28 = date(2026, 4, 28)
-        let woy28 = calendar.component(.weekOfYear, from: apr28)
-        let apr28Rings = alarm.shouldRing(on: apr28, holidays: [], makeupDays: [])
+        // Week 3 (week2): Tue Apr 28 → NOT in MWF → no ring
+        #expect(alarm.shouldRing(on: date(2026, 4, 28), holidays: [], makeupDays: []) == false,
+                "weekIndex 3 Tue → week2 → no ring")
 
-        // Verify the even/odd pattern is consistent
-        #expect(woy7 % 2 == 0, "Week of Apr 7 should be even, got \(woy7)")
-        #expect(woy14 % 2 != 0, "Week of Apr 14 should be odd, got \(woy14)")
-        #expect(woy21 % 2 == 0, "Week of Apr 21 should be even, got \(woy21)")
-        #expect(woy28 % 2 != 0, "Week of Apr 28 should be odd, got \(woy28)")
-
-        #expect(apr7Rings == true, "Even week Tue → week1 (workdays) → should ring")
-        #expect(apr14Rings == false, "Odd week Tue → week2 (MWF) → should NOT ring")
-        #expect(apr21Rings == true, "Even week Tue → week1 → should ring")
-        #expect(apr28Rings == false, "Odd week Tue → week2 → should NOT ring")
+        // Week 1 (week2): Mon Apr 13 → in MWF → ring
+        #expect(alarm.shouldRing(on: date(2026, 4, 13), holidays: [], makeupDays: []) == true,
+                "weekIndex 1 Mon → week2 (MWF) → ring")
     }
 
-    @Test("Biweekly cross-year: weekOfYear may reset, check Dec→Jan boundary")
-    func biweeklyCrossYear() {
-        // week1 on even weekOfYear, week2 on odd
+    @Test("Biweekly cross-year 2030→2031 (53-week year) maintains perfect alternation")
+    func biweeklyCrossYear53WeekYear() {
+        // referenceDate = Mon Dec 23, 2030
+        let ref = date(2030, 12, 23)
         let alarm = Alarm(repeatMode: .biweekly(
-            week1: [.monday],
-            week2: [.monday]
-        ))
-
-        // Dec 28 2026 is a Monday — check its weekOfYear
-        let dec28 = date(2026, 12, 28)
-        let woyDec28 = calendar.component(.weekOfYear, from: dec28)
-
-        // Jan 4 2027 is a Monday — check its weekOfYear
-        let jan4 = date(2027, 1, 4)  // Should be next Monday after New Year
-        let woyJan4 = calendar.component(.weekOfYear, from: jan4)
-
-        // Both should ring (both week1 and week2 contain Monday)
-        // but the even/odd swap may cause unexpected behavior
-        let dec28Rings = alarm.shouldRing(on: dec28, holidays: [], makeupDays: [])
-        let jan4Rings = alarm.shouldRing(on: jan4, holidays: [], makeupDays: [])
-
-        #expect(dec28Rings == true, "Dec 28 Mon should ring (both weeks have Mon)")
-        #expect(jan4Rings == true, "Jan 4 Mon should ring (both weeks have Mon)")
-
-        // Document the weekOfYear values for awareness
-        // weekOfYear can be 1 for late December days depending on locale
-        // This is a known limitation of using weekOfYear for biweekly
-        _ = woyDec28
-        _ = woyJan4
-    }
-
-    @Test("Biweekly cross-year with different day sets exposes weekOfYear discontinuity")
-    func biweeklyCrossYearDifferentDays() {
-        // week1 (even) = Mon only, week2 (odd) = Fri only
-        // This means if weekOfYear flips parity at year boundary, the schedule could glitch
-        let alarm = Alarm(repeatMode: .biweekly(
+            referenceDate: ref,
             week1: [.tuesday],
             week2: [.thursday]
         ))
 
-        // Find the last Tuesday of 2026 and first Tuesday of 2027
-        let dec29Tue = date(2026, 12, 29)  // Tuesday
-        let jan5Tue = date(2027, 1, 5)     // Tuesday
+        // weekIndex 0 (Dec 23-29): week1 → Tue Dec 24 rings, Thu Dec 26 doesn't
+        #expect(alarm.shouldRing(on: date(2030, 12, 24), holidays: [], makeupDays: []) == true,
+                "weekIndex 0 Tue → week1 → ring")
+        #expect(alarm.shouldRing(on: date(2030, 12, 26), holidays: [], makeupDays: []) == false,
+                "weekIndex 0 Thu → week1 (Tue only) → no ring")
 
-        let woyDec = calendar.component(.weekOfYear, from: dec29Tue)
-        let woyJan = calendar.component(.weekOfYear, from: jan5Tue)
+        // weekIndex 1 (Dec 30 - Jan 5, 2031): week2 → Thu Jan 2 rings, Tue Dec 31 doesn't
+        #expect(alarm.shouldRing(on: date(2030, 12, 31), holidays: [], makeupDays: []) == false,
+                "weekIndex 1 Tue → week2 (Thu only) → no ring")
+        #expect(alarm.shouldRing(on: date(2031, 1, 2), holidays: [], makeupDays: []) == true,
+                "weekIndex 1 Thu → week2 → ring")
 
-        let dec29Rings = alarm.shouldRing(on: dec29Tue, holidays: [], makeupDays: [])
-        let jan5Rings = alarm.shouldRing(on: jan5Tue, holidays: [], makeupDays: [])
+        // weekIndex 2 (Jan 6-12, 2031): week1 → Tue Jan 7 rings
+        #expect(alarm.shouldRing(on: date(2031, 1, 7), holidays: [], makeupDays: []) == true,
+                "weekIndex 2 Tue → week1 → ring (no parity glitch!)")
 
-        // If weekOfYear goes from 52 (even) → 1 (odd), the parity flips correctly
-        // If it goes 52 (even) → 2 (even), we get two consecutive "week1" weeks — BUG
-        // We document the actual behavior here
-        if woyDec % 2 == woyJan % 2 {
-            // Same parity — both map to same week set. This is a discontinuity.
-            // Both would be week1 (Tuesday) or both week2 (Thursday)
-            // For Tuesday: both would ring (if even) or both would NOT ring (if odd)
-            #expect(dec29Rings == jan5Rings,
-                    "Cross-year parity collision: woyDec=\(woyDec) woyJan=\(woyJan) — both map to same week")
-        } else {
-            // Different parity — correct alternation
-            #expect(dec29Rings != jan5Rings,
-                    "Cross-year should alternate: woyDec=\(woyDec) woyJan=\(woyJan)")
-        }
+        // weekIndex 3 (Jan 13-19): week2 → Thu Jan 16 rings, Tue Jan 14 doesn't
+        #expect(alarm.shouldRing(on: date(2031, 1, 14), holidays: [], makeupDays: []) == false,
+                "weekIndex 3 Tue → week2 → no ring")
+        #expect(alarm.shouldRing(on: date(2031, 1, 16), holidays: [], makeupDays: []) == true,
+                "weekIndex 3 Thu → week2 → ring")
+    }
+
+    @Test("Biweekly cross-year with both weeks having Monday — always rings on Monday")
+    func biweeklyCrossYearBothWeeksMonday() {
+        // ref = Mon Dec 21, 2026
+        let ref = date(2026, 12, 21)
+        let alarm = Alarm(repeatMode: .biweekly(
+            referenceDate: ref,
+            week1: [.monday],
+            week2: [.monday]
+        ))
+
+        // weekIndex 1 (Dec 28): Mon → week2 has Mon → ring
+        let dec28 = date(2026, 12, 28)
+        // weekIndex 2 (Jan 4, 2027): Mon → week1 has Mon → ring
+        let jan4 = date(2027, 1, 4)
+
+        #expect(alarm.shouldRing(on: dec28, holidays: [], makeupDays: []) == true,
+                "Dec 28 Mon → week2 has Mon → ring")
+        #expect(alarm.shouldRing(on: jan4, holidays: [], makeupDays: []) == true,
+                "Jan 4 Mon → week1 has Mon → ring")
     }
 
     @Test("Biweekly with empty week1 and full week2")
     func biweeklyEmptyWeek1() {
-        let alarm = Alarm(repeatMode: .biweekly(week1: [], week2: Weekday.allDays))
+        let ref = date(2026, 4, 6) // Monday
+        let alarm = Alarm(repeatMode: .biweekly(
+            referenceDate: ref,
+            week1: [],
+            week2: Weekday.allDays
+        ))
 
-        // Even week → week1 (empty) → no ring
-        let apr7 = date(2026, 4, 7) // Mon, weekOfYear 14 (even)
-        let woy7 = calendar.component(.weekOfYear, from: apr7)
-        if woy7 % 2 == 0 {
-            #expect(alarm.shouldRing(on: apr7, holidays: [], makeupDays: []) == false,
-                    "Even week with empty week1 should not ring")
-        }
+        // weekIndex 0 → week1 (empty) → no ring
+        #expect(alarm.shouldRing(on: date(2026, 4, 7), holidays: [], makeupDays: []) == false,
+                "weekIndex 0 with empty week1 → no ring")
 
-        // Odd week → week2 (allDays) → ring
-        let apr14 = date(2026, 4, 14) // Mon, weekOfYear 15 (odd)
-        let woy14 = calendar.component(.weekOfYear, from: apr14)
-        if woy14 % 2 != 0 {
-            #expect(alarm.shouldRing(on: apr14, holidays: [], makeupDays: []) == true,
-                    "Odd week with full week2 should ring")
-        }
+        // weekIndex 1 → week2 (allDays) → ring
+        #expect(alarm.shouldRing(on: date(2026, 4, 14), holidays: [], makeupDays: []) == true,
+                "weekIndex 1 with full week2 → ring")
     }
 
     @Test("Biweekly with both weeks empty — never rings via pattern")
     func biweeklyBothWeeksEmpty() {
-        let alarm = Alarm(repeatMode: .biweekly(week1: [], week2: []))
+        let ref = date(2026, 4, 6)
+        let alarm = Alarm(repeatMode: .biweekly(referenceDate: ref, week1: [], week2: []))
         let monday = date(2026, 4, 13)
         #expect(alarm.shouldRing(on: monday, holidays: [], makeupDays: []) == false)
+    }
+
+    @Test("Biweekly with referenceDate in the future (negative daysSinceRef)")
+    func biweeklyFutureReferenceDate() {
+        // referenceDate is in the future relative to test dates
+        let ref = date(2026, 5, 4) // Monday, May 4
+        let alarm = Alarm(repeatMode: .biweekly(
+            referenceDate: ref,
+            week1: [.monday],
+            week2: [.friday]
+        ))
+
+        // Apr 27 Mon: daysSinceRef = -7, weekIndex = (-7-6)/7 = -1 (odd) → week2
+        #expect(alarm.shouldRing(on: date(2026, 4, 27), holidays: [], makeupDays: []) == false,
+                "daysSinceRef -7 → weekIndex -1 (week2) → Mon not in week2 [Fri]")
+        // May 1 Fri: daysSinceRef = -3, weekIndex = (-3-6)/7 = -1 (odd) → week2
+        #expect(alarm.shouldRing(on: date(2026, 5, 1), holidays: [], makeupDays: []) == true,
+                "daysSinceRef -3 → weekIndex -1 (week2) → Fri in week2 [Fri]")
+
+        // Apr 20 Mon: daysSinceRef = -14, weekIndex = (-14-6)/7 = -2 (even) → week1
+        #expect(alarm.shouldRing(on: date(2026, 4, 20), holidays: [], makeupDays: []) == true,
+                "daysSinceRef -14 → weekIndex -2 (week1) → Mon in week1 [Mon]")
+    }
+
+    @Test("Biweekly with referenceDate not on a Monday still works correctly")
+    func biweeklyReferenceDateNotMonday() {
+        // referenceDate = Wednesday Apr 8 — algorithm doesn't require Monday
+        let ref = date(2026, 4, 8) // Wednesday
+        let alarm = Alarm(repeatMode: .biweekly(
+            referenceDate: ref,
+            week1: [.monday, .friday],
+            week2: [.wednesday]
+        ))
+
+        // Apr 8 Wed: daysSinceRef = 0, weekIndex 0 (week1) → Wed not in [Mon,Fri] → no ring
+        #expect(alarm.shouldRing(on: date(2026, 4, 8), holidays: [], makeupDays: []) == false)
+        // Apr 10 Fri: daysSinceRef = 2, weekIndex 0 (week1) → Fri in [Mon,Fri] → ring
+        #expect(alarm.shouldRing(on: date(2026, 4, 10), holidays: [], makeupDays: []) == true)
+        // Apr 15 Wed: daysSinceRef = 7, weekIndex 1 (week2) → Wed in [Wed] → ring
+        #expect(alarm.shouldRing(on: date(2026, 4, 15), holidays: [], makeupDays: []) == true)
+        // Apr 17 Fri: daysSinceRef = 9, weekIndex 1 (week2) → Fri not in [Wed] → no ring
+        #expect(alarm.shouldRing(on: date(2026, 4, 17), holidays: [], makeupDays: []) == false)
+    }
+
+    @Test("Biweekly long-term consistency over 6 months")
+    func biweeklyLongTermConsistency() {
+        let ref = date(2026, 1, 5) // Monday
+        let alarm = Alarm(repeatMode: .biweekly(
+            referenceDate: ref,
+            week1: [.monday],
+            week2: [.friday]
+        ))
+
+        // Check every Monday for 26 weeks — even weekIndex should ring, odd should not
+        var mondayRingCount = 0
+        var mondayNoRingCount = 0
+        for weekOffset in 0..<26 {
+            let monday = calendar.date(byAdding: .day, value: weekOffset * 7, to: ref)!
+            let rings = alarm.shouldRing(on: monday, holidays: [], makeupDays: [])
+            if weekOffset % 2 == 0 {
+                #expect(rings == true, "Week \(weekOffset) (even) Monday → week1 → ring")
+                mondayRingCount += 1
+            } else {
+                #expect(rings == false, "Week \(weekOffset) (odd) Monday → week2 → no ring")
+                mondayNoRingCount += 1
+            }
+        }
+        #expect(mondayRingCount == 13, "13 week1 Mondays should ring")
+        #expect(mondayNoRingCount == 13, "13 week2 Mondays should not ring")
     }
 
     // MARK: - .rotating Edge Cases

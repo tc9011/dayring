@@ -31,7 +31,8 @@ struct BiweeklyDetailView: View {
         .toolbar {
             ToolbarItem(placement: .confirmationAction) {
                 Button(locale.localizedString("完成")) {
-                    repeatMode = .biweekly(week1: week1Days, week2: week2Days)
+                    let refDate = Self.startOfCurrentWeek()
+                    repeatMode = .biweekly(referenceDate: refDate, week1: week1Days, week2: week2Days)
                     dismiss()
                 }
                 .fontWeight(.semibold)
@@ -39,11 +40,19 @@ struct BiweeklyDetailView: View {
             }
         }
         .onAppear {
-            if case .biweekly(let w1, let w2) = repeatMode {
+            if case .biweekly(_, let w1, let w2) = repeatMode {
                 week1Days = w1
                 week2Days = w2
             }
         }
+    }
+
+    private static func startOfCurrentWeek() -> Date {
+        let calendar = Calendar.current
+        let now = Date()
+        let weekday = calendar.component(.weekday, from: now)
+        let daysFromMonday = weekday == 1 ? 6 : weekday - 2
+        return calendar.startOfDay(for: calendar.date(byAdding: .day, value: -daysFromMonday, to: now)!)
     }
 
     private func weekBox(title: String, days: Binding<Set<Weekday>>) -> some View {
@@ -78,6 +87,6 @@ struct BiweeklyDetailView: View {
 
 #Preview {
     NavigationStack {
-        BiweeklyDetailView(repeatMode: .constant(.biweekly(week1: Weekday.workdays, week2: [.monday, .tuesday, .wednesday, .thursday])))
+        BiweeklyDetailView(repeatMode: .constant(.biweekly(referenceDate: Date(), week1: Weekday.workdays, week2: [.monday, .tuesday, .wednesday, .thursday])))
     }
 }
