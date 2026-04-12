@@ -1,6 +1,9 @@
 import SwiftUI
 import SwiftData
 import UserNotifications
+import os.log
+
+private let logger = Logger(subsystem: "com.dayring.app", category: "AppLifecycle")
 
 @main
 struct DayRingApp: App {
@@ -12,7 +15,12 @@ struct DayRingApp: App {
             ContentView()
                 .environment(\.localeManager, localeManager)
                 .task {
-                    try? await AlarmScheduler.shared.requestAuthorization()
+                    do {
+                        try await AlarmScheduler.shared.requestAuthorization()
+                        logger.info("Alarm authorization granted")
+                    } catch {
+                        logger.error("Alarm authorization failed: \(error.localizedDescription)")
+                    }
                 }
         }
         .modelContainer(for: [Alarm.self, AppSettings.self])
@@ -48,7 +56,12 @@ struct RescheduleAllAlarmsModifier: ViewModifier {
             let holidays = provider.holidays(for: year)
             let makeupDays = provider.makeupDays(for: year)
             nonisolated(unsafe) let alarmsRef = alarms
-            try? await AlarmScheduler.shared.rescheduleAll(alarmsRef, holidays: holidays, makeupDays: makeupDays)
+            do {
+                try await AlarmScheduler.shared.rescheduleAll(alarmsRef, holidays: holidays, makeupDays: makeupDays)
+                logger.info("Rescheduled \(alarmsRef.count) alarm(s) on launch")
+            } catch {
+                logger.error("rescheduleAll failed: \(error.localizedDescription)")
+            }
         }
     }
 }

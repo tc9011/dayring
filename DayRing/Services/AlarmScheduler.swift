@@ -39,6 +39,31 @@ final class AlarmScheduler: @unchecked Sendable, AlarmScheduling {
         let (effectiveHour, effectiveMinute) = calculator.effectiveTime(for: alarm)
 
         #if canImport(AlarmKit)
+        do {
+            try await scheduleViaAlarmKit(alarm: alarm, ringDates: ringDates, effectiveHour: effectiveHour, effectiveMinute: effectiveMinute)
+            logger.info("Scheduled \(ringDates.count) alarm(s) via AlarmKit for '\(alarm.label)'")
+            return
+        } catch {
+            logger.warning("AlarmKit failed (\(error.localizedDescription)), falling back to notifications")
+        }
+        #endif
+
+        try await NotificationFallbackScheduler.schedule(
+            alarm: alarm,
+            ringDates: ringDates,
+            effectiveHour: effectiveHour,
+            effectiveMinute: effectiveMinute
+        )
+        logger.info("Scheduled \(ringDates.count) alarm(s) via notifications for '\(alarm.label)'")
+    }
+
+    #if canImport(AlarmKit)
+    private func scheduleViaAlarmKit(
+        alarm: Alarm,
+        ringDates: [Date],
+        effectiveHour: Int,
+        effectiveMinute: Int
+    ) async throws {
         let manager = AlarmManager.shared
         for ringDate in ringDates {
             let calendar = Calendar.current
@@ -68,25 +93,19 @@ final class AlarmScheduler: @unchecked Sendable, AlarmScheduling {
             )
             _ = try await manager.schedule(id: alarm.id, configuration: configuration)
         }
-        #else
-        try await NotificationFallbackScheduler.schedule(
-            alarm: alarm,
-            ringDates: ringDates,
-            effectiveHour: effectiveHour,
-            effectiveMinute: effectiveMinute
-        )
-        #endif
-
-        logger.info("Scheduled \(ringDates.count) alarm(s) for '\(alarm.label)' (id: \(alarm.id))")
     }
+    #endif
 
     func cancelAlarm(_ alarmID: UUID) async throws {
         #if canImport(AlarmKit)
-        let manager = AlarmManager.shared
-        try manager.cancel(id: alarmID)
-        #else
-        await NotificationFallbackScheduler.cancel(alarmId: alarmID)
+        do {
+            let manager = AlarmManager.shared
+            try manager.cancel(id: alarmID)
+        } catch {
+            logger.warning("AlarmKit cancel failed, falling back to notification cancel")
+        }
         #endif
+        await NotificationFallbackScheduler.cancel(alarmId: alarmID)
     }
 
     func rescheduleAll(_ alarms: [Alarm], holidays: Set<String>, makeupDays: Set<String>) async throws {
@@ -97,11 +116,16 @@ final class AlarmScheduler: @unchecked Sendable, AlarmScheduling {
 
     func requestAuthorization() async throws {
         #if canImport(AlarmKit)
-        let manager = AlarmManager.shared
-        _ = try await manager.requestAuthorization()
+        do {
+            let manager = AlarmManager.shared
+            _ = try await manager.requestAuthorization()
+            logger.info("AlarmKit authorization granted")
+        } catch {
+            logger.warning("AlarmKit authorization failed: \(error.localizedDescription)")
+        }
         #endif
         try await NotificationFallbackScheduler.requestAuthorization()
-        logger.info("Alarm authorization requested")
+        logger.info("Notification authorization requested")
     }
 }
 

@@ -7,6 +7,7 @@ struct AlarmListView: View {
     @Query private var allSettings: [AppSettings]
     @Environment(\.modelContext) private var modelContext
     @Environment(\.localeManager) private var locale
+    @Environment(\.scenePhase) private var scenePhase
     @State private var viewModel = AlarmListViewModel()
     @State private var showingNewAlarm = false
     @State private var editingAlarm: Alarm?
@@ -68,7 +69,13 @@ struct AlarmListView: View {
         .onChange(of: alarms) {
             viewModel.alarms = alarms
         }
-        .onReceive(Timer.publish(every: 60, on: .main, in: .common).autoconnect()) { tick in
+        .onChange(of: scenePhase) {
+            if scenePhase == .active {
+                refreshTick = Date()
+                viewModel.disableExpiredNonRepeatingAlarms(now: refreshTick)
+            }
+        }
+        .onReceive(Timer.publish(every: 15, on: .main, in: .common).autoconnect()) { tick in
             refreshTick = tick
             viewModel.disableExpiredNonRepeatingAlarms(now: tick)
         }

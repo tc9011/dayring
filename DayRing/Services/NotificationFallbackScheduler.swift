@@ -1,5 +1,8 @@
 import Foundation
 import UserNotifications
+import os.log
+
+private let logger = Logger(subsystem: "com.dayring.app", category: "NotificationFallback")
 
 struct NotificationFallbackScheduler: Sendable {
 
@@ -51,7 +54,11 @@ struct NotificationFallbackScheduler: Sendable {
             let requestId = makeRequestIdentifier(alarmId: alarm.id, ringDate: ringDate)
             let request = UNNotificationRequest(identifier: requestId, content: content, trigger: trigger)
             try await center.add(request)
+            logger.info("Scheduled notification \(requestId) for \(components.year!)-\(components.month!)-\(components.day!) \(effectiveHour):\(effectiveMinute)")
         }
+
+        let pending = await center.pendingNotificationRequests()
+        logger.info("Total pending notifications: \(pending.count)")
     }
 
     static func cancel(alarmId: UUID) async {

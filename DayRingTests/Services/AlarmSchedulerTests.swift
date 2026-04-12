@@ -201,6 +201,66 @@ struct AlarmScheduleCalculatorTests {
         }
     }
     
+    // MARK: - Past Time Filtering
+
+    @Test("nextRingDates skips today when alarm time already passed")
+    func skipsTodayWhenTimePassed() {
+        let alarm = Alarm(hour: 15, minute: 41, repeatMode: .daily)
+        // "now" is 15:42 on Apr 10 — alarm time 15:41 already passed
+        let now = calendar.date(from: DateComponents(year: 2026, month: 4, day: 10, hour: 15, minute: 42))!
+        let calculator = AlarmScheduleCalculator()
+        let dates = calculator.nextRingDates(for: alarm, from: now, count: 3, holidays: [], makeupDays: [])
+
+        // Today (Apr 10) should NOT be in the result — its time already passed
+        let hasToday = dates.contains { calendar.isDate($0, inSameDayAs: date(2026, 4, 10)) }
+        #expect(!hasToday, "Today should be skipped when alarm time already passed")
+        // First date should be tomorrow
+        #expect(dates.count == 3)
+        #expect(calendar.isDate(dates[0], inSameDayAs: date(2026, 4, 11)))
+    }
+
+    @Test("nextRingDates includes today when alarm time not yet passed")
+    func includesTodayWhenTimeNotPassed() {
+        let alarm = Alarm(hour: 15, minute: 41, repeatMode: .daily)
+        // "now" is 15:30 on Apr 10 — alarm time 15:41 not passed yet
+        let now = calendar.date(from: DateComponents(year: 2026, month: 4, day: 10, hour: 15, minute: 30))!
+        let calculator = AlarmScheduleCalculator()
+        let dates = calculator.nextRingDates(for: alarm, from: now, count: 3, holidays: [], makeupDays: [])
+
+        // Today should be included — time hasn't passed
+        let hasToday = dates.contains { calendar.isDate($0, inSameDayAs: date(2026, 4, 10)) }
+        #expect(hasToday, "Today should be included when alarm time hasn't passed")
+        #expect(calendar.isDate(dates[0], inSameDayAs: date(2026, 4, 10)))
+    }
+
+    @Test("nextRingDates skips today for .none alarm when time passed")
+    func noneAlarmSkipsTodayWhenTimePassed() {
+        let alarm = Alarm(hour: 8, minute: 0, repeatMode: .none)
+        // "now" is 10:00 — alarm at 08:00 already passed
+        let now = calendar.date(from: DateComponents(year: 2026, month: 4, day: 10, hour: 10, minute: 0))!
+        let calculator = AlarmScheduleCalculator()
+        let dates = calculator.nextRingDates(for: alarm, from: now, count: 1, holidays: [], makeupDays: [])
+
+        // For .none, once today's time passed, there should be no future dates
+        // (.none matches every day, so without time check it would return today)
+        let hasToday = dates.contains { calendar.isDate($0, inSameDayAs: date(2026, 4, 10)) }
+        #expect(!hasToday, ".none alarm should skip today when time passed")
+    }
+
+    @Test("nextRingDates with advance minutes uses effective time for filtering")
+    func advanceMinutesUsedForFiltering() {
+        // Alarm at 16:00 with 15min advance → effective time 15:45
+        let alarm = Alarm(hour: 16, minute: 0, advanceMinutes: 15)
+        alarm.repeatMode = .daily
+        // "now" is 15:50 — effective time 15:45 already passed
+        let now = calendar.date(from: DateComponents(year: 2026, month: 4, day: 10, hour: 15, minute: 50))!
+        let calculator = AlarmScheduleCalculator()
+        let dates = calculator.nextRingDates(for: alarm, from: now, count: 3, holidays: [], makeupDays: [])
+
+        let hasToday = dates.contains { calendar.isDate($0, inSameDayAs: date(2026, 4, 10)) }
+        #expect(!hasToday, "Today should be skipped when effective alarm time (with advance) already passed")
+    }
+
     // MARK: - Delete After Ring
     
     @Test("Delete-after-ring alarm only schedules one date")
