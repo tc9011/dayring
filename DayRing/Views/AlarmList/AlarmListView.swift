@@ -64,7 +64,6 @@ struct AlarmListView: View {
         }
         .onAppear {
             viewModel.alarms = alarms
-            viewModel.disableExpiredNonRepeatingAlarms()
         }
         .onChange(of: alarms) {
             viewModel.alarms = alarms
@@ -72,12 +71,10 @@ struct AlarmListView: View {
         .onChange(of: scenePhase) {
             if scenePhase == .active {
                 refreshTick = Date()
-                viewModel.disableExpiredNonRepeatingAlarms(now: refreshTick)
             }
         }
         .onReceive(Timer.publish(every: 15, on: .main, in: .common).autoconnect()) { tick in
             refreshTick = tick
-            viewModel.disableExpiredNonRepeatingAlarms(now: tick)
         }
         .sheet(isPresented: $showingNewAlarm) {
             AlarmEditSheet(alarm: nil)
