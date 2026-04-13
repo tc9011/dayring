@@ -24,10 +24,10 @@ struct SettingsViewModelTests {
         #expect(settings.locale == .system)
     }
 
-    @Test("Default calendar includes lunar")
+    @Test("Default calendar is Chinese calendar")
     func defaultCalendar() {
         let settings = AppSettings()
-        #expect(settings.selectedCalendars.contains(.lunar))
+        #expect(settings.selectedCalendar == .chineseCalendar)
     }
 
     @Test("Time format can be toggled to 12h")
@@ -72,6 +72,36 @@ struct SettingsViewModelTests {
         #expect(vm.calendarDisplayName == "农历")
     }
 
+    // MARK: - Calendar Single Select
+
+    @Test("selectedCalendar can be set to nil (none)")
+    func calendarSetToNone() {
+        let settings = AppSettings()
+        settings.selectedCalendar = nil
+        #expect(settings.selectedCalendar == nil)
+    }
+
+    @Test("selectedCalendar can be changed to islamic")
+    func calendarSetToIslamic() {
+        let settings = AppSettings()
+        settings.selectedCalendar = .islamic
+        #expect(settings.selectedCalendar == .islamic)
+    }
+
+    @Test("ViewModel calendarDisplayName returns 无 when nil")
+    func calendarDisplayNameNone() {
+        let vm = SettingsViewModel()
+        vm.settings.selectedCalendar = nil
+        #expect(vm.calendarDisplayName == "无")
+    }
+
+    @Test("ViewModel calendarDisplayName returns localized name for non-Chinese calendar")
+    func calendarDisplayNameIslamic() {
+        let vm = SettingsViewModel()
+        vm.settings.selectedCalendar = .islamic
+        #expect(vm.calendarDisplayName == "伊斯兰历")
+    }
+
     @Test("ViewModel languageDisplayName returns 跟随系统")
     func languageDisplayName() {
         let vm = SettingsViewModel()
@@ -111,5 +141,40 @@ struct SettingsViewModelTests {
     func appearanceDisplayName() {
         let vm = SettingsViewModel()
         #expect(vm.appearanceDisplayName == "自动")
+    }
+
+    // MARK: - Timezone and First Day of Week Settings
+
+    @Test("First day of week can be changed to Sunday")
+    func changeFirstDayToSunday() {
+        let settings = AppSettings()
+        settings.firstDayOfWeek = .sunday
+        #expect(settings.firstDayOfWeek == .sunday)
+    }
+
+    @Test("Timezone can be changed to a specific timezone")
+    func changeTimezoneToSpecific() {
+        let settings = AppSettings()
+        settings.timezone = .specific(identifier: "America/New_York")
+        if case .specific(let id) = settings.timezone {
+            #expect(id == "America/New_York")
+        } else {
+            Issue.record("Expected specific timezone")
+        }
+    }
+
+    @Test("ViewModel firstDayDisplayName updates after change")
+    func firstDayDisplayNameAfterChange() {
+        let vm = SettingsViewModel()
+        vm.settings.firstDayOfWeek = .sunday
+        #expect(vm.firstDayDisplayName == "周日")
+    }
+
+    @Test("ViewModel timezoneDisplayName updates after change")
+    func timezoneDisplayNameAfterChange() {
+        let vm = SettingsViewModel()
+        vm.settings.timezone = .specific(identifier: "America/New_York")
+        #expect(!vm.timezoneDisplayName.isEmpty)
+        #expect(vm.timezoneDisplayName != "跟随系统")
     }
 }

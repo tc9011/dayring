@@ -8,17 +8,24 @@ final class AppSettings {
     var firstDayOfWeek: Weekday
     var locale: AppLocale
     var appearanceMode: AppearanceMode
-    var selectedCalendarsData: Data
+    var selectedCalendarData: Data
     var timezoneData: Data
 
     @Transient
-    var selectedCalendars: Set<CalendarType> {
+    var selectedCalendar: CalendarType? {
         get {
-            (try? JSONDecoder().decode(Set<CalendarType>.self, from: selectedCalendarsData))
-                ?? [.lunar]
+            guard let raw = String(data: selectedCalendarData, encoding: .utf8),
+                  !raw.isEmpty else {
+                return nil
+            }
+            return CalendarType(rawValue: raw) ?? .chineseCalendar
         }
         set {
-            selectedCalendarsData = (try? JSONEncoder().encode(newValue)) ?? Data()
+            if let type = newValue {
+                selectedCalendarData = Data(type.rawValue.utf8)
+            } else {
+                selectedCalendarData = Data()
+            }
         }
     }
 
@@ -38,14 +45,18 @@ final class AppSettings {
         firstDayOfWeek: Weekday = .monday,
         locale: AppLocale = .system,
         appearanceMode: AppearanceMode = .system,
-        selectedCalendars: Set<CalendarType> = [.lunar],
+        selectedCalendar: CalendarType? = .chineseCalendar,
         timezone: TimezoneOption = .system
     ) {
         self.timeFormat = timeFormat
         self.firstDayOfWeek = firstDayOfWeek
         self.locale = locale
         self.appearanceMode = appearanceMode
-        self.selectedCalendarsData = (try? JSONEncoder().encode(selectedCalendars)) ?? Data()
+        if let cal = selectedCalendar {
+            self.selectedCalendarData = Data(cal.rawValue.utf8)
+        } else {
+            self.selectedCalendarData = Data()
+        }
         self.timezoneData = (try? JSONEncoder().encode(timezone)) ?? Data()
     }
 }
@@ -83,7 +94,7 @@ enum AppLocale: String, Codable, CaseIterable, Sendable {
 }
 
 enum CalendarType: String, Codable, CaseIterable, Hashable, Sendable {
-    case lunar = "农历"
+    case chineseCalendar = "农历"
     case islamic = "伊斯兰历"
     case hebrew = "希伯来历"
     case persian = "波斯历"
@@ -91,6 +102,16 @@ enum CalendarType: String, Codable, CaseIterable, Hashable, Sendable {
 
     var localizedName: String {
         LocaleManager.shared.localizedString(rawValue)
+    }
+
+    var calendarIdentifier: Calendar.Identifier {
+        switch self {
+        case .chineseCalendar: .chinese
+        case .islamic: .islamicCivil
+        case .hebrew: .hebrew
+        case .persian: .persian
+        case .indian: .indian
+        }
     }
 }
 

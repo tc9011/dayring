@@ -1,14 +1,20 @@
 import SwiftUI
+import SwiftData
 
 struct CustomCalendarDetailView: View {
     @Binding var repeatMode: RepeatMode
     @Environment(\.dismiss) private var dismiss
     @Environment(\.localeManager) private var locale
+    @Query private var allSettings: [AppSettings]
     @State private var selectedDates: Set<DateComponents> = []
     @State private var displayedMonth = Date()
 
+    private var firstDayOfWeek: Weekday {
+        allSettings.first?.firstDayOfWeek ?? .monday
+    }
+
     private var gridCells: [CalendarGridCell] {
-        CalendarGridHelper.gridCells(for: displayedMonth)
+        CalendarGridHelper.gridCells(for: displayedMonth, firstDayOfWeek: firstDayOfWeek)
     }
 
     private var gridRows: [[CalendarGridCell]] {
@@ -18,7 +24,7 @@ struct CustomCalendarDetailView: View {
     private var weekdaySymbols: [String] {
         let bundleId = LocaleManager.shared.currentLocale.bundleIdentifier
         let loc = bundleId.map { Locale(identifier: $0) }
-        return CalendarGridHelper.weekdaySymbols(locale: loc)
+        return CalendarGridHelper.weekdaySymbols(locale: loc, firstDayOfWeek: firstDayOfWeek)
     }
 
     var body: some View {

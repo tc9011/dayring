@@ -15,13 +15,25 @@ final class SettingsViewModel {
         settings.timezone.displayName
     }
 
+    func timezoneDisplayName(for s: AppSettings) -> String {
+        s.timezone.displayName
+    }
+
     var firstDayDisplayName: String {
         let l = LocaleManager.shared
         return l.localizedString("周") + settings.firstDayOfWeek.shortName
     }
 
+    func firstDayDisplayName(for s: AppSettings) -> String {
+        let l = LocaleManager.shared
+        return l.localizedString("周") + s.firstDayOfWeek.shortName
+    }
+
     var calendarDisplayName: String {
-        settings.selectedCalendars.map(\.localizedName).sorted().joined(separator: "、")
+        guard let cal = settings.selectedCalendar else {
+            return LocaleManager.shared.localizedString("无")
+        }
+        return cal.localizedName
     }
 
     var languageDisplayName: String {

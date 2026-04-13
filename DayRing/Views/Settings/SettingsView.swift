@@ -7,6 +7,9 @@ struct SettingsView: View {
     @Environment(\.localeManager) private var locale
     @State private var viewModel = SettingsViewModel()
     @State private var showingLanguagePicker = false
+    @State private var showingTimezonePicker = false
+    @State private var showingFirstDayPicker = false
+    @State private var showingCalendarPicker = false
 
     private var settings: AppSettings {
         if let existing = allSettings.first {
@@ -44,6 +47,15 @@ struct SettingsView: View {
         .sheet(isPresented: $showingLanguagePicker) {
             languagePickerSheet
         }
+        .sheet(isPresented: $showingTimezonePicker) {
+            timezonePickerSheet
+        }
+        .sheet(isPresented: $showingFirstDayPicker) {
+            firstDayPickerSheet
+        }
+        .sheet(isPresented: $showingCalendarPicker) {
+            calendarPickerSheet
+        }
     }
 
     // MARK: - Header
@@ -64,21 +76,29 @@ struct SettingsView: View {
 
     private var generalSection: some View {
         VStack(spacing: 0) {
-            settingsRow(
-                icon: "globe",
-                iconColor: Color.iosBlue,
-                title: locale.localizedString("时区"),
-                value: viewModel.timezoneDisplayName
-            )
+            Button {
+                showingTimezonePicker = true
+            } label: {
+                settingsRow(
+                    icon: "globe",
+                    iconColor: Color.iosBlue,
+                    title: locale.localizedString("时区"),
+                    value: settings.timezone.displayName
+                )
+            }
 
             sectionSeparator
 
-            settingsRow(
-                icon: "calendar",
-                iconColor: Color.accent,
-                title: locale.localizedString("每周第一天"),
-                value: viewModel.firstDayDisplayName
-            )
+            Button {
+                showingFirstDayPicker = true
+            } label: {
+                settingsRow(
+                    icon: "calendar",
+                    iconColor: Color.accent,
+                    title: locale.localizedString("每周第一天"),
+                    value: viewModel.firstDayDisplayName(for: settings)
+                )
+            }
 
             sectionSeparator
 
@@ -101,12 +121,16 @@ struct SettingsView: View {
                 .padding(.horizontal, 4)
 
             VStack(spacing: 0) {
-                settingsRow(
-                    icon: "book",
-                    iconColor: Color.makeupPurple,
-                    title: locale.localizedString("其他历法"),
-                    value: viewModel.calendarDisplayName
-                )
+                Button {
+                    showingCalendarPicker = true
+                } label: {
+                    settingsRow(
+                        icon: "book",
+                        iconColor: Color.makeupPurple,
+                        title: locale.localizedString("其他历法"),
+                        value: viewModel.calendarDisplayName
+                    )
+                }
             }
             .background(Color.bgSecondary)
             .clipShape(RoundedRectangle(cornerRadius: 12))
@@ -172,6 +196,163 @@ struct SettingsView: View {
                 ToolbarItem(placement: .cancellationAction) {
                     Button(locale.localizedString("完成")) {
                         showingLanguagePicker = false
+                    }
+                    .foregroundStyle(Color.accent)
+                }
+            }
+        }
+    }
+
+    // MARK: - Timezone Picker Sheet
+
+    private static let commonTimezones: [(id: String, label: String)] = [
+        ("Asia/Shanghai", "UTC+8 Shanghai"),
+        ("Asia/Tokyo", "UTC+9 Tokyo"),
+        ("Asia/Kolkata", "UTC+5:30 Mumbai"),
+        ("Asia/Dubai", "UTC+4 Dubai"),
+        ("Europe/London", "UTC+0 London"),
+        ("Europe/Paris", "UTC+1 Paris"),
+        ("Europe/Moscow", "UTC+3 Moscow"),
+        ("America/New_York", "UTC-5 New York"),
+        ("America/Chicago", "UTC-6 Chicago"),
+        ("America/Denver", "UTC-7 Denver"),
+        ("America/Los_Angeles", "UTC-8 Los Angeles"),
+        ("Pacific/Auckland", "UTC+12 Auckland"),
+        ("Australia/Sydney", "UTC+11 Sydney"),
+        ("Pacific/Honolulu", "UTC-10 Honolulu"),
+    ]
+
+    private var timezonePickerSheet: some View {
+        NavigationStack {
+            List {
+                Button {
+                    settings.timezone = .system
+                    showingTimezonePicker = false
+                } label: {
+                    HStack {
+                        Text(locale.localizedString("跟随系统"))
+                            .foregroundStyle(Color.fgPrimary)
+                        Spacer()
+                        if case .system = settings.timezone {
+                            Image(systemName: "checkmark")
+                                .foregroundStyle(Color.accent)
+                                .fontWeight(.semibold)
+                        }
+                    }
+                }
+
+                ForEach(Self.commonTimezones, id: \.id) { tz in
+                    Button {
+                        settings.timezone = .specific(identifier: tz.id)
+                        showingTimezonePicker = false
+                    } label: {
+                        HStack {
+                            Text(tz.label)
+                                .foregroundStyle(Color.fgPrimary)
+                            Spacer()
+                            if case .specific(let current) = settings.timezone, current == tz.id {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(Color.accent)
+                                    .fontWeight(.semibold)
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle(locale.localizedString("时区"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(locale.localizedString("完成")) {
+                        showingTimezonePicker = false
+                    }
+                    .foregroundStyle(Color.accent)
+                }
+            }
+        }
+    }
+
+    // MARK: - First Day of Week Picker Sheet
+
+    private var firstDayPickerSheet: some View {
+        NavigationStack {
+            List {
+                ForEach(Weekday.allCases, id: \.self) { day in
+                    Button {
+                        settings.firstDayOfWeek = day
+                        showingFirstDayPicker = false
+                    } label: {
+                        HStack {
+                            Text(locale.localizedString("周") + day.shortName)
+                                .foregroundStyle(Color.fgPrimary)
+                            Spacer()
+                            if settings.firstDayOfWeek == day {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(Color.accent)
+                                    .fontWeight(.semibold)
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle(locale.localizedString("每周第一天"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(locale.localizedString("完成")) {
+                        showingFirstDayPicker = false
+                    }
+                    .foregroundStyle(Color.accent)
+                }
+            }
+        }
+    }
+
+    // MARK: - Calendar Picker Sheet
+
+    private var calendarPickerSheet: some View {
+        NavigationStack {
+            List {
+                Button {
+                    settings.selectedCalendar = nil
+                    showingCalendarPicker = false
+                } label: {
+                    HStack {
+                        Text(locale.localizedString("无"))
+                            .foregroundStyle(Color.fgPrimary)
+                        Spacer()
+                        if settings.selectedCalendar == nil {
+                            Image(systemName: "checkmark")
+                                .foregroundStyle(Color.accent)
+                                .fontWeight(.semibold)
+                        }
+                    }
+                }
+
+                ForEach(CalendarType.allCases, id: \.self) { calType in
+                    Button {
+                        settings.selectedCalendar = calType
+                        showingCalendarPicker = false
+                    } label: {
+                        HStack {
+                            Text(calType.localizedName)
+                                .foregroundStyle(Color.fgPrimary)
+                            Spacer()
+                            if settings.selectedCalendar == calType {
+                                Image(systemName: "checkmark")
+                                    .foregroundStyle(Color.accent)
+                                    .fontWeight(.semibold)
+                            }
+                        }
+                    }
+                }
+            }
+            .navigationTitle(locale.localizedString("历法"))
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(locale.localizedString("完成")) {
+                        showingCalendarPicker = false
                     }
                     .foregroundStyle(Color.accent)
                 }

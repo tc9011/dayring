@@ -5,9 +5,10 @@ struct DayDetailSheet: View {
     let date: Date
     let alarms: [Alarm]
     let is24HourFormat: Bool
+    var selectedCalendar: CalendarType? = .chineseCalendar
     @Environment(\.localeManager) private var locale
 
-    private let chineseCalendar = ChineseCalendarService()
+    private let calendarService = ChineseCalendarService()
     private let holidayProvider = HolidayDataProvider()
 
     private var dateKey: String { Alarm.dateKey(for: date) }
@@ -18,7 +19,10 @@ struct DayDetailSheet: View {
     private var isHoliday: Bool { holidayProvider.isHoliday(dateKey, year: year) }
     private var isMakeupDay: Bool { holidayProvider.isMakeupDay(dateKey, year: year) }
     private var holidayName: String? { holidayProvider.holidayName(for: dateKey, year: year) }
-    private var lunarString: String { chineseCalendar.lunarDateString(for: date) }
+    private var calendarString: String {
+        guard let cal = selectedCalendar else { return "" }
+        return calendarService.dateString(for: date, calendarType: cal)
+    }
 
     private var isToday: Bool { calendar.isDateInToday(date) }
 
@@ -43,14 +47,14 @@ struct DayDetailSheet: View {
         return Color.fgPrimary
     }
 
-    private var lunarDisplayString: String {
+    private var calendarDisplayString: String {
         if let name = holidayName {
-            return "\(lunarString) · \(name)"
+            return "\(calendarString) · \(name)"
         }
-        return lunarString
+        return calendarString
     }
 
-    private var lunarDisplayColor: Color {
+    private var calendarDisplayColor: Color {
         if isHoliday { return Color.holidayRed }
         return Color.fgSecondary
     }
@@ -59,7 +63,7 @@ struct DayDetailSheet: View {
         ScrollView {
             VStack(spacing: 20) {
                 dateHeaderSection
-                lunarInfoSection
+                calendarInfoSection
                 separatorLine
                 alarmSection
                 hintSection
@@ -90,11 +94,11 @@ struct DayDetailSheet: View {
         .frame(maxWidth: .infinity)
     }
 
-    private var lunarInfoSection: some View {
+    private var calendarInfoSection: some View {
         VStack(spacing: 8) {
-            Text(lunarDisplayString)
+            Text(calendarDisplayString)
                 .font(Font.caption())
-                .foregroundStyle(lunarDisplayColor)
+                .foregroundStyle(calendarDisplayColor)
 
             if isHoliday {
                 badgeView(

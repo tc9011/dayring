@@ -26,6 +26,8 @@ struct CalendarTabView: View {
                         viewModel: viewModel,
                         alarms: alarms,
                         is24HourFormat: is24HourFormat,
+                        firstDayOfWeek: settings.firstDayOfWeek,
+                        selectedCalendar: settings.selectedCalendar,
                         onDateTapped: { date in
                             viewModel.selectedDate = date
                             showingDayDetail = true
@@ -45,7 +47,8 @@ struct CalendarTabView: View {
                 DayDetailSheet(
                     date: date,
                     alarms: alarms,
-                    is24HourFormat: is24HourFormat
+                    is24HourFormat: is24HourFormat,
+                    selectedCalendar: settings.selectedCalendar
                 )
             }
         }

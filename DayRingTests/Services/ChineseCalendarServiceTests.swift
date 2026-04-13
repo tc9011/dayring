@@ -7,39 +7,66 @@ struct ChineseCalendarServiceTests {
 
     let service = ChineseCalendarService()
 
-    @Test("Lunar date for known date: Mid-Autumn 2026-09-25 is 八月十五")
-    func midAutumnLunarDate() {
+    @Test("Chinese calendar date for known date: Mid-Autumn 2026-09-25 is 八月十五")
+    func midAutumnChineseDate() {
         let date = Calendar.current.date(from: DateComponents(year: 2026, month: 9, day: 25))!
-        let result = service.lunarDateString(for: date)
+        let result = service.chineseDateString(for: date)
         #expect(result == "八月十五")
     }
 
-    @Test("Lunar date for Spring Festival 2026-02-17 is 正月初一")
+    @Test("Chinese calendar date for Spring Festival 2026-02-17 is 正月初一")
     func springFestival() {
         let date = Calendar.current.date(from: DateComponents(year: 2026, month: 2, day: 17))!
-        let result = service.lunarDateString(for: date)
+        let result = service.chineseDateString(for: date)
         #expect(result == "正月初一")
     }
 
-    @Test("Lunar month names cover all 12 Gregorian months of 2026")
-    func lunarMonthNamesNotEmpty() {
+    @Test("Chinese calendar month names cover all 12 Gregorian months of 2026")
+    func chineseMonthNamesNotEmpty() {
         let calendar = Calendar.current
         for month in 1...12 {
             let date = calendar.date(from: DateComponents(year: 2026, month: month, day: 1))!
-            let result = service.lunarDateString(for: date)
-            #expect(!result.isEmpty, "Month \(month) should produce a non-empty lunar date")
+            let result = service.chineseDateString(for: date)
+            #expect(!result.isEmpty, "Month \(month) should produce a non-empty Chinese calendar date")
         }
     }
 
-    @Test("Lunar day names are non-empty for 60 consecutive days starting 2026-01-01")
-    func lunarDaySpecialCases() {
+    @Test("Chinese calendar day names are non-empty for 60 consecutive days starting 2026-01-01")
+    func chineseDaySpecialCases() {
         let calendar = Calendar.current
         let startDate = calendar.date(from: DateComponents(year: 2026, month: 1, day: 1))!
         for dayOffset in 0..<60 {
             let date = calendar.date(byAdding: .day, value: dayOffset, to: startDate)!
-            let result = service.lunarDateString(for: date)
-            #expect(!result.isEmpty, "Day offset \(dayOffset) should produce non-empty lunar date")
+            let result = service.chineseDateString(for: date)
+            #expect(!result.isEmpty, "Day offset \(dayOffset) should produce non-empty Chinese calendar date")
         }
+    }
+
+    @Test("dateString for Chinese calendar returns same as chineseDateString")
+    func dateStringChineseCalendar() {
+        let date = Calendar.current.date(from: DateComponents(year: 2026, month: 2, day: 17))!
+        let generic = service.dateString(for: date, calendarType: .chineseCalendar)
+        let specific = service.chineseDateString(for: date)
+        #expect(generic == specific)
+    }
+
+    @Test("dateString for non-Chinese calendar types returns non-empty strings")
+    func dateStringNonChinese() {
+        let date = Calendar.current.date(from: DateComponents(year: 2026, month: 4, day: 13))!
+        let nonChineseTypes: [CalendarType] = [.islamic, .hebrew, .persian, .indian]
+        for calType in nonChineseTypes {
+            let result = service.dateString(for: date, calendarType: calType)
+            #expect(!result.isEmpty, "\(calType) should produce non-empty date string")
+        }
+    }
+
+    @Test("CalendarType.calendarIdentifier maps correctly")
+    func calendarIdentifierMapping() {
+        #expect(CalendarType.chineseCalendar.calendarIdentifier == .chinese)
+        #expect(CalendarType.islamic.calendarIdentifier == .islamicCivil)
+        #expect(CalendarType.hebrew.calendarIdentifier == .hebrew)
+        #expect(CalendarType.persian.calendarIdentifier == .persian)
+        #expect(CalendarType.indian.calendarIdentifier == .indian)
     }
 }
 

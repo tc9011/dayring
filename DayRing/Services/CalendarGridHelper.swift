@@ -7,12 +7,12 @@ struct CalendarGridCell: Identifiable, Hashable {
 
 enum CalendarGridHelper {
 
-    static func gridCells(for month: Date) -> [CalendarGridCell] {
+    static func gridCells(for month: Date, firstDayOfWeek: Weekday = .monday) -> [CalendarGridCell] {
         let calendar = Calendar.current
         let monthComponents = calendar.dateComponents([.year, .month], from: month)
         guard let firstDay = calendar.date(from: monthComponents) else { return [] }
 
-        let emptyCells = leadingEmptyCells(for: firstDay)
+        let emptyCells = leadingEmptyCells(for: firstDay, firstDayOfWeek: firstDayOfWeek)
 
         var cells: [CalendarGridCell] = (0..<emptyCells).map {
             CalendarGridCell(id: "empty-\($0)", dateComponents: nil)
@@ -37,18 +37,28 @@ enum CalendarGridHelper {
         }
     }
 
-    static func leadingEmptyCells(for firstDayOfMonth: Date) -> Int {
+    static func leadingEmptyCells(for firstDayOfMonth: Date, firstDayOfWeek: Weekday = .monday) -> Int {
         let calendar = Calendar.current
-        // weekday: 1=Sun..7=Sat → Mon=0
+        // Foundation weekday: 1=Sun, 2=Mon, ..., 7=Sat
         let weekday = calendar.component(.weekday, from: firstDayOfMonth)
-        return (weekday + 5) % 7
+        // Convert to our Weekday rawValue: Mon=1..Sun=7
+        let adjusted = weekday == 1 ? 7 : weekday - 1
+        let firstDayRaw = firstDayOfWeek.rawValue
+        return (adjusted - firstDayRaw + 7) % 7
     }
 
-    static func weekdaySymbols(locale: Locale? = nil) -> [String] {
+    static func weekdaySymbols(locale: Locale? = nil, firstDayOfWeek: Weekday = .monday) -> [String] {
         var calendar = Calendar.current
         if let locale { calendar.locale = locale }
         let symbols = calendar.veryShortWeekdaySymbols
-        return Array(symbols[1...]) + [symbols[0]]
+        // symbols[0]=Sun, [1]=Mon, ..., [6]=Sat
+        // Map Weekday rawValue (Mon=1..Sun=7) to Foundation index (Sun=0..Sat=6)
+        let foundationIndex = firstDayOfWeek.rawValue == 7 ? 0 : firstDayOfWeek.rawValue
+        var result: [String] = []
+        for i in 0..<7 {
+            result.append(symbols[(foundationIndex + i) % 7])
+        }
+        return result
     }
 
     static func rotatingPreviewCount(ringDays: Int, gapDays: Int) -> Int {

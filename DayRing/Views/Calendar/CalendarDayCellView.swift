@@ -5,7 +5,8 @@ struct CalendarDayCellView: View {
     let isCurrentMonth: Bool
     let isToday: Bool
     let weekday: Weekday
-    let lunarText: String
+    let calendarText: String
+    let selectedCalendar: CalendarType?
     let isHoliday: Bool
     let isMakeupDay: Bool
     let isFirstDayOfHoliday: Bool
@@ -65,14 +66,14 @@ struct CalendarDayCellView: View {
                 .fontWeight(.semibold)
                 .foregroundStyle(Color.makeupPurple)
                 .lineLimit(1)
-        } else if let term = solarTerm, isCurrentMonth {
+        } else if selectedCalendar == .chineseCalendar, let term = solarTerm, isCurrentMonth {
             Text(term)
                 .font(Font.tinyCaption())
                 .fontWeight(.medium)
                 .foregroundStyle(Color.accent)
                 .lineLimit(1)
         } else {
-            Text(lunarText)
+            Text(calendarText)
                 .font(Font.tinyCaption())
                 .foregroundStyle(Color.fgSecondary)
                 .lineLimit(1)

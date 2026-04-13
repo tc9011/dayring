@@ -180,4 +180,62 @@ struct CalendarGridHelperTests {
         let count = CalendarGridHelper.rotatingPreviewCount(ringDays: 30, gapDays: 30)
         #expect(count == 61)
     }
+
+    // MARK: - firstDayOfWeek support
+
+    @Test("Leading empty cells with Sunday as first day: April 2026 starts Wed → 3 empty")
+    func leadingEmptyCellsSundayFirst() {
+        let date = Calendar.current.date(from: DateComponents(year: 2026, month: 4, day: 1))!
+        let empty = CalendarGridHelper.leadingEmptyCells(for: date, firstDayOfWeek: .sunday)
+        #expect(empty == 3)
+    }
+
+    @Test("Leading empty cells with Saturday as first day: April 2026 starts Wed → 4 empty")
+    func leadingEmptyCellsSaturdayFirst() {
+        let date = Calendar.current.date(from: DateComponents(year: 2026, month: 4, day: 1))!
+        let empty = CalendarGridHelper.leadingEmptyCells(for: date, firstDayOfWeek: .saturday)
+        #expect(empty == 4)
+    }
+
+    @Test("Leading empty cells with Monday as first day matches default: April 2026 → 2 empty")
+    func leadingEmptyCellsMondayFirstMatchesDefault() {
+        let date = Calendar.current.date(from: DateComponents(year: 2026, month: 4, day: 1))!
+        let withParam = CalendarGridHelper.leadingEmptyCells(for: date, firstDayOfWeek: .monday)
+        let withDefault = CalendarGridHelper.leadingEmptyCells(for: date)
+        #expect(withParam == withDefault)
+    }
+
+    @Test("June 2026 starts Mon: Sunday-first → 1 empty, Monday-first → 0 empty")
+    func leadingEmptyCellsJuneSundayVsMonday() {
+        let date = Calendar.current.date(from: DateComponents(year: 2026, month: 6, day: 1))!
+        let sundayFirst = CalendarGridHelper.leadingEmptyCells(for: date, firstDayOfWeek: .sunday)
+        let mondayFirst = CalendarGridHelper.leadingEmptyCells(for: date, firstDayOfWeek: .monday)
+        #expect(sundayFirst == 1)
+        #expect(mondayFirst == 0)
+    }
+
+    @Test("Weekday symbols with Sunday first start with S in English")
+    func weekdaySymbolsSundayFirst() {
+        let symbols = CalendarGridHelper.weekdaySymbols(locale: Locale(identifier: "en_US"), firstDayOfWeek: .sunday)
+        #expect(symbols.first == "S")
+        #expect(symbols[1] == "M")
+        #expect(symbols.last == "S")
+    }
+
+    @Test("Weekday symbols with Monday first matches default")
+    func weekdaySymbolsMondayFirstDefault() {
+        let withParam = CalendarGridHelper.weekdaySymbols(locale: Locale(identifier: "en_US"), firstDayOfWeek: .monday)
+        let withDefault = CalendarGridHelper.weekdaySymbols(locale: Locale(identifier: "en_US"))
+        #expect(withParam == withDefault)
+    }
+
+    @Test("Grid cells with Sunday first: April 2026 → 3 empty + 30 days")
+    func gridCellsSundayFirst() {
+        let date = Calendar.current.date(from: DateComponents(year: 2026, month: 4, day: 15))!
+        let cells = CalendarGridHelper.gridCells(for: date, firstDayOfWeek: .sunday)
+        let emptyCells = cells.filter { $0.dateComponents == nil }
+        let dayCells = cells.filter { $0.dateComponents != nil }
+        #expect(emptyCells.count == 3)
+        #expect(dayCells.count == 30)
+    }
 }

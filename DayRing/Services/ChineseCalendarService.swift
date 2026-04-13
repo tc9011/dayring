@@ -3,13 +3,42 @@ import Foundation
 struct ChineseCalendarService: Sendable {
     private let chineseCalendar = Calendar(identifier: .chinese)
 
-    func lunarDateString(for date: Date) -> String {
+    func chineseDateString(for date: Date) -> String {
         let components = chineseCalendar.dateComponents([.month, .day], from: date)
         guard let month = components.month, let day = components.day else { return "" }
 
-        let monthName = lunarMonthName(month)
-        let dayName = lunarDayName(day)
+        let monthName = chineseMonthName(month)
+        let dayName = chineseDayName(day)
         return "\(monthName)\(dayName)"
+    }
+
+    func dateString(for date: Date, calendarType: CalendarType) -> String {
+        if calendarType == .chineseCalendar {
+            return chineseDateString(for: date)
+        }
+
+        let cal = Calendar(identifier: calendarType.calendarIdentifier)
+        let components = cal.dateComponents([.month, .day], from: date)
+        guard let month = components.month, let day = components.day else { return "" }
+
+        let formatter = DateFormatter()
+        formatter.calendar = cal
+        formatter.dateFormat = "MMM"
+        switch calendarType {
+        case .islamic:
+            formatter.locale = Locale(identifier: "ar")
+        case .hebrew:
+            formatter.locale = Locale(identifier: "he")
+        case .persian:
+            formatter.locale = Locale(identifier: "fa")
+        case .indian:
+            formatter.locale = Locale(identifier: "hi")
+        case .chineseCalendar:
+            break
+        }
+
+        let monthString = formatter.string(from: date)
+        return "\(monthString) \(day)"
     }
 
     func solarTerm(for date: Date) -> String? {
@@ -36,14 +65,14 @@ struct ChineseCalendarService: Sendable {
         "2026-12-07": "大雪", "2026-12-22": "冬至",
     ]
 
-    private func lunarMonthName(_ month: Int) -> String {
+    private func chineseMonthName(_ month: Int) -> String {
         let names = ["", "正月", "二月", "三月", "四月", "五月",
                      "六月", "七月", "八月", "九月", "十月", "冬月", "腊月"]
         guard month > 0, month < names.count else { return "" }
         return names[month]
     }
 
-    private func lunarDayName(_ day: Int) -> String {
+    private func chineseDayName(_ day: Int) -> String {
         let digits = ["", "一", "二", "三", "四", "五", "六", "七", "八", "九", "十"]
 
         guard day >= 1, day <= 30 else { return "" }

@@ -29,4 +29,13 @@ enum Weekday: Int, Codable, CaseIterable, Hashable, Comparable, Sendable {
 
     static let workdays: Set<Weekday> = [.monday, .tuesday, .wednesday, .thursday, .friday]
     static let allDays: Set<Weekday> = Set(Weekday.allCases)
+
+    /// Returns all 7 weekdays ordered starting from the given first day.
+    /// e.g. `orderedFrom(.sunday)` → [.sunday, .monday, .tuesday, ..., .saturday]
+    static func orderedFrom(_ firstDay: Weekday) -> [Weekday] {
+        let start = firstDay.rawValue
+        return (0..<7).map { offset in
+            Weekday(rawValue: (start - 1 + offset) % 7 + 1)!
+        }
+    }
 }

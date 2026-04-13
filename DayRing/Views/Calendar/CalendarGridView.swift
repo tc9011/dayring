@@ -4,6 +4,8 @@ struct CalendarGridView: View {
     let viewModel: CalendarViewModel
     let alarms: [Alarm]
     let is24HourFormat: Bool
+    var firstDayOfWeek: Weekday = .monday
+    var selectedCalendar: CalendarType? = .chineseCalendar
     let onDateTapped: (Date) -> Void
 
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 3), count: 7)
@@ -12,7 +14,7 @@ struct CalendarGridView: View {
         VStack(spacing: 0) {
             weekHeaderRow
             LazyVGrid(columns: columns, spacing: 2) {
-                ForEach(Array(viewModel.daysInMonth().enumerated()), id: \.offset) { _, entry in
+                ForEach(Array(viewModel.daysInMonth(firstDayOfWeek: firstDayOfWeek).enumerated()), id: \.offset) { _, entry in
                     cellView(for: entry)
                         .onTapGesture {
                             if entry.isCurrentMonth { onDateTapped(entry.date) }
@@ -29,7 +31,7 @@ struct CalendarGridView: View {
 
     private var weekHeaderRow: some View {
         HStack(spacing: 3) {
-            ForEach(Weekday.allCases, id: \.self) { day in
+            ForEach(Weekday.orderedFrom(firstDayOfWeek), id: \.self) { day in
                 Text(day.shortName)
                     .font(Font.smallCaption())
                     .foregroundStyle(weekHeaderColor(for: day))
@@ -60,7 +62,13 @@ struct CalendarGridView: View {
         let weekdayNum = calendar.component(.weekday, from: date)
         let weekday = Weekday(rawValue: weekdayNum == 1 ? 7 : weekdayNum - 1) ?? .monday
 
-        let lunarText = viewModel.chineseCalendar.lunarDateString(for: date)
+        let calendarText: String
+        if let cal = selectedCalendar {
+            calendarText = viewModel.chineseCalendar.dateString(for: date, calendarType: cal)
+        } else {
+            calendarText = ""
+        }
+
         let isHoliday = viewModel.holidayProvider.isHoliday(dateKey, year: year)
         let isMakeupDay = viewModel.holidayProvider.isMakeupDay(dateKey, year: year)
         let isFirstDayOfHoliday = viewModel.holidayProvider.isFirstDayOfHoliday(dateKey, year: year)
@@ -74,7 +82,8 @@ struct CalendarGridView: View {
             isCurrentMonth: entry.isCurrentMonth,
             isToday: isToday,
             weekday: weekday,
-            lunarText: lunarText,
+            calendarText: calendarText,
+            selectedCalendar: selectedCalendar,
             isHoliday: isHoliday,
             isMakeupDay: isMakeupDay,
             isFirstDayOfHoliday: isFirstDayOfHoliday,

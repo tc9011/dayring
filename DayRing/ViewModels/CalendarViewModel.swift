@@ -29,13 +29,12 @@ final class CalendarViewModel {
         displayedMonth = Date()
     }
 
-    func daysInMonth() -> [(date: Date, isCurrentMonth: Bool)] {
+    func daysInMonth(firstDayOfWeek: Weekday = .monday) -> [(date: Date, isCurrentMonth: Bool)] {
         let calendar = Calendar.current
         let range = calendar.range(of: .day, in: .month, for: displayedMonth)!
         let components = calendar.dateComponents([.year, .month], from: displayedMonth)
         guard let firstDay = calendar.date(from: components) else { return [] }
-        let weekday = calendar.component(.weekday, from: firstDay)
-        let offset = (weekday + 5) % 7
+        let offset = CalendarGridHelper.leadingEmptyCells(for: firstDay, firstDayOfWeek: firstDayOfWeek)
 
         var days: [(date: Date, isCurrentMonth: Bool)] = []
 
