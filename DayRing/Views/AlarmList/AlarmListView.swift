@@ -13,12 +13,12 @@ struct AlarmListView: View {
     @State private var editingAlarm: Alarm?
     @State private var refreshTick = Date()
 
-    private var settings: AppSettings {
-        allSettings.first ?? AppSettings()
+    private var settings: AppSettings? {
+        allSettings.first
     }
 
     private var is24HourFormat: Bool {
-        settings.timeFormat == .h24
+        settings?.timeFormat != .h12
     }
 
     var body: some View {

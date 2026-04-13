@@ -8,12 +8,12 @@ struct CalendarTabView: View {
     @State private var viewModel = CalendarViewModel()
     @State private var showingDayDetail = false
 
-    private var settings: AppSettings {
-        allSettings.first ?? AppSettings()
+    private var settings: AppSettings? {
+        allSettings.first
     }
 
     private var is24HourFormat: Bool {
-        settings.timeFormat == .h24
+        settings?.timeFormat != .h12
     }
 
     var body: some View {
@@ -26,8 +26,8 @@ struct CalendarTabView: View {
                         viewModel: viewModel,
                         alarms: alarms,
                         is24HourFormat: is24HourFormat,
-                        firstDayOfWeek: settings.firstDayOfWeek,
-                        selectedCalendar: settings.selectedCalendar,
+                        firstDayOfWeek: settings?.firstDayOfWeek ?? .monday,
+                        selectedCalendar: settings?.selectedCalendar,
                         onDateTapped: { date in
                             viewModel.selectedDate = date
                             showingDayDetail = true
@@ -48,7 +48,7 @@ struct CalendarTabView: View {
                     date: date,
                     alarms: alarms,
                     is24HourFormat: is24HourFormat,
-                    selectedCalendar: settings.selectedCalendar
+                    selectedCalendar: settings?.selectedCalendar
                 )
             }
         }

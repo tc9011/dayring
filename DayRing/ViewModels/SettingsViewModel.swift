@@ -36,6 +36,13 @@ final class SettingsViewModel {
         return cal.localizedName
     }
 
+    func calendarDisplayName(for s: AppSettings) -> String {
+        guard let cal = s.selectedCalendar else {
+            return LocaleManager.shared.localizedString("无")
+        }
+        return cal.localizedName
+    }
+
     var languageDisplayName: String {
         settings.locale.nativeName
     }

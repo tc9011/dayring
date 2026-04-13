@@ -8,15 +8,21 @@ final class AppSettings {
     var firstDayOfWeek: Weekday
     var locale: AppLocale
     var appearanceMode: AppearanceMode
+    @Attribute(originalName: "selectedCalendarsData")
     var selectedCalendarData: Data
     var timezoneData: Data
 
-    @Transient
     var selectedCalendar: CalendarType? {
         get {
             guard let raw = String(data: selectedCalendarData, encoding: .utf8),
                   !raw.isEmpty else {
                 return nil
+            }
+            // Handle legacy JSON array format: ["农历"]
+            if raw.hasPrefix("[") {
+                guard let array = try? JSONDecoder().decode([String].self, from: selectedCalendarData),
+                      let first = array.first else { return .chineseCalendar }
+                return CalendarType(rawValue: first) ?? .chineseCalendar
             }
             return CalendarType(rawValue: raw) ?? .chineseCalendar
         }
@@ -29,7 +35,6 @@ final class AppSettings {
         }
     }
 
-    @Transient
     var timezone: TimezoneOption {
         get {
             (try? JSONDecoder().decode(TimezoneOption.self, from: timezoneData))

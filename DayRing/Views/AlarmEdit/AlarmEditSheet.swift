@@ -10,8 +10,8 @@ struct AlarmEditSheet: View {
     @Query private var allSettings: [AppSettings]
     @State private var viewModel = AlarmEditViewModel()
 
-    private var settings: AppSettings {
-        allSettings.first ?? AppSettings()
+    private var settings: AppSettings? {
+        allSettings.first
     }
 
     var body: some View {
@@ -21,7 +21,7 @@ struct AlarmEditSheet: View {
                     TimePickerView(
                         hour: $viewModel.hour,
                         minute: $viewModel.minute,
-                        is24HourFormat: settings.timeFormat == .h24
+                        is24HourFormat: settings?.timeFormat != .h12
                     )
 
                     VStack(spacing: 0) {

@@ -9,6 +9,32 @@ private let logger = Logger(subsystem: "com.dayring.app", category: "AppLifecycl
 struct DayRingApp: App {
     @UIApplicationDelegateAdaptor private var appDelegate: AppDelegate
     private let localeManager = LocaleManager.shared
+    let container: ModelContainer
+
+    init() {
+        let container: ModelContainer
+        do {
+            container = try ModelContainer(for: Alarm.self, AppSettings.self)
+        } catch {
+            logger.error("ModelContainer failed, destroying store and retrying: \(error.localizedDescription)")
+            let storeURL = URL.applicationSupportDirectory.appending(path: "default.store")
+            try? FileManager.default.removeItem(at: storeURL)
+            container = try! ModelContainer(for: Alarm.self, AppSettings.self)
+        }
+        let context = ModelContext(container)
+        let descriptor = FetchDescriptor<AppSettings>()
+        let all = (try? context.fetch(descriptor)) ?? []
+        if all.isEmpty {
+            context.insert(AppSettings())
+            try? context.save()
+        } else if all.count > 1 {
+            for extra in all.dropFirst() {
+                context.delete(extra)
+            }
+            try? context.save()
+        }
+        self.container = container
+    }
 
     var body: some Scene {
         WindowGroup {
@@ -23,7 +49,7 @@ struct DayRingApp: App {
                     }
                 }
         }
-        .modelContainer(for: [Alarm.self, AppSettings.self])
+        .modelContainer(container)
     }
 }
 

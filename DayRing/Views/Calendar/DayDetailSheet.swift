@@ -49,6 +49,9 @@ struct DayDetailSheet: View {
 
     private var calendarDisplayString: String {
         if let name = holidayName {
+            if calendarString.isEmpty {
+                return name
+            }
             return "\(calendarString) · \(name)"
         }
         return calendarString
@@ -96,9 +99,11 @@ struct DayDetailSheet: View {
 
     private var calendarInfoSection: some View {
         VStack(spacing: 8) {
-            Text(calendarDisplayString)
-                .font(Font.caption())
-                .foregroundStyle(calendarDisplayColor)
+            if !calendarDisplayString.isEmpty {
+                Text(calendarDisplayString)
+                    .font(Font.caption())
+                    .foregroundStyle(calendarDisplayColor)
+            }
 
             if isHoliday {
                 badgeView(
