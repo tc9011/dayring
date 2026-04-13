@@ -95,23 +95,9 @@ enum AppLocale: String, Codable, CaseIterable, Sendable {
 
 enum CalendarType: String, Codable, CaseIterable, Hashable, Sendable {
     case chineseCalendar = "农历"
-    case islamic = "伊斯兰历"
-    case hebrew = "希伯来历"
-    case persian = "波斯历"
-    case indian = "印度历"
 
     var localizedName: String {
         LocaleManager.shared.localizedString(rawValue)
-    }
-
-    var calendarIdentifier: Calendar.Identifier {
-        switch self {
-        case .chineseCalendar: .chinese
-        case .islamic: .islamicCivil
-        case .hebrew: .hebrew
-        case .persian: .persian
-        case .indian: .indian
-        }
     }
 }
 

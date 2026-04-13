@@ -12,35 +12,6 @@ struct ChineseCalendarService: Sendable {
         return "\(monthName)\(dayName)"
     }
 
-    func dateString(for date: Date, calendarType: CalendarType) -> String {
-        if calendarType == .chineseCalendar {
-            return chineseDateString(for: date)
-        }
-
-        let cal = Calendar(identifier: calendarType.calendarIdentifier)
-        let components = cal.dateComponents([.month, .day], from: date)
-        guard let month = components.month, let day = components.day else { return "" }
-
-        let formatter = DateFormatter()
-        formatter.calendar = cal
-        formatter.dateFormat = "MMM"
-        switch calendarType {
-        case .islamic:
-            formatter.locale = Locale(identifier: "ar")
-        case .hebrew:
-            formatter.locale = Locale(identifier: "he")
-        case .persian:
-            formatter.locale = Locale(identifier: "fa")
-        case .indian:
-            formatter.locale = Locale(identifier: "hi")
-        case .chineseCalendar:
-            break
-        }
-
-        let monthString = formatter.string(from: date)
-        return "\(monthString) \(day)"
-    }
-
     func solarTerm(for date: Date) -> String? {
         let gregorian = Calendar(identifier: .gregorian)
         let month = gregorian.component(.month, from: date)

@@ -63,8 +63,8 @@ struct CalendarGridView: View {
         let weekday = Weekday(rawValue: weekdayNum == 1 ? 7 : weekdayNum - 1) ?? .monday
 
         let calendarText: String
-        if let cal = selectedCalendar {
-            calendarText = viewModel.chineseCalendar.dateString(for: date, calendarType: cal)
+        if selectedCalendar != nil {
+            calendarText = viewModel.chineseCalendar.chineseDateString(for: date)
         } else {
             calendarText = ""
         }

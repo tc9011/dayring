@@ -45,28 +45,8 @@ struct ChineseCalendarServiceTests {
     @Test("dateString for Chinese calendar returns same as chineseDateString")
     func dateStringChineseCalendar() {
         let date = Calendar.current.date(from: DateComponents(year: 2026, month: 2, day: 17))!
-        let generic = service.dateString(for: date, calendarType: .chineseCalendar)
-        let specific = service.chineseDateString(for: date)
-        #expect(generic == specific)
-    }
-
-    @Test("dateString for non-Chinese calendar types returns non-empty strings")
-    func dateStringNonChinese() {
-        let date = Calendar.current.date(from: DateComponents(year: 2026, month: 4, day: 13))!
-        let nonChineseTypes: [CalendarType] = [.islamic, .hebrew, .persian, .indian]
-        for calType in nonChineseTypes {
-            let result = service.dateString(for: date, calendarType: calType)
-            #expect(!result.isEmpty, "\(calType) should produce non-empty date string")
-        }
-    }
-
-    @Test("CalendarType.calendarIdentifier maps correctly")
-    func calendarIdentifierMapping() {
-        #expect(CalendarType.chineseCalendar.calendarIdentifier == .chinese)
-        #expect(CalendarType.islamic.calendarIdentifier == .islamicCivil)
-        #expect(CalendarType.hebrew.calendarIdentifier == .hebrew)
-        #expect(CalendarType.persian.calendarIdentifier == .persian)
-        #expect(CalendarType.indian.calendarIdentifier == .indian)
+        let result = service.chineseDateString(for: date)
+        #expect(result == "正月初一")
     }
 }
 

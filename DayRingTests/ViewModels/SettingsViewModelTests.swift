@@ -81,11 +81,13 @@ struct SettingsViewModelTests {
         #expect(settings.selectedCalendar == nil)
     }
 
-    @Test("selectedCalendar can be changed to islamic")
-    func calendarSetToIslamic() {
+    @Test("selectedCalendar round-trips through chineseCalendar")
+    func calendarSetToChineseCalendar() {
         let settings = AppSettings()
-        settings.selectedCalendar = .islamic
-        #expect(settings.selectedCalendar == .islamic)
+        settings.selectedCalendar = nil
+        #expect(settings.selectedCalendar == nil)
+        settings.selectedCalendar = .chineseCalendar
+        #expect(settings.selectedCalendar == .chineseCalendar)
     }
 
     @Test("ViewModel calendarDisplayName returns 无 when nil")
@@ -95,11 +97,13 @@ struct SettingsViewModelTests {
         #expect(vm.calendarDisplayName == "无")
     }
 
-    @Test("ViewModel calendarDisplayName returns localized name for non-Chinese calendar")
-    func calendarDisplayNameIslamic() {
+    @Test("ViewModel calendarDisplayName returns 农历 after re-selecting")
+    func calendarDisplayNameReselect() {
         let vm = SettingsViewModel()
-        vm.settings.selectedCalendar = .islamic
-        #expect(vm.calendarDisplayName == "伊斯兰历")
+        vm.settings.selectedCalendar = nil
+        #expect(vm.calendarDisplayName == "无")
+        vm.settings.selectedCalendar = .chineseCalendar
+        #expect(vm.calendarDisplayName == "农历")
     }
 
     @Test("ViewModel languageDisplayName returns 跟随系统")

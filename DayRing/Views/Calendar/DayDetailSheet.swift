@@ -20,8 +20,8 @@ struct DayDetailSheet: View {
     private var isMakeupDay: Bool { holidayProvider.isMakeupDay(dateKey, year: year) }
     private var holidayName: String? { holidayProvider.holidayName(for: dateKey, year: year) }
     private var calendarString: String {
-        guard let cal = selectedCalendar else { return "" }
-        return calendarService.dateString(for: date, calendarType: cal)
+        guard selectedCalendar != nil else { return "" }
+        return calendarService.chineseDateString(for: date)
     }
 
     private var isToday: Bool { calendar.isDateInToday(date) }
