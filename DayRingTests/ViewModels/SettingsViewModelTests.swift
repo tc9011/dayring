@@ -181,4 +181,30 @@ struct SettingsViewModelTests {
         #expect(!vm.timezoneDisplayName.isEmpty)
         #expect(vm.timezoneDisplayName != "跟随系统")
     }
+
+    // MARK: - Timezone displayName respects app locale
+
+    @Test("Timezone displayName uses app locale, not system locale")
+    func timezoneDisplayNameRespectsAppLocale() {
+        let saved = LocaleManager.shared.currentLocale
+        defer { LocaleManager.shared.currentLocale = saved }
+
+        LocaleManager.shared.currentLocale = .en
+        let tz = TimezoneOption.specific(identifier: "Asia/Shanghai")
+        let name = tz.displayName
+        #expect(!name.contains("中国"), "Timezone name should be in English when app locale is English, got: \(name)")
+        #expect(name.contains("China") || name.contains("Shanghai"),
+                "Expected English timezone name containing 'China' or 'Shanghai', got: \(name)")
+    }
+
+    @Test("Timezone displayName shows Chinese when app locale is zh-Hans")
+    func timezoneDisplayNameInChinese() {
+        let saved = LocaleManager.shared.currentLocale
+        defer { LocaleManager.shared.currentLocale = saved }
+
+        LocaleManager.shared.currentLocale = .zhHans
+        let tz = TimezoneOption.specific(identifier: "Asia/Shanghai")
+        let name = tz.displayName
+        #expect(name.contains("中国"), "Timezone name should be Chinese when app locale is zh-Hans, got: \(name)")
+    }
 }

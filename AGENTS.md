@@ -17,7 +17,7 @@ Coding guidelines for AI agents working on the DayRing (该起了) codebase.
 - **Persistence**: SwiftData (`@Model`)
 - **Alarm Scheduling**: AlarmKit (iOS 26)
 - **Calendar**: Foundation `Calendar(identifier: .chinese)` for lunar dates
-- **i18n**: Runtime locale switching via `LocaleManager` + `.xcstrings` (zh-Hans, zh-Hant, en)
+- **i18n**: Runtime locale switching via `LocaleManager` + `.xcstrings` (zh-Hans, en)
 - **Testing**: Swift Testing framework (`@Test`, `#expect`, `@Suite`) — 135 tests, 11 suites
 - **Fonts**: Inter (system on iOS 26) + Geist Mono (bundled)
 - **Project Generation**: XcodeGen (`project.yml` → `DayRing.xcodeproj`)
@@ -127,7 +127,7 @@ DayRing/
 └── Resources/
     ├── Assets.xcassets                # App icons, color assets
     ├── Fonts/                         # Geist Mono .otf files
-    └── Localizable.xcstrings          # i18n strings (zh-Hans, zh-Hant, en)
+    └── Localizable.xcstrings          # i18n strings (zh-Hans, en)
 
 DayRingTests/
 ├── Theme/
@@ -232,7 +232,7 @@ Text("闹钟")                            // ❌ Hardcoded — won't switch
 LocaleManager.shared.localizedString("设置")
 ```
 
-Supported locales: `.system` (follows device), `.zhHans`, `.zhHant`, `.en`.  
+Supported locales: `.system` (follows device), `.zhHans`, `.en`.  
 String keys are Chinese (the source language). Translations live in `Localizable.xcstrings`.
 
 ## Architecture

@@ -7,13 +7,12 @@ struct LocaleManagerTests {
 
     // MARK: - AppLocale Properties
 
-    @Test("AppLocale has exactly 4 cases: system, zhHans, zhHant, en")
+    @Test("AppLocale has exactly 3 cases: system, zhHans, en")
     func appLocaleCases() {
         let cases = AppLocale.allCases
-        #expect(cases.count == 4)
+        #expect(cases.count == 3)
         #expect(cases.contains(.system))
         #expect(cases.contains(.zhHans))
-        #expect(cases.contains(.zhHant))
         #expect(cases.contains(.en))
     }
 
@@ -36,11 +35,6 @@ struct LocaleManagerTests {
         #expect(AppLocale.zhHans.bundleIdentifier == "zh-Hans")
     }
 
-    @Test("zhHant locale has correct bundleIdentifier")
-    func zhHantBundleIdentifier() {
-        #expect(AppLocale.zhHant.bundleIdentifier == "zh-Hant")
-    }
-
     @Test("English locale has correct bundleIdentifier")
     func enBundleIdentifier() {
         #expect(AppLocale.en.bundleIdentifier == "en")
@@ -56,7 +50,6 @@ struct LocaleManagerTests {
     @Test("nativeName is always in the target language, not localized")
     func nativeNameValues() {
         #expect(AppLocale.zhHans.nativeName == "简体中文")
-        #expect(AppLocale.zhHant.nativeName == "繁體中文")
         #expect(AppLocale.en.nativeName == "English")
         #expect(AppLocale.system.nativeName == "跟随系统")
     }
@@ -112,18 +105,6 @@ struct LocaleManagerTests {
         manager.currentLocale = .zhHans
         let result = manager.localizedString("设置")
         #expect(result == "设置", "Expected '设置' for key '设置' in zh-Hans locale, got '\(result)'")
-
-        manager.currentLocale = previousLocale
-    }
-
-    @Test("Switching to zhHant locale returns Traditional Chinese strings")
-    func zhHantLocaleStrings() {
-        let manager = LocaleManager.shared
-        let previousLocale = manager.currentLocale
-
-        manager.currentLocale = .zhHant
-        let result = manager.localizedString("设置")
-        #expect(result == "設定", "Expected '設定' for key '设置' in zh-Hant locale, got '\(result)'")
 
         manager.currentLocale = previousLocale
     }

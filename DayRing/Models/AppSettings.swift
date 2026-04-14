@@ -74,7 +74,6 @@ enum TimeFormat: String, Codable, CaseIterable, Sendable {
 enum AppLocale: String, Codable, CaseIterable, Sendable {
     case system = "跟随系统"
     case zhHans = "简体中文"
-    case zhHant = "繁體中文"
     case en = "English"
 
     /// The `.lproj` folder identifier used to load localized bundles at runtime.
@@ -82,7 +81,6 @@ enum AppLocale: String, Codable, CaseIterable, Sendable {
         switch self {
         case .system: nil
         case .zhHans: "zh-Hans"
-        case .zhHant: "zh-Hant"
         case .en: "en"
         }
     }
@@ -92,7 +90,6 @@ enum AppLocale: String, Codable, CaseIterable, Sendable {
         switch self {
         case .system: "跟随系统"
         case .zhHans: "简体中文"
-        case .zhHant: "繁體中文"
         case .en: "English"
         }
     }
@@ -112,9 +109,12 @@ enum TimezoneOption: Codable, Hashable, Sendable {
 
     var displayName: String {
         switch self {
-        case .system: LocaleManager.shared.localizedString("跟随系统")
+        case .system:
+            return LocaleManager.shared.localizedString("跟随系统")
         case .specific(let id):
-            TimeZone(identifier: id)?.localizedName(for: .standard, locale: .current) ?? id
+            let appLocale = LocaleManager.shared.currentLocale.bundleIdentifier
+                .map { Locale(identifier: $0) } ?? .current
+            return TimeZone(identifier: id)?.localizedName(for: .standard, locale: appLocale) ?? id
         }
     }
 }

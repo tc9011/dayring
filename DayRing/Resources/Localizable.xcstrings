@@ -43,12 +43,6 @@
             "state" : "translated",
             "value" : "上午"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "上午"
-          }
         }
       }
     },
@@ -62,12 +56,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "下午"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "下午"
@@ -89,12 +77,6 @@
             "state" : "translated",
             "value" : "一"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "一"
-          }
         }
       }
     },
@@ -108,12 +90,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "三"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "三"
@@ -135,12 +111,6 @@
             "state" : "translated",
             "value" : "下一个闹钟将在"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "下一個鬧鐘將在"
-          }
         }
       }
     },
@@ -158,12 +128,6 @@
             "state" : "translated",
             "value" : "不响铃"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "不響鈴"
-          }
         }
       }
     },
@@ -177,12 +141,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "不提前"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "不提前"
@@ -204,12 +162,6 @@
             "state" : "translated",
             "value" : "不重复"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "不重複"
-          }
         }
       }
     },
@@ -227,12 +179,6 @@
             "state" : "translated",
             "value" : "两周为一个循环"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "兩週為一個循環"
-          }
         }
       }
     },
@@ -246,12 +192,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "二"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "二"
@@ -273,12 +213,6 @@
             "state" : "translated",
             "value" : "五"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "五"
-          }
         }
       }
     },
@@ -296,12 +230,6 @@
             "state" : "translated",
             "value" : "仅响铃一次"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "僅響鈴一次"
-          }
         }
       }
     },
@@ -315,12 +243,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "今天"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "今天"
@@ -342,12 +264,6 @@
             "state" : "translated",
             "value" : "今天响铃"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "今天響鈴"
-          }
         }
       }
     },
@@ -364,12 +280,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "以两周为一个循环，大周和小周可分别选择响铃日。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "以兩週為一個循環，大週和小週可分別選擇響鈴日。"
           }
         }
       }
@@ -388,12 +298,6 @@
             "state" : "translated",
             "value" : "以两周为一个循环，选择每周哪些天响铃。"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "以兩週為一個循環，選擇每週哪些天響鈴。"
-          }
         }
       }
     },
@@ -411,12 +315,6 @@
             "state" : "translated",
             "value" : "伊斯兰历"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "伊斯蘭曆"
-          }
         }
       }
     },
@@ -430,12 +328,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "休"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "休"
@@ -457,12 +349,6 @@
             "state" : "translated",
             "value" : "保存"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "儲存"
-          }
         }
       }
     },
@@ -476,12 +362,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "六"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "六"
@@ -503,12 +383,6 @@
             "state" : "translated",
             "value" : "关于 DayRing"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "關於 DayRing"
-          }
         }
       }
     },
@@ -526,12 +400,6 @@
             "state" : "translated",
             "value" : "关闭"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "關閉"
-          }
         }
       }
     },
@@ -545,12 +413,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "其他"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "其他"
@@ -572,12 +434,6 @@
             "state" : "translated",
             "value" : "其他历法"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "其他曆法"
-          }
         }
       }
     },
@@ -594,12 +450,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "农历"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "農曆"
           }
         }
       }
@@ -618,12 +468,6 @@
             "state" : "translated",
             "value" : "分钟"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "分鐘"
-          }
         }
       }
     },
@@ -640,12 +484,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "删除"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "刪除"
           }
         }
       }
@@ -664,12 +502,6 @@
             "state" : "translated",
             "value" : "印度历"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "印度曆"
-          }
         }
       }
     },
@@ -687,12 +519,6 @@
             "state" : "translated",
             "value" : "历法"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "曆法"
-          }
         }
       }
     },
@@ -706,12 +532,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "取消"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "取消"
@@ -733,12 +553,6 @@
             "state" : "translated",
             "value" : "后响铃"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "後響鈴"
-          }
         }
       }
     },
@@ -755,12 +569,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "后天响铃 · 明天为"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "後天響鈴 · 明天為"
           }
         }
       }
@@ -779,12 +587,6 @@
             "state" : "translated",
             "value" : "周"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "週"
-          }
         }
       }
     },
@@ -801,12 +603,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "周一"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "週一"
           }
         }
       }
@@ -825,12 +621,6 @@
             "state" : "translated",
             "value" : "周三"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "週三"
-          }
         }
       }
     },
@@ -847,12 +637,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "周二"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "週二"
           }
         }
       }
@@ -871,12 +655,6 @@
             "state" : "translated",
             "value" : "周五"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "週五"
-          }
         }
       }
     },
@@ -893,12 +671,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "周六"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "週六"
           }
         }
       }
@@ -917,12 +689,6 @@
             "state" : "translated",
             "value" : "周四"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "週四"
-          }
         }
       }
     },
@@ -939,12 +705,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "周日"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "週日"
           }
         }
       }
@@ -963,12 +723,6 @@
             "state" : "translated",
             "value" : "响"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "響"
-          }
         }
       }
     },
@@ -985,12 +739,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "响铃"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "響鈴"
           }
         }
       }
@@ -1009,12 +757,6 @@
             "state" : "translated",
             "value" : "响铃后删除"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "響鈴後刪除"
-          }
         }
       }
     },
@@ -1031,12 +773,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "响铃天数"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "響鈴天數"
           }
         }
       }
@@ -1055,12 +791,6 @@
             "state" : "translated",
             "value" : "响铃天数 + 间隔天数循环"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "響鈴天數 + 間隔天數循環"
-          }
         }
       }
     },
@@ -1078,12 +808,6 @@
             "state" : "translated",
             "value" : "响铃日"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "響鈴日"
-          }
         }
       }
     },
@@ -1097,12 +821,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "四"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "四"
@@ -1124,12 +842,6 @@
             "state" : "translated",
             "value" : "外观"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "外觀"
-          }
         }
       }
     },
@@ -1147,12 +859,6 @@
             "state" : "translated",
             "value" : "大小周"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "大小週"
-          }
         }
       }
     },
@@ -1166,12 +872,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "天"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "天"
@@ -1193,12 +893,6 @@
             "state" : "translated",
             "value" : "天后的响铃"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "天後的響鈴"
-          }
         }
       }
     },
@@ -1212,12 +906,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "完成"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "完成"
@@ -1239,12 +927,6 @@
             "state" : "translated",
             "value" : "小时"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "小時"
-          }
         }
       }
     },
@@ -1258,12 +940,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "工作日"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "工作日"
@@ -1285,12 +961,6 @@
             "state" : "translated",
             "value" : "已关闭"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已關閉"
-          }
         }
       }
     },
@@ -1307,12 +977,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已覆盖"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已覆蓋"
           }
         }
       }
@@ -1331,12 +995,6 @@
             "state" : "translated",
             "value" : "已跳过"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已跳過"
-          }
         }
       }
     },
@@ -1353,12 +1011,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已跳过今天"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已跳過今天"
           }
         }
       }
@@ -1377,12 +1029,6 @@
             "state" : "translated",
             "value" : "已跳过明天"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已跳過明天"
-          }
         }
       }
     },
@@ -1399,12 +1045,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已过期"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已過期"
           }
         }
       }
@@ -1423,12 +1063,6 @@
             "state" : "translated",
             "value" : "希伯来历"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "希伯來曆"
-          }
         }
       }
     },
@@ -1442,12 +1076,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "年"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "年"
@@ -1469,12 +1097,6 @@
             "state" : "translated",
             "value" : "开启后，节假日自动跳过闹钟，补班日自动恢复响铃。也可以在日历中手动覆盖某天的响铃状态。"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "開啟後，節假日自動跳過鬧鐘，補班日自動恢復響鈴。也可以在日曆中手動覆蓋某天的響鈴狀態。"
-          }
         }
       }
     },
@@ -1491,12 +1113,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "开启开关可手动覆盖该天的闹钟响铃状态，优先级高于自动规则。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "開啟開關可手動覆蓋該天的鬧鐘響鈴狀態，優先級高於自動規則。"
           }
         }
       }
@@ -1515,12 +1131,6 @@
             "state" : "translated",
             "value" : "开始日期"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "開始日期"
-          }
         }
       }
     },
@@ -1537,12 +1147,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "当天闹钟响铃状态"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "當天鬧鐘響鈴狀態"
           }
         }
       }
@@ -1561,12 +1165,6 @@
             "state" : "translated",
             "value" : "循环预览"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "循環預覽"
-          }
         }
       }
     },
@@ -1583,12 +1181,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "手动覆盖 · 不响铃"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "手動覆蓋 · 不響鈴"
           }
         }
       }
@@ -1607,12 +1199,6 @@
             "state" : "translated",
             "value" : "手动覆盖 · 强制响铃"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "手動覆蓋 · 強制響鈴"
-          }
         }
       }
     },
@@ -1629,12 +1215,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "提前响铃"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "提前響鈴"
           }
         }
       }
@@ -1653,12 +1233,6 @@
             "state" : "translated",
             "value" : "新建闹钟"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "新增鬧鐘"
-          }
         }
       }
     },
@@ -1676,12 +1250,6 @@
             "state" : "translated",
             "value" : "无"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "無"
-          }
         }
       }
     },
@@ -1695,12 +1263,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "日"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "日"
@@ -1722,12 +1284,6 @@
             "state" : "translated",
             "value" : "日历"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "日曆"
-          }
         }
       }
     },
@@ -1744,12 +1300,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "时区"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "時區"
           }
         }
       }
@@ -1768,12 +1318,6 @@
             "state" : "translated",
             "value" : "时间格式"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "時間格式"
-          }
         }
       }
     },
@@ -1790,12 +1334,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "明天不响铃"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "明天不響鈴"
           }
         }
       }
@@ -1814,12 +1352,6 @@
             "state" : "translated",
             "value" : "明天响铃"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "明天響鈴"
-          }
         }
       }
     },
@@ -1836,12 +1368,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "明天响铃 · 跳过节假日"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "明天響鈴 · 跳過節假日"
           }
         }
       }
@@ -1860,12 +1386,6 @@
             "state" : "translated",
             "value" : "智能日历"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "智慧日曆"
-          }
         }
       }
     },
@@ -1883,12 +1403,6 @@
             "state" : "translated",
             "value" : "暂无闹钟"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "暫無鬧鐘"
-          }
         }
       }
     },
@@ -1902,12 +1416,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "月"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "月"
@@ -1929,12 +1437,6 @@
             "state" : "translated",
             "value" : "查看日历覆盖"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "查看日曆覆蓋"
-          }
         }
       }
     },
@@ -1951,12 +1453,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "标签"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "標籤"
           }
         }
       }
@@ -1975,12 +1471,6 @@
             "state" : "translated",
             "value" : "正常响铃"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "正常響鈴"
-          }
         }
       }
     },
@@ -1997,12 +1487,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "每周"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "每週"
           }
         }
       }
@@ -2021,12 +1505,6 @@
             "state" : "translated",
             "value" : "每周第一天"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "每週第一天"
-          }
         }
       }
     },
@@ -2044,12 +1522,6 @@
             "state" : "translated",
             "value" : "每周重复"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "每週重複"
-          }
         }
       }
     },
@@ -2063,12 +1535,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "每天"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "每天"
@@ -2090,12 +1556,6 @@
             "state" : "translated",
             "value" : "每天都响铃"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "每天都響鈴"
-          }
         }
       }
     },
@@ -2112,12 +1572,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "法定节假日 · 闹钟默认不响铃"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "法定節假日 · 鬧鐘預設不響鈴"
           }
         }
       }
@@ -2136,12 +1590,6 @@
             "state" : "translated",
             "value" : "波斯历"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "波斯曆"
-          }
         }
       }
     },
@@ -2159,12 +1607,6 @@
             "state" : "translated",
             "value" : "浅色"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "淺色"
-          }
         }
       }
     },
@@ -2178,12 +1620,6 @@
           }
         },
         "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "深色"
-          }
-        },
-        "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "深色"
@@ -2205,11 +1641,22 @@
             "state" : "translated",
             "value" : "点击日期选择响铃日，长按拖动可批量选择。"
           }
-        },
-        "zh-Hant" : {
+        }
+      }
+    },
+    "确定删除这个闹钟吗？" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "點擊日期選擇響鈴日，長按拖動可批量選擇。"
+            "value" : "Delete this alarm?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "确定删除这个闹钟吗？"
           }
         }
       }
@@ -2228,12 +1675,6 @@
             "state" : "translated",
             "value" : "稍后提醒"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "稍後提醒"
-          }
         }
       }
     },
@@ -2250,12 +1691,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "第 1 周"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "第 1 週"
           }
         }
       }
@@ -2274,12 +1709,6 @@
             "state" : "translated",
             "value" : "第 2 周"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "第 2 週"
-          }
         }
       }
     },
@@ -2296,12 +1725,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "继续响铃"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "繼續響鈴"
           }
         }
       }
@@ -2320,12 +1743,6 @@
             "state" : "translated",
             "value" : "编辑"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "編輯"
-          }
         }
       }
     },
@@ -2342,12 +1759,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "编辑闹钟"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "編輯鬧鐘"
           }
         }
       }
@@ -2366,12 +1777,6 @@
             "state" : "translated",
             "value" : "自动"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自動"
-          }
         }
       }
     },
@@ -2388,12 +1793,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "自定义"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自訂"
           }
         }
       }
@@ -2412,12 +1811,6 @@
             "state" : "translated",
             "value" : "自定义日历"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "自訂日曆"
-          }
         }
       }
     },
@@ -2434,12 +1827,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "节假日"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "節假日"
           }
         }
       }
@@ -2458,12 +1845,6 @@
             "state" : "translated",
             "value" : "节假日跳过"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "節假日跳過"
-          }
         }
       }
     },
@@ -2480,12 +1861,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "节假日跳过 · 不响铃"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "節假日跳過 · 不響鈴"
           }
         }
       }
@@ -2504,12 +1879,6 @@
             "state" : "translated",
             "value" : "补班"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "補班"
-          }
         }
       }
     },
@@ -2526,12 +1895,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "补班日"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "補班日"
           }
         }
       }
@@ -2550,12 +1913,6 @@
             "state" : "translated",
             "value" : "补班日 · 正常响铃"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "補班日 · 正常響鈴"
-          }
         }
       }
     },
@@ -2572,12 +1929,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "补班日 · 闹钟默认响铃"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "補班日 · 鬧鐘預設響鈴"
           }
         }
       }
@@ -2596,12 +1947,6 @@
             "state" : "translated",
             "value" : "补班日响铃"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "補班日響鈴"
-          }
         }
       }
     },
@@ -2618,12 +1963,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "设置"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "設定"
           }
         }
       }
@@ -2642,12 +1981,6 @@
             "state" : "translated",
             "value" : "设置轮休周期：响铃天数 + 间隔天数为一个循环，间隔期间不响铃。"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "設定輪休週期：響鈴天數 + 間隔天數為一個循環，間隔期間不響鈴。"
-          }
         }
       }
     },
@@ -2664,12 +1997,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "语言"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "語言"
           }
         }
       }
@@ -2688,12 +2015,6 @@
             "state" : "translated",
             "value" : "跟随系统"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "跟隨系統"
-          }
         }
       }
     },
@@ -2710,12 +2031,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "跳过下次"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "跳過下次"
           }
         }
       }
@@ -2734,12 +2049,6 @@
             "state" : "translated",
             "value" : "轮休"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "輪休"
-          }
         }
       }
     },
@@ -2756,12 +2065,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "选择每周哪些天响铃"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "選擇每週哪些天響鈴"
           }
         }
       }
@@ -2780,12 +2083,6 @@
             "state" : "translated",
             "value" : "通过日历自由配置响铃日"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "通過日曆自由配置響鈴日"
-          }
         }
       }
     },
@@ -2802,12 +2099,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重复"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "重複"
           }
         }
       }
@@ -2826,12 +2117,6 @@
             "state" : "translated",
             "value" : "铃声"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "鈴聲"
-          }
         }
       }
     },
@@ -2848,12 +2133,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "间隔"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "間隔"
           }
         }
       }
@@ -2872,12 +2151,6 @@
             "state" : "translated",
             "value" : "间隔（不响铃）"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "間隔（不響鈴）"
-          }
         }
       }
     },
@@ -2894,12 +2167,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "间隔天数"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "間隔天數"
           }
         }
       }
@@ -2918,12 +2185,6 @@
             "state" : "translated",
             "value" : "闹钟"
           }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "鬧鐘"
-          }
         }
       }
     },
@@ -2940,12 +2201,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "默认全选。点击取消选择对应的日期。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "預設全選。點擊取消選擇對應的日期。"
           }
         }
       }

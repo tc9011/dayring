@@ -11,6 +11,7 @@ struct AlarmListView: View {
     @State private var viewModel = AlarmListViewModel()
     @State private var showingNewAlarm = false
     @State private var editingAlarm: Alarm?
+    @State private var alarmToDelete: Alarm?
     @State private var refreshTick = Date()
 
     private var settings: AppSettings? {
@@ -47,9 +48,9 @@ struct AlarmListView: View {
                     .listRowBackground(Color.clear)
                     .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
                     .listRowSeparator(.hidden)
-                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                         Button(role: .destructive) {
-                            modelContext.delete(alarm)
+                            alarmToDelete = alarm
                         } label: {
                             Label(locale.localizedString("删除"), systemImage: "trash")
                         }
@@ -84,6 +85,23 @@ struct AlarmListView: View {
         }
         .sheet(item: $editingAlarm) { alarm in
             AlarmEditSheet(alarm: alarm)
+        }
+        .alert(
+            locale.localizedString("确定删除这个闹钟吗？"),
+            isPresented: Binding(
+                get: { alarmToDelete != nil },
+                set: { if !$0 { alarmToDelete = nil } }
+            )
+        ) {
+            Button(locale.localizedString("取消"), role: .cancel) {
+                alarmToDelete = nil
+            }
+            Button(locale.localizedString("删除"), role: .destructive) {
+                if let alarm = alarmToDelete {
+                    modelContext.delete(alarm)
+                    alarmToDelete = nil
+                }
+            }
         }
     }
 
