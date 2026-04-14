@@ -94,5 +94,13 @@ struct AlarmCardView: View {
         .padding(.vertical, 14)
         .glassEffect(.regular, in: .rect(cornerRadius: 16))
         .opacity(alarm.isEnabled ? 1.0 : 0.5)
+        .onChange(of: alarm.isEnabled) { _, isEnabled in
+            if isEnabled && alarm.repeatMode.isNone {
+                if let scheduled = alarm.scheduledDate,
+                   Calendar.current.startOfDay(for: scheduled) < Calendar.current.startOfDay(for: Date()) {
+                    alarm.computeScheduledDate()
+                }
+            }
+        }
     }
 }

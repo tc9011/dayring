@@ -18,6 +18,7 @@ final class Alarm {
     var ringOnMakeupDays: Bool
     var manualOverrides: [String: Bool]
     var skipNextDate: Date?
+    var scheduledDate: Date?
 
     var createdAt: Date
     var updatedAt: Date
@@ -46,7 +47,8 @@ final class Alarm {
         skipHolidays: Bool = true,
         ringOnMakeupDays: Bool = true,
         manualOverrides: [String: Bool] = [:],
-        skipNextDate: Date? = nil
+        skipNextDate: Date? = nil,
+        scheduledDate: Date? = nil
     ) {
         self.id = UUID()
         self.hour = hour
@@ -62,6 +64,7 @@ final class Alarm {
         self.ringOnMakeupDays = ringOnMakeupDays
         self.manualOverrides = manualOverrides
         self.skipNextDate = skipNextDate
+        self.scheduledDate = scheduledDate
         self.createdAt = Date()
         self.updatedAt = Date()
     }
@@ -108,6 +111,27 @@ final class Alarm {
         }
     }
 
+    // MARK: - Scheduled Date
+
+    /// Computes and sets `scheduledDate` for non-repeating alarms.
+    /// If alarm time is in the future today, schedules for today.
+    /// If alarm time has passed or is equal to now, schedules for tomorrow.
+    /// For repeating alarms, clears `scheduledDate`.
+    func computeScheduledDate(now: Date = Date()) {
+        guard repeatMode.isNone else {
+            scheduledDate = nil
+            return
+        }
+        let calendar = Calendar.current
+        let todayAlarmMinutes = hour * 60 + minute
+        let nowMinutes = calendar.component(.hour, from: now) * 60 + calendar.component(.minute, from: now)
+        if todayAlarmMinutes > nowMinutes {
+            scheduledDate = calendar.startOfDay(for: now)
+        } else {
+            scheduledDate = calendar.startOfDay(for: calendar.date(byAdding: .day, value: 1, to: now)!)
+        }
+    }
+
     /// Priority: manual override > skip-next > makeup day > holiday skip > repeat pattern.
     func shouldRing(on date: Date, holidays: Set<String>, makeupDays: Set<String>) -> Bool {
         let dateKey = Self.dateKey(for: date)
@@ -136,7 +160,8 @@ final class Alarm {
 
         switch repeatMode {
         case .none:
-            return true
+            guard let scheduled = scheduledDate else { return false }
+            return calendar.isDate(date, inSameDayAs: scheduled)
 
         case .daily:
             return true

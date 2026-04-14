@@ -165,6 +165,7 @@ struct AlarmListViewModelTests {
     func nextRingDateTimeNoRepeatToday() {
         let now = makeDate(hour: 8, minute: 0)
         let alarm = Alarm(hour: 12, minute: 0, repeatMode: .none)
+        alarm.scheduledDate = Calendar.current.startOfDay(for: now)
         let vm = AlarmListViewModel()
 
         let result = vm.nextRingDateTime(for: alarm, now: now)
@@ -177,13 +178,14 @@ struct AlarmListViewModelTests {
     @Test("nextRingDateTime for no-repeat alarm rings tomorrow if time already passed")
     func nextRingDateTimeNoRepeatTomorrow() {
         let now = makeDate(hour: 15, minute: 0)
+        let cal = Calendar.current
+        let tomorrow = cal.date(byAdding: .day, value: 1, to: now)!
         let alarm = Alarm(hour: 9, minute: 0, repeatMode: .none)
+        alarm.scheduledDate = cal.startOfDay(for: tomorrow)
         let vm = AlarmListViewModel()
 
         let result = vm.nextRingDateTime(for: alarm, now: now)
         #expect(result != nil)
-        let cal = Calendar.current
-        let tomorrow = cal.date(byAdding: .day, value: 1, to: now)!
         #expect(cal.isDate(result!, inSameDayAs: tomorrow))
     }
 
@@ -407,7 +409,10 @@ struct AlarmListViewModelTests {
     @Test("statusInfo returns 明天响铃 for non-repeating alarm after time passed")
     func statusInfoNonRepeatingPastTime() {
         let now = makeDate(hour: 20, minute: 0)
+        let cal = Calendar.current
+        let tomorrow = cal.date(byAdding: .day, value: 1, to: now)!
         let alarm = Alarm(hour: 15, minute: 0, repeatMode: .none)
+        alarm.scheduledDate = cal.startOfDay(for: tomorrow)
         let vm = AlarmListViewModel()
 
         let info = vm.statusInfo(for: alarm, now: now)
@@ -418,6 +423,7 @@ struct AlarmListViewModelTests {
     func statusInfoNonRepeatingBeforeTime() {
         let now = makeDate(hour: 8, minute: 0)
         let alarm = Alarm(hour: 15, minute: 0, repeatMode: .none)
+        alarm.scheduledDate = Calendar.current.startOfDay(for: now)
         let vm = AlarmListViewModel()
 
         let info = vm.statusInfo(for: alarm, now: now)
@@ -443,7 +449,10 @@ struct AlarmListViewModelTests {
     func nonRepeatingPastTimeStaysEnabled() {
         // User creates 7:00 alarm at 13:00 — should ring tomorrow at 7:00, NOT be disabled
         let now = makeDate(hour: 13, minute: 0)
+        let cal = Calendar.current
+        let tomorrow = cal.date(byAdding: .day, value: 1, to: now)!
         let alarm = Alarm(hour: 7, minute: 0, repeatMode: .none)
+        alarm.scheduledDate = cal.startOfDay(for: tomorrow)
         #expect(alarm.isEnabled == true)
 
         let vm = AlarmListViewModel()
@@ -454,15 +463,17 @@ struct AlarmListViewModelTests {
         // nextRingDateTime should return tomorrow
         let nextRing = vm.nextRingDateTime(for: alarm, now: now)
         #expect(nextRing != nil)
-        let calendar = Calendar.current
-        let dayDiff = calendar.dateComponents([.day], from: calendar.startOfDay(for: now), to: calendar.startOfDay(for: nextRing!)).day
+        let dayDiff = cal.dateComponents([.day], from: cal.startOfDay(for: now), to: cal.startOfDay(for: nextRing!)).day
         #expect(dayDiff == 1) // rings tomorrow
     }
 
     @Test("statusInfo for non-repeating past-time alarm shows 明天响铃, not 已过期")
     func statusInfoNonRepeatingPastTimeShowsTomorrow() {
         let now = makeDate(hour: 13, minute: 0)
+        let cal = Calendar.current
+        let tomorrow = cal.date(byAdding: .day, value: 1, to: now)!
         let alarm = Alarm(hour: 7, minute: 0, repeatMode: .none)
+        alarm.scheduledDate = cal.startOfDay(for: tomorrow)
 
         let vm = AlarmListViewModel()
         vm.alarms = [alarm]

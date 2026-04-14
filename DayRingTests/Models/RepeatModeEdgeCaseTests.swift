@@ -19,40 +19,55 @@ struct RepeatModeEdgeCaseTests {
 
     // MARK: - .none Mode Edge Cases
 
-    @Test(".none matchesRepeatPattern returns true for any date")
+    @Test(".none without scheduledDate does not ring on any date")
     func noneMatchesAnyDate() {
         let alarm = Alarm(repeatMode: .none)
-        // Past, present, future — all match
         let past = date(2020, 1, 1)
         let future = date(2030, 12, 31)
-        let weekend = date(2026, 4, 18) // Saturday
+        let weekend = date(2026, 4, 18)
 
-        #expect(alarm.shouldRing(on: past, holidays: [], makeupDays: []) == true)
-        #expect(alarm.shouldRing(on: future, holidays: [], makeupDays: []) == true)
-        #expect(alarm.shouldRing(on: weekend, holidays: [], makeupDays: []) == true)
+        #expect(alarm.shouldRing(on: past, holidays: [], makeupDays: []) == false)
+        #expect(alarm.shouldRing(on: future, holidays: [], makeupDays: []) == false)
+        #expect(alarm.shouldRing(on: weekend, holidays: [], makeupDays: []) == false)
     }
 
-    @Test("BUG: .none alarm with count=7 schedules 7 notifications (should be 1 for non-repeating)")
+    @Test(".none with scheduledDate only rings on that date")
+    func noneRingsOnlyOnScheduledDate() {
+        let alarm = Alarm(repeatMode: .none)
+        alarm.scheduledDate = date(2026, 4, 18)
+
+        #expect(alarm.shouldRing(on: date(2026, 4, 17), holidays: [], makeupDays: []) == false)
+        #expect(alarm.shouldRing(on: date(2026, 4, 18), holidays: [], makeupDays: []) == true)
+        #expect(alarm.shouldRing(on: date(2026, 4, 19), holidays: [], makeupDays: []) == false)
+    }
+
+    @Test(".none alarm with scheduledDate schedules only 1 date via nextRingDates")
     func noneAlarmSchedulesMultipleDays() {
-        // This test documents the current behavior:
-        // .none + deleteAfterRing=false → nextRingDates returns 7 dates
-        // This wastes notification slots for a non-repeating alarm
+        let alarm = Alarm(hour: 8, minute: 0, repeatMode: .none, deleteAfterRing: false)
+        let from = date(2026, 4, 10)
+        alarm.scheduledDate = date(2026, 4, 12)
+        let calculator = AlarmScheduleCalculator()
+        let dates = calculator.nextRingDates(for: alarm, from: from, count: 7, holidays: [], makeupDays: [])
+
+        #expect(dates.count == 1, ".none alarm with scheduledDate should schedule exactly 1 date, got \(dates.count)")
+        #expect(calendar.isDate(dates[0], inSameDayAs: date(2026, 4, 12)))
+    }
+
+    @Test(".none alarm without scheduledDate schedules 0 dates")
+    func noneAlarmWithoutScheduledDateSchedulesNothing() {
         let alarm = Alarm(hour: 8, minute: 0, repeatMode: .none, deleteAfterRing: false)
         let from = date(2026, 4, 10)
         let calculator = AlarmScheduleCalculator()
         let dates = calculator.nextRingDates(for: alarm, from: from, count: 7, holidays: [], makeupDays: [])
 
-        // Current behavior: .none matches every day, so 7 dates are returned
-        // This is a known semantic issue — non-repeating alarms shouldn't schedule 7 days
-        // For now we document the behavior; the UI layer (disableExpiredNonRepeatingAlarms)
-        // handles the user-facing consequence
-        #expect(dates.count == 7, ".none alarm currently schedules \(dates.count) dates (expected 7 from current logic)")
+        #expect(dates.isEmpty, ".none alarm without scheduledDate should schedule 0 dates")
     }
 
     @Test(".none alarm with deleteAfterRing=true correctly schedules only 1 date")
     func noneDeleteAfterRingOnlyOneDate() {
         let alarm = Alarm(hour: 8, minute: 0, repeatMode: .none, deleteAfterRing: true)
         let from = date(2026, 4, 10)
+        alarm.scheduledDate = date(2026, 4, 12)
         let calculator = AlarmScheduleCalculator()
         let dates = calculator.nextRingDates(for: alarm, from: from, count: 7, holidays: [], makeupDays: [])
 

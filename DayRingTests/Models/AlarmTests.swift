@@ -78,6 +78,7 @@ struct AlarmTests {
     func holidayNoSkip() {
         let alarm = Alarm(skipHolidays: false)
         let date = Calendar.current.date(from: DateComponents(year: 2026, month: 10, day: 1))!
+        alarm.scheduledDate = date
         let holidays: Set<String> = ["2026-10-01"]
 
         #expect(alarm.shouldRing(on: date, holidays: holidays, makeupDays: []) == true)
@@ -142,6 +143,7 @@ struct AlarmTests {
     func skipNextToggle() {
         let alarm = Alarm()
         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date())!
+        alarm.scheduledDate = tomorrow
         alarm.skipNextDate = tomorrow
         #expect(alarm.skipNextDate != nil)
 
@@ -189,5 +191,65 @@ struct AlarmTests {
         let date = Calendar.current.date(from: DateComponents(year: 2026, month: 1, day: 5))!
         let key = Alarm.dateKey(for: date)
         #expect(key == "2026-01-05")
+    }
+
+    // MARK: - Non-repeating scheduledDate
+
+    @Test("Non-repeating alarm only rings on its scheduledDate")
+    func noneOnlyRingsOnScheduledDate() {
+        let calendar = Calendar.current
+        let apr14 = calendar.date(from: DateComponents(year: 2026, month: 4, day: 14))!
+        let apr15 = calendar.date(from: DateComponents(year: 2026, month: 4, day: 15))!
+        let apr16 = calendar.date(from: DateComponents(year: 2026, month: 4, day: 16))!
+
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .none)
+        alarm.scheduledDate = apr15
+
+        #expect(alarm.shouldRing(on: apr14, holidays: [], makeupDays: []) == false)
+        #expect(alarm.shouldRing(on: apr15, holidays: [], makeupDays: []) == true)
+        #expect(alarm.shouldRing(on: apr16, holidays: [], makeupDays: []) == false)
+    }
+
+    @Test("Non-repeating alarm without scheduledDate does not ring on any day")
+    func noneWithoutScheduledDateDoesNotRing() {
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .none)
+        // scheduledDate is nil by default
+        let anyDay = Calendar.current.date(from: DateComponents(year: 2026, month: 4, day: 15))!
+        #expect(alarm.shouldRing(on: anyDay, holidays: [], makeupDays: []) == false)
+    }
+
+    @Test("computeScheduledDate returns today when alarm time is in the future")
+    func computeScheduledDateToday() {
+        let calendar = Calendar.current
+        let now = calendar.date(from: DateComponents(year: 2026, month: 4, day: 13, hour: 8, minute: 0))!
+        let alarm = Alarm(hour: 12, minute: 0, repeatMode: .none)
+
+        alarm.computeScheduledDate(now: now)
+        #expect(alarm.scheduledDate != nil)
+        #expect(calendar.isDate(alarm.scheduledDate!, inSameDayAs: now))
+    }
+
+    @Test("computeScheduledDate returns tomorrow when alarm time has passed")
+    func computeScheduledDateTomorrow() {
+        let calendar = Calendar.current
+        let now = calendar.date(from: DateComponents(year: 2026, month: 4, day: 13, hour: 15, minute: 0))!
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .none)
+
+        alarm.computeScheduledDate(now: now)
+        #expect(alarm.scheduledDate != nil)
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: now)!
+        #expect(calendar.isDate(alarm.scheduledDate!, inSameDayAs: tomorrow))
+    }
+
+    @Test("computeScheduledDate returns tomorrow when alarm time equals current time")
+    func computeScheduledDateExactTime() {
+        let calendar = Calendar.current
+        let now = calendar.date(from: DateComponents(year: 2026, month: 4, day: 13, hour: 7, minute: 0))!
+        let alarm = Alarm(hour: 7, minute: 0, repeatMode: .none)
+
+        alarm.computeScheduledDate(now: now)
+        #expect(alarm.scheduledDate != nil)
+        let tomorrow = calendar.date(byAdding: .day, value: 1, to: now)!
+        #expect(calendar.isDate(alarm.scheduledDate!, inSameDayAs: tomorrow))
     }
 }

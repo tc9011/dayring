@@ -90,20 +90,22 @@ struct CalendarViewModelTests {
     @Test("Alarm times filters enabled alarms that should ring")
     func alarmTimesForDate() {
         let vm = CalendarViewModel()
-        // Create a date that is a Wednesday (workday)
         var components = DateComponents()
         components.year = 2026
         components.month = 10
-        components.day = 14 // Wednesday
+        components.day = 14
         let date = Calendar.current.date(from: components)!
 
         let alarm1 = Alarm(hour: 7, minute: 0, isEnabled: true)
-        let alarm2 = Alarm(hour: 8, minute: 30, isEnabled: false) // disabled, should be filtered
+        alarm1.scheduledDate = date
+        let alarm2 = Alarm(hour: 8, minute: 30, isEnabled: false)
+        alarm2.scheduledDate = date
         let alarm3 = Alarm(hour: 6, minute: 30, isEnabled: true)
+        alarm3.scheduledDate = date
 
         let times24 = vm.alarmTimes(for: date, alarms: [alarm1, alarm2, alarm3], is24HourFormat: true)
         #expect(times24.count == 2)
-        #expect(times24 == ["06:30", "07:00"]) // sorted, 24h format
+        #expect(times24 == ["06:30", "07:00"])
     }
 
     @Test("Alarm times respects 12h format")
@@ -112,11 +114,13 @@ struct CalendarViewModelTests {
         var components = DateComponents()
         components.year = 2026
         components.month = 10
-        components.day = 14 // Wednesday
+        components.day = 14
         let date = Calendar.current.date(from: components)!
 
         let alarm1 = Alarm(hour: 7, minute: 0, isEnabled: true)
+        alarm1.scheduledDate = date
         let alarm2 = Alarm(hour: 14, minute: 30, isEnabled: true)
+        alarm2.scheduledDate = date
 
         let times12 = vm.alarmTimes(for: date, alarms: [alarm1, alarm2], is24HourFormat: false)
         #expect(times12.count == 2)

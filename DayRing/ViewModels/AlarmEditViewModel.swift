@@ -52,6 +52,12 @@ final class AlarmEditViewModel {
         target.ringOnMakeupDays = ringOnMakeupDays
         target.updatedAt = Date()
 
+        if target.repeatMode.isNone {
+            target.computeScheduledDate()
+        } else {
+            target.scheduledDate = nil
+        }
+
         let alarmRef = target
         nonisolated(unsafe) let unsafeAlarmRef = alarmRef
         Task {

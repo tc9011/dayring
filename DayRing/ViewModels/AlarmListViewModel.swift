@@ -160,6 +160,12 @@ final class AlarmListViewModel {
 
     func toggleAlarm(_ alarm: Alarm) {
         alarm.isEnabled.toggle()
+        if alarm.isEnabled && alarm.repeatMode.isNone {
+            if let scheduled = alarm.scheduledDate,
+               Calendar.current.startOfDay(for: scheduled) < Calendar.current.startOfDay(for: Date()) {
+                alarm.computeScheduledDate()
+            }
+        }
         alarm.updatedAt = Date()
         rescheduleAlarm(alarm)
     }

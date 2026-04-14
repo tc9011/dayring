@@ -11,25 +11,25 @@ struct AlarmFullFlowTests {
 
     // MARK: - No Repeat (.none)
 
-    @Test("Create no-repeat alarm and verify it rings on any day")
-    func noRepeatAlarmRingsOnAnyDay() {
+    @Test("Create no-repeat alarm via ViewModel — scheduledDate is set")
+    func noRepeatAlarmScheduledDate() {
         let vm = AlarmEditViewModel()
         vm.hour = 6
         vm.minute = 30
         vm.label = "Morning"
-        // Default is .none — no explicit set needed
 
         let alarm = vm.save(to: nil)
         #expect(alarm.hour == 6)
         #expect(alarm.minute == 30)
         #expect(alarm.label == "Morning")
         #expect(alarm.repeatMode.isNone)
+        #expect(alarm.scheduledDate != nil)
 
-        // .none matches any date
-        let monday = calendar.date(from: DateComponents(year: 2026, month: 4, day: 13))!
-        let saturday = calendar.date(from: DateComponents(year: 2026, month: 4, day: 18))!
-        #expect(alarm.shouldRing(on: monday, holidays: [], makeupDays: []) == true)
-        #expect(alarm.shouldRing(on: saturday, holidays: [], makeupDays: []) == true)
+        // Rings on its scheduledDate, not on arbitrary dates
+        let scheduled = alarm.scheduledDate!
+        #expect(alarm.shouldRing(on: scheduled, holidays: [], makeupDays: []) == true)
+        let otherDay = calendar.date(byAdding: .day, value: 5, to: scheduled)!
+        #expect(alarm.shouldRing(on: otherDay, holidays: [], makeupDays: []) == false)
     }
 
     @Test("No-repeat alarm supports deleteAfterRing")
@@ -372,6 +372,7 @@ struct AlarmFullFlowTests {
 
         // .none
         let noRepeat = Alarm(repeatMode: .none)
+        noRepeat.scheduledDate = target
         noRepeat.skipNextDate = target
         #expect(noRepeat.shouldRing(on: target, holidays: [], makeupDays: []) == false)
     }
