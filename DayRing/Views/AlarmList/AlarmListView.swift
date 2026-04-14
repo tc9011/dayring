@@ -53,6 +53,7 @@ struct AlarmListView: View {
                         } label: {
                             Label(locale.localizedString("删除"), systemImage: "trash")
                         }
+                        .tint(.red)
                     }
                 }
             }
@@ -64,9 +65,11 @@ struct AlarmListView: View {
         }
         .onAppear {
             viewModel.alarms = alarms
+            migrateNoneAlarmsIfNeeded()
         }
         .onChange(of: alarms) {
             viewModel.alarms = alarms
+            migrateNoneAlarmsIfNeeded()
         }
         .onChange(of: scenePhase) {
             if scenePhase == .active {
@@ -81,6 +84,12 @@ struct AlarmListView: View {
         }
         .sheet(item: $editingAlarm) { alarm in
             AlarmEditSheet(alarm: alarm)
+        }
+    }
+
+    private func migrateNoneAlarmsIfNeeded() {
+        for alarm in alarms where alarm.repeatMode.isNone && alarm.scheduledDate == nil {
+            alarm.computeScheduledDate()
         }
     }
 
